@@ -7,11 +7,15 @@ function HomeComponent(props: Props) {
     const { } = props
 
     return (
-        <div className=' relative mt-8 ' >
+        <div className=' relative mt-8 pb-4 ' >
             <div className=' absolute top-[170px] left-[32px] z-20 ' >
                 <Connect />
             </div>
-            <div style={{ flexShrink: 0 }} className=' w-[625px] h-[217px] absolute z-20 rounded-2xl top-[50px] left-[170px] bg-[#720017] ' />
+            <div style={{ flexShrink: 0 }} className=' w-[625px] h-[217px] absolute -z-10 rounded-2xl top-[50px] left-[170px] bg-[#720017] ' />
+            <div className=' w-full -z-20 flex inset-x-0 top-[50px] absolute left-[170px] ' >
+                <img src='/images/one.png' alt='one' />
+                <img src='/images/two.png' alt='two' />
+            </div>
             <div className=' pl-[220px] z-30 relative  pt-[50px] ' >
                 <p className=' font-bold text-[48px] leading-[64px] py-[76px] ' >PLEASE SELECT YOUR LANGUAGE</p>
                 <div className=' w-full flex flex-row gap-6 mt-8 ' >
@@ -67,6 +71,7 @@ function HomeComponent(props: Props) {
                     </div> 
                 </div>
             </div>
+            <p className='pl-[170px] text-[22.4px] mt-40 text-[#BEBEBE] text-sm ' >© RHEMA MENA 2023. All right reserved</p>
         </div>
     )
 }

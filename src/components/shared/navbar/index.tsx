@@ -7,7 +7,7 @@ function Navbar(props: Props) {
     const {} = props
 
     return (
-        <div className=' w-full z-20 ' >
+        <div className=' w-full relative z-10 ' >
             <div className=' w-full flex justify-end items-center h-[80px] gap-2 ' >
                 <ChatIcon />
                 <p>English (United States)</p>
