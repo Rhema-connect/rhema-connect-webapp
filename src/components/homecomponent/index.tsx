@@ -9,7 +9,7 @@ interface Props { }
 
 function HomeComponent(props: Props) {
     const { } = props 
-    
+
     const router = useRouter()
     const pathname = usePathname() 
     
@@ -23,53 +23,53 @@ function HomeComponent(props: Props) {
             <div className=' w-full grid grid-cols-2 lg:flex flex-row gap-6 mt-8 ' >
                 <div className=' w-full lg:w-fit flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[226px] lg:h-[226px] h-[160px] rounded-2xl ' >
-                        <img src='/images/flag1.png' />
+                        <img className=' w-full h-full object-contain ' src='/images/flag1.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >ARABIC</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >ARABIC</CustomText>
                 </div> 
                 <div className=' w-full lg:w-fit flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[226px] lg:h-[226px] h-[160px] rounded-2xl ' >
-                        <img src='/images/flag2.png' />
+                        <img className=' w-full h-full object-contain ' src='/images/flag2.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >FARSI</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >FARSI</CustomText>
                 </div> 
                 <div className=' w-full lg:w-fit flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[226px] lg:h-[226px] h-[160px] rounded-2xl ' >
-                        <img src='/images/flag3.png' />
+                        <img className=' w-full h-full object-contain ' src='/images/flag3.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >TURKISH</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >TURKISH</CustomText>
                 </div> 
             </div>
             <div className=' w-full grid grid-cols-2 lg:flex flex-row gap-6 mt-8 ' >
                 <div role='button' onClick={()=> router.push('/resources')} className=' lg:w-fit w-full flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[126px] h-[160px] lg:h-[126px] rounded-2xl ' >
-                        <img className=' w-full ' src='/images/flag4.png' />
+                        <img className=' w-full h-full object-contain ' src='/images/flag4.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >English</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >English</CustomText>
                 </div> 
                 <div className=' lg:w-fit w-full flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[126px] h-[160px] lg:h-[126px] rounded-2xl ' >
-                        <img className=' w-full ' src='/images/flag5.png' />
+                        <img className=' w-full h-full object-contain '  src='/images/flag5.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >Spanish</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >Spanish</CustomText>
                 </div> 
                 <div className=' lg:w-fit w-full flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[126px] h-[160px] lg:h-[126px] rounded-2xl ' >
-                        <img className=' w-full ' src='/images/flag6.png' />
+                        <img className=' w-full h-full object-contain '  src='/images/flag6.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >French</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >French</CustomText>
                 </div> 
                 <div className=' lg:w-fit w-full flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[126px] h-[160px] lg:h-[126px] rounded-2xl ' >
-                        <img className=' w-full ' src='/images/flag7.png' />
+                        <img className=' w-full h-full object-contain '  src='/images/flag7.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >Portuguese</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >Portuguese</CustomText>
                 </div> 
                 <div className=' lg:w-fit w-full flex gap-4 flex-col ' >
                     <div className=' w-full lg:w-[126px] h-[160px] lg:h-[126px] rounded-2xl ' >
-                        <img className=' w-full ' src='/images/flag8.png' />
+                        <img className=' w-full h-full object-contain '  src='/images/flag8.png' />
                     </div>
-                    <CustomText className=' leading-[24px] font-medium mt-4 text-white ' >Italian</CustomText>
+                    <CustomText className=' leading-[24px] font-medium mt-1 text-white ' >Italian</CustomText>
                 </div> 
             </div>
         {/* </div>  */}
