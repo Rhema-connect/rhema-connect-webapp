@@ -1,7 +1,6 @@
 "use client"
 import PageLayout from '@/components/pagelayout'
-import ResourceHeader from '@/components/resourcecomponent/header'
-import SearchBar from '@/components/shared/searchbar'
+import ResourceHeader from '@/components/resourcecomponent/header' 
 import CustomText from '@/components/shared/textcomponent'
 import { HomeIcon } from '@/components/svg'
 import { useRouter } from 'next/navigation'

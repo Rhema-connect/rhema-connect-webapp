@@ -1,8 +1,10 @@
+"use client"
 import React from 'react'
 import { Connect } from '../../svg'
 import PageLayout from '../../pagelayout'
 import SearchBar from '../../shared/searchbar'
 import CustomText from '../../shared/textcomponent'
+import { useRouter } from 'next/navigation'
 
 interface Props { }
 
@@ -44,11 +46,13 @@ function VideoResource(props: Props) {
         },
     ]
 
+    const router = useRouter()
+
     return (
         <div className=' w-full grid grid-cols-3 gap-4 gap-y-10 ' >
             {data?.map((item: { title: string, body: string }, index: number) => {
                 return ( 
-                    <div  key={index} className=' w-full  ' >
+                    <div role='button' onClick={()=> router.push("/resources-info/video")} key={index} className=' w-full  ' >
                         <div className=' w-full h-[160px] bg-red-900 rounded-2xl ' >
 
                         </div>
