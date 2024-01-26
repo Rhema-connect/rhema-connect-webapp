@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Provider from './Provider'
+import Navbar from '@/components/shared/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +19,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider> 
-          <div className=' w-full flex justify-center relative h-full' >
-            <div className={` max-w-[1274px] px-6 lg:px-8 w-full h-full `}>
-              {children}
+        <Provider>
+          <div className=' w-full flex justify-center relative h-full overflow-x-hidden ' >
+            <div className={` max-w-[1274px] lg:px-8 w-full h-full `}>
+
+              <div className=' w-full h-screen ' >
+                <Navbar />
+                <div className=' lg:static lg:px-0 px-6 relative w-full ' >
+                  <div className=' w-[80%] lg:w-[625px] h-[146px] lg:h-[392px] bg-[#828282] lg:rounded-tr-none rounded-tr-2xl rounded-br-2xl opacity-20 absolute top-0 left-0 ' />
+                  {children}
+                </div>
+              </div>
             </div>
           </div>
         </Provider>
