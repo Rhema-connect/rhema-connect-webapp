@@ -3,7 +3,7 @@ import PageLayout from '@/components/pagelayout'
 import ResourceHeader from '@/components/resourcecomponent/header' 
 import CustomText from '@/components/shared/textcomponent'
 import { HomeIcon } from '@/components/svg'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
@@ -16,7 +16,9 @@ function Layout(props: Props) {
     } = props
 
     const router = useRouter()
-    const [active, setActive] = useState(window?.location?.pathname)
+    const pathname = usePathname()  
+    
+    const [active, setActive] = useState(pathname)
 
     const route = [
         {
@@ -41,7 +43,7 @@ function Layout(props: Props) {
 
 
     useEffect(() => {
-        setActive(window?.location?.pathname)
+        setActive(pathname)
     }, [router])
 
     return (

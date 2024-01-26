@@ -4,7 +4,7 @@ import ResourceHeader from '@/components/resourcecomponent/header'
 import SearchBar from '@/components/shared/searchbar'
 import CustomText from '@/components/shared/textcomponent'
 import { BackArrow, HomeIcon } from '@/components/svg'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
@@ -17,10 +17,11 @@ function Layout(props: Props) {
     } = props
 
     const router = useRouter()
-    const [active, setActive] = useState(window?.location?.pathname)
+    const pathname = usePathname()  
+    const [active, setActive] = useState(pathname)
 
     useEffect(() => {
-        setActive(window?.location?.pathname)
+        setActive(pathname)
     }, [router])
 
     return (

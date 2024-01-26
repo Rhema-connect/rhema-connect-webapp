@@ -3,14 +3,18 @@ import React from 'react'
 import { Connect } from '../svg'
 import PageLayout from '../pagelayout'
 import CustomText from '../shared/textcomponent'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface Props { }
 
 function HomeComponent(props: Props) {
-    const { } = props
-
+    const { } = props 
+    
     const router = useRouter()
+    const pathname = usePathname() 
+    
+    console.log(pathname);
+    
 
     return ( 
         <PageLayout>

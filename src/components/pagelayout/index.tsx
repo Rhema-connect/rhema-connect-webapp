@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Connect } from '../svg'
 import CustomText from '../shared/textcomponent'
+import { usePathname } from 'next/navigation'
 
 interface Props {
     children: React.ReactNode
@@ -11,11 +12,13 @@ function PageLayout(props: Props) {
         children
     } = props
 
+    const pathname = usePathname() 
+    
 
-    const [active, setActive] = useState(window?.location?.pathname)
+    const [active, setActive] = useState(pathname) 
 
     useEffect(() => {
-        setActive(window?.location?.pathname)
+        setActive(pathname)
     }, [])
 
     return ( 
