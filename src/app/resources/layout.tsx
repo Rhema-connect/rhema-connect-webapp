@@ -1,8 +1,8 @@
 "use client"
 import PageLayout from '@/components/pagelayout'
-import ResourceHeader from '@/components/resourcecomponent/header' 
+import ResourceHeader from '@/components/resourcecomponent/header'
 import CustomText from '@/components/shared/textcomponent'
-import { HomeIcon } from '@/components/svg'
+import { DownArrowIcon, HomeIcon } from '@/components/svg'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
@@ -16,8 +16,8 @@ function Layout(props: Props) {
     } = props
 
     const router = useRouter()
-    const pathname = usePathname()  
-    
+    const pathname = usePathname()
+
     const [active, setActive] = useState(pathname)
 
     const route = [
@@ -48,11 +48,15 @@ function Layout(props: Props) {
 
     return (
         <PageLayout>
-            <div className=' w-full flex py-11 lg:py-[76px]  justify-between items-center ' > 
+            <div className=' w-full flex py-11 lg:py-[76px]  justify-between items-center ' >
                 <CustomText className=' font-bold text-[32px] lg:text-[48px] leading-[48px] lg:leading-[64px]' >YOUR RESOURCES</CustomText>
-                <button onClick={()=> router.push('/')} className=' w-[141px] hidden h-[48px] rounded-lg lg:flex gap-2 items-center bg-[#3B3B3B] border border-[#919EAB52] justify-center ' >
+                <button onClick={() => router.push('/')} className=' w-[141px] hidden h-[48px] rounded-lg lg:flex gap-2 items-center bg-[#3B3B3B] border border-[#919EAB52] justify-center ' >
                     <HomeIcon />
                     <CustomText className=' text-[15px] font-bold text-white leading-[26px] ' >Go home</CustomText>
+                </button>
+                <button className=' lg:hidden flex items-center gap-2 ' > 
+                    <CustomText></CustomText>
+                    <DownArrowIcon />
                 </button>
             </div>
             <ResourceHeader path={active} />
