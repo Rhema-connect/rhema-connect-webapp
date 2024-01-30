@@ -23,7 +23,7 @@ function PageLayout(props: Props) {
 
     return ( 
         <div className=' w-full relative mt-8 pb-4 ' >
-            <div className=' absolute lg:block hidden top-[170px] left-[32px] z-20 ' >
+            <div className=' absolute lg:block hidden top-[210px] left-[32px] z-20 ' >
                 <Connect />
             </div>
             {active !== '/resources-info/audio' && (

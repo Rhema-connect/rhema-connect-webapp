@@ -49,11 +49,11 @@ function VideoResource(props: Props) {
     const router = useRouter()
 
     return (
-        <div className=' w-full grid grid-cols-1 lg:grid-cols-3 gap-4 gap-y-10 ' >
+        <div className=' w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
             {data?.map((item: { title: string, body: string }, index: number) => {
                 return ( 
                     <div role='button' onClick={()=> router.push("/resources-info/video")} key={index} className=' w-full  ' >
-                        <div className=' w-full h-[160px] bg-red-900 rounded-2xl ' >
+                        <div className=' w-full md:w-[160px] lg:w-full h-[160px] bg-red-900 rounded-2xl ' >
 
                         </div>
                         <CustomText className=' leading-[30px] font-bold text-[20px] mt-4 '  >
