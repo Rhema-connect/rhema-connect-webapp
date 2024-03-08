@@ -5,6 +5,9 @@ import './globals.css'
 import Provider from './Provider'
 import Navbar from '@/components/shared/navbar'
 import { usePathname } from 'next/navigation'
+import { ChakraProvider } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,27 +23,60 @@ export default function RootLayout({
 }) {
 
   const pathname = usePathname()
+  // Create a client
+  const queryClient = new QueryClient()
+
+  // useEffect(() => {
+  //   const script = document.createElement('script');
+  //   script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  //   script.async = true;
+  //   document.body.appendChild(script);
+
+  //   // Define the googleTranslateElementInit function
+  //   const googleTranslateElementInit = () => {
+  //     new (window as any).google.translate.TranslateElement(
+  //       {
+  //         pageLanguage: 'fr', // Set pageLanguage to French
+  //         autoDisplay: false,
+  //       },
+  //       'google_translate_element'
+  //     );
+  //   };
+
+  //   // Attach googleTranslateElementInit to the window object
+  //   (window as any).googleTranslateElementInit = googleTranslateElementInit;
+
+  //   // Cleanup function
+  //   return () => {
+  //     document.body.removeChild(script);
+  //     delete (window as any).googleTranslateElementInit;
+  //   };
+  // }, []);
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <Provider>
-          <div className={`  ${pathname?.includes("/dashboard") ? "" : " !bg-[#3B3B3B] " } w-full flex flex-col items-center justify-center relative h-screen overflow-x-hidden `} >
-            <div className={` ${pathname?.includes("/dashboard") ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : ""} lg:px-8 w-screen h-fit `}>
-              <Navbar pathname={pathname} />
-            </div>
-            <div className={` max-w-[1274px] lg:px-8 w-full h-full `}>
+          <ChakraProvider>
+            <QueryClientProvider client={queryClient}>
+              <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white h-screen overflow-x-hidden `} >
+                <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : ""} lg:px-8 w-screen h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
+                  <Navbar pathname={pathname} />
+                </div>
+                <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1274px] lg:px-8"}  w-full h-full `}>
 
-              <div className=' w-full h-full ' >
-                <div className=' lg:static lg:px-0 px-6 relative w-full ' >
-                  {!pathname?.includes("/dashboard") && (
-                    <div className=' w-[80%] lg:w-[625px] h-[146px] lg:h-[392px] bg-[#828282] lg:rounded-tr-none rounded-tr-2xl rounded-br-2xl opacity-20 absolute top-0 left-0 ' />
-                  )}
-                  {children}
+                  <div className=' w-full h-full ' >
+                    <div className={` lg:static lg:px-0 ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-6 " : ""}  relative w-full `} >
+                      {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
+                        <div className=' w-[80%] lg:w-[625px] h-[146px] lg:h-[392px] bg-[#828282] lg:rounded-tr-none rounded-tr-2xl rounded-br-2xl opacity-20 absolute top-0 left-0 ' />
+                      )}
+                      {children}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </QueryClientProvider>
+          </ChakraProvider>
         </Provider>
       </body>
     </html>

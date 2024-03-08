@@ -7,7 +7,7 @@ function AudioResourceInfo(props: Props) {
     const { } = props
 
     return (
-        <div className=' w-full text-white pt-8 ' >
+        <div className=' w-full pt-8 ' >
             <div className=' w-full flex gap-6 pb-[18px] border-b border-[#828282] ' >
                 <div className=' w-[204px] h-[204px] rounded-2xl bg-purple-700 ' />
                 <div className=' pt-4 ' >

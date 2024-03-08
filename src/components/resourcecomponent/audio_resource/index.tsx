@@ -1,67 +1,56 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { Connect, RoundedArrow } from '../../svg'
 import PageLayout from '../../pagelayout'
 import SearchBar from '../../shared/searchbar'
 import CustomText from '../../shared/textcomponent'
 import { useRouter } from 'next/navigation'
+import { ContentData } from '@/models'
+import actionService from '@/connections/getdataaction'
+import { useQuery } from 'react-query'
 
 interface Props { }
 
 function AudioResource(props: Props) {
     const { } = props
-
-    const data = [
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-        {
-            title: 'Life of Honor',
-            body: 'Playlist ・ Good Life'
-        },
-    ]
-
+    
     const router = useRouter()
+
+
+
+    const [data, setData] = useState([] as Array<ContentData>) 
+
+    const { isLoading } = useQuery(['audilist'], () => actionService.getservicedata(`/content`,
+        {
+            limit: 16,
+            page: 0,
+            type: "AUDIO"
+        }),
+        {
+            onError: (error: any) => {
+                console.error(error);
+            },
+            onSuccess: (data: any) => {
+                console.log(data?.data?.data);
+                setData(data?.data?.data)
+            }
+        }
+    )
 
     return (
         <div className=' w-full ' >
-            <div className=' w-full grid grid-cols-4 gap-4 gap-y-10  ' >
-                {data?.map((item: { title: string, body: string }, index: number) => {
+            <div className=' w-full grid md:grid-cols-3 grid-cols-4 gap-4 gap-y-10  ' >
+                {data?.map((item: ContentData, index: number) => {
                     return (
                         <div role='button' onClick={()=> router.push("/resources-info/audio")}  key={index} className=' w-full  ' >
                             <div className=' w-full h-[204px] bg-red-900 rounded-2xl ' >
-
+                                <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
                             </div>
                             <CustomText className=' leading-[22px] font-medium text-[14px] mt-4 '  >
                                 {item?.title}
                             </CustomText>
                             <CustomText className=' leading-[18px] text-xs ' >
-                                {item?.body}
+                                {item?.description}
                             </CustomText>
                         </div>
                     )
@@ -82,7 +71,7 @@ function AudioResource(props: Props) {
                         </div>
                     </div>
                 </div>
-                <div className=' w-full grid grid-cols-3 gap-9 mt-8 ' >
+                {/* <div className=' w-full grid grid-cols-3 gap-9 mt-8 ' >
                     {data?.map((item: { title: string, body: string }, index: number) => {
                         return (
                             <div key={index} className=' w-full flex items-center gap-[18px] ' >
@@ -100,7 +89,7 @@ function AudioResource(props: Props) {
                             </div>
                         )
                     })}
-                </div>
+                </div> */}
             </div>
         </div>
     )
