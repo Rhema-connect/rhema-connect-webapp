@@ -6,8 +6,7 @@ import Provider from './Provider'
 import Navbar from '@/components/shared/navbar'
 import { usePathname } from 'next/navigation'
 import { ChakraProvider } from '@chakra-ui/react'
-// import { useEffect } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
+// import { useEffect } from 'react' 
 
 const inter = Inter({ subsets: ['latin'], variable: "--font-inter" })
 
@@ -21,18 +20,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  
+
 
   const pathname = usePathname()
-  // Create a client
-  const queryClient = new QueryClient() 
+  // Create a client 
 
   return (
     <html lang="en">
       <body className={inter.variable}>
         <Provider>
-          <ChakraProvider>
-            <QueryClientProvider client={queryClient}>
+          <ChakraProvider> 
               <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white h-screen overflow-x-hidden inter `} >
                 <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : ""} lg:px-8 w-screen h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
                   <Navbar pathname={pathname} />
@@ -48,8 +45,7 @@ export default function RootLayout({
                     </div>
                   </div>
                 </div>
-              </div>
-            </QueryClientProvider>
+              </div> 
           </ChakraProvider>
         </Provider>
       </body>
