@@ -1,15 +1,15 @@
 "use client"
-import type { Metadata } from 'next'
+// import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Provider from './Provider'
 import Navbar from '@/components/shared/navbar'
 import { usePathname } from 'next/navigation'
 import { ChakraProvider } from '@chakra-ui/react'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: "--font-inter" })
 
 // export const metadata: Metadata = {
 //   title: 'Create Next App',
@@ -24,42 +24,15 @@ export default function RootLayout({
 
   const pathname = usePathname()
   // Create a client
-  const queryClient = new QueryClient()
-
-  // useEffect(() => {
-  //   const script = document.createElement('script');
-  //   script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-  //   script.async = true;
-  //   document.body.appendChild(script);
-
-  //   // Define the googleTranslateElementInit function
-  //   const googleTranslateElementInit = () => {
-  //     new (window as any).google.translate.TranslateElement(
-  //       {
-  //         pageLanguage: 'fr', // Set pageLanguage to French
-  //         autoDisplay: false,
-  //       },
-  //       'google_translate_element'
-  //     );
-  //   };
-
-  //   // Attach googleTranslateElementInit to the window object
-  //   (window as any).googleTranslateElementInit = googleTranslateElementInit;
-
-  //   // Cleanup function
-  //   return () => {
-  //     document.body.removeChild(script);
-  //     delete (window as any).googleTranslateElementInit;
-  //   };
-  // }, []);
+  const queryClient = new QueryClient() 
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.variable}>
         <Provider>
           <ChakraProvider>
             <QueryClientProvider client={queryClient}>
-              <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white h-screen overflow-x-hidden `} >
+              <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white h-screen overflow-x-hidden inter `} >
                 <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : ""} lg:px-8 w-screen h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
                   <Navbar pathname={pathname} />
                 </div>

@@ -34,28 +34,24 @@ export default function InputComponent({ left, leftIcon, right, rightIcon, type,
             {!textarea && (
                 <InputGroup >
                     {left && (
-                        <InputLeftElement
-                            children={
-                                <Box display="flex" height={h ? h : "35px"} justifyContent="center" alignItems="center" marginTop="6px" marginLeft="12px" >
-                                    {leftIcon}
-                                </Box>
-                            }
-                        />
+                        <InputLeftElement >
+                            <Box display="flex" height={h ? h : "35px"} justifyContent="center" alignItems="center" marginTop="6px" marginLeft="12px" >
+                                {leftIcon}
+                            </Box>
+                        </InputLeftElement>
                     )}
                     <Input {...rest} type={intialType} textColor="#000" paddingLeft={left ? "45px" : ""} fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={h ? h : "45px"} />
                     {right && (
-                        <InputRightElement
-                            children={
-                                <Box display="flex" height={h ? h : "35px"} justifyContent="center" alignItems="center" marginTop="6px" paddingRight="30px" marginLeft="12px" >
-                                    <Box type="button" as="button" fontSize={"14px"} fontWeight={"600"} onClick={() => ViewPassword()} >
-                                        <EyeIcon />
-                                    </Box>
+                        <InputRightElement> 
+                            <Box display="flex" height={h ? h : "35px"} justifyContent="center" alignItems="center" marginTop="6px" paddingRight="30px" marginLeft="12px" >
+                                <Box type="button" as="button" fontSize={"14px"} fontWeight={"600"} onClick={() => ViewPassword()} >
+                                    <EyeIcon />
                                 </Box>
-                            }
-                        />
+                            </Box>
+                        </InputRightElement>
                     )}
                 </InputGroup>
-            )} 
+            )}
             {textarea && (
                 <Textarea  {...rest} textColor="#000" paddingLeft={left ? "45px" : ""} fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" />
             )}
