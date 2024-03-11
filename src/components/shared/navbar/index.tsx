@@ -4,25 +4,35 @@ import React from 'react'
 import CustomText from '../textcomponent'
 import { useRouter } from 'next/navigation'
 
-interface Props {}
+interface Props {
+    pathname: string
+}
 
 function Navbar(props: Props) {
-    const {} = props
+    const {
+        pathname
+    } = props 
+    
 
     const router = useRouter()
-    
+
     return (
-        <div className=' w-full relative z-10 flex lg:px-0 px-6 lg:flex-col flex-col-reverse ' >
-            <div className=' w-full flex lg:justify-end items-center lg:mt-0 mt-6 lg:h-[80px] gap-2 ' >
+        <div className={` w-full relative z-10 flex lg:px-6 px-6 ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "lg:h-[96px] h-[86px] text-black " : ""} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth"))  ? "items-center justify-between " : "" } lg:${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "flex-row-reverse" : "flex-col"} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth"))  ? "flex-row-reverse" : "flex-col-reverse"}  `} >
+            <div className={` flex lg:justify-end items-center ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " lg:h-[80px] w-full lg:mt-0 mt-6" : "h-fit text-sm "} gap-2 `} >
                 <ChatIcon />
                 <CustomText>English (United States)</CustomText>
                 <DownArrowIcon />
             </div>
-            <div onClick={()=> router.push("/")} role='button' className=' w-full  flex items-center justify-between pt-4 h-[64px] lg:h-[80px] ' >
-                <img src='/images/logo.svg' alt='logo' />
-                <button className=' w-fit lg:hidden ' >
-                    <MenuIcon />
-                </button>
+            <div onClick={() => router.push("/")} role='button' className={`  z-20 flex items-center justify-between ${!(pathname?.includes("dashboard") || pathname?.includes("auth")) ? " h-[64px] lg:h-[80px] w-full  pt-4 " : "h-fit "} `} >
+                {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ?
+                    <img src='/images/logo.svg' alt='logo' /> :
+                    <img src='/images/logoblack.svg' alt='logoblack' /> 
+                }
+                {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
+                    <button className=' w-fit lg:hidden ' >
+                        <MenuIcon />
+                    </button> 
+                )}
             </div>
         </div>
     )

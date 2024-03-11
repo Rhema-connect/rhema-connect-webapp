@@ -7,7 +7,9 @@ function AudioInfo(props: Props) {
     const {} = props
 
     return (
-        <AudioResourceInfo />
+        <div className=' w-full text-white ' >
+            <AudioResourceInfo />
+        </div>
     )
 }
 
