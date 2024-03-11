@@ -21,6 +21,10 @@ body {
   /* background: #3B3B3B !important; */
 }
 
+.inter {
+  font-family: var(--font-inter);
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 7px;

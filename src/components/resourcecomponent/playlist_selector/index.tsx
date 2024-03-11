@@ -41,7 +41,7 @@ function PlaylistSelector(props: Props) {
             <Select {...rest} placeholder='Select playlist' width={"full"} textColor="#000" fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"} >
                 {data?.map((item: IPlaylistData, index: number) => {
                     return (
-                        <option>{item?.title}</option>
+                        <option key={index} >{item?.title}</option>
                     )
                 }
                 )}
