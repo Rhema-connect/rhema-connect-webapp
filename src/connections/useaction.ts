@@ -63,6 +63,21 @@ export function useCreateContentCallback() {
   return { handleCreateContent }
 }
 
+export function useAddCommentsCallback() {
+  const handleAddComments = async (postData: any, index: number): Promise<any> => {
+    try {
+      const response = await axios.post('/content/comment/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleAddComments }
+}
+
 export function useGetDataCallback() {
   const handleGetData = async (url: string, params?: any): Promise<any> => {
     try {

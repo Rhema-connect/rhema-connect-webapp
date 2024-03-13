@@ -71,12 +71,16 @@ function VideoResource(props: Props) {
 
     const router = useRouter()
 
+    const clickHandler =(item: string | number)=> { 
+        router.push("/resources-info/video/"+item)
+    }
+
     return (
         <LoadingAnimation loading={isLoading} length={data?.length} >
             <div className=' w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
                 {data?.map((item: ContentData, index: number) => {
                     return (
-                        <div role='button' onClick={() => router.push("/resources-info/video")} key={index} className=' w-full  ' >
+                        <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' w-full  ' >
                             <div className=' w-full lg:w-full lg:h-[180px] h-[160px] bg-red-900 rounded-2xl ' >
                                 <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
                             </div>

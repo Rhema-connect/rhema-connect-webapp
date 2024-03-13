@@ -23,5 +23,12 @@ export interface ContentData {
   thumbnail?: string,
   isDraft?: boolean,
   author_name?: string,
-  author_image?: string
+  author_image?: string,
+  id?: number | string
+}
+
+export interface CommentData {
+  name: string,
+  comment: string,
+  content_id: number
 }
