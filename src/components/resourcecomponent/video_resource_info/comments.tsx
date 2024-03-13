@@ -1,6 +1,6 @@
 import LoadingAnimation from '@/components/shared/loading_animation'
 import CustomText from '@/components/shared/textcomponent'
-import { PersonIcon, SendIcon, BackArrow, ThumbsUp } from '@/components/svg'
+import { PersonIcon, SendIcon, ThumbsUp } from '@/components/svg'
 import actionService from '@/connections/getdataaction'
 import { useAddCommentsCallback } from '@/connections/useaction'
 import { CommentData } from '@/models'
@@ -181,7 +181,7 @@ function Comments(props: Props) {
                     <>
                         {data?.map((item: CommentData, index: number) => {
                             return( 
-                                <CommentData {...item} /> 
+                                <CommentData key={index} {...item} /> 
                             )
                         })}
                     </>
