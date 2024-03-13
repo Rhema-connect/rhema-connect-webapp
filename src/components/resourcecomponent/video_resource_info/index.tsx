@@ -78,7 +78,7 @@ function VideoResourceInfo(props: Props) {
                         <CustomText className=' leading-[22.4px] my-[19px] ' >{data?.description}
                         {/* <span role='button' style={{ color: "#919EAB" }} >more</span> */}
                         </CustomText>
-                        <Comments id={videoId ? videoId : 0} />
+                        <Comments id={id ? id : 0} />
                     </div>
 
                     <div className=' w-fit text-white ' >
