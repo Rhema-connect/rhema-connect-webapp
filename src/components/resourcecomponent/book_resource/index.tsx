@@ -47,7 +47,7 @@ function BookResource(props: Props) {
                     {data?.map((item: ContentData, index: number) => {
                         return (
                             // <a key={index} href={item?.url} target="_blank" > 
-                                <div role='button' onClick={()=> clickHandler(item?.url ?? "")} className=' w-full rounded-2xl items-center flex p-3 shadow-xl  ' >
+                                <div role='button' key={index} onClick={()=> clickHandler(item?.url ?? "")} className=' w-full rounded-2xl items-center flex p-3 shadow-xl  ' >
                                     <div className=' w-full ' >
                                         <div className=' flex items-center gap-2 ' >
                                             <div className=' w-12 h-12 rounded-full bg-slate-600 '>
