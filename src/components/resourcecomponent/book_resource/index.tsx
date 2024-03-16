@@ -36,14 +36,18 @@ function BookResource(props: Props) {
         }
     )
 
+    const clickHandler =(item: string)=> {
+        window.open (item, '_ blank');
+    }
+
     return (
         <div className=' w-full ' >
             <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
                 <div className=' w-full grid grid-cols-3 gap-6 gap-y-12  ' >
                     {data?.map((item: ContentData, index: number) => {
                         return (
-                            <a href={item?.url} target="_blank" > 
-                                <div key={index} className=' w-full rounded-2xl items-center flex p-3 shadow-xl  ' >
+                            // <a key={index} href={item?.url} target="_blank" > 
+                                <div role='button' onClick={()=> clickHandler(item?.url ?? "")} className=' w-full rounded-2xl items-center flex p-3 shadow-xl  ' >
                                     <div className=' w-full ' >
                                         <div className=' flex items-center gap-2 ' >
                                             <div className=' w-12 h-12 rounded-full bg-slate-600 '>
@@ -60,7 +64,7 @@ function BookResource(props: Props) {
                                     </div>
                                     <DeleteContent id={item?.id} />
                                 </div>
-                            </a>
+                            // </a>
                         )
                     })}
                 </div>
