@@ -14,7 +14,7 @@ function VideoPlatlist(props: Props) {
     const [data, setData] = useState([] as Array<IPlaylistData>)
 
 
-    const { isLoading } = useQuery(['videoplaylist'], () => actionService.getservicedata(`/content/playlists`,
+    const { isLoading } = useQuery(['videoplaylist'], () => actionService.getservicedata(`/content/playlists/all`,
         {
             limit: 10,
             page: 0,

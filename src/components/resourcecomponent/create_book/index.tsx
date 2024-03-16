@@ -293,7 +293,7 @@ function CreateBookBtn(props: Props) {
                     </div>
                     <div className=' w-full gap-4 flex mt-6 ' >
                         <CustomButton text={"Cancel"} secondary={true} />
-                        <CustomButton type="submit" isLoading={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} disable={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} text={"Create Audio"} secondary={false} />
+                        <CustomButton type="submit" isLoading={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} disable={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} text={"Create Book"} secondary={false} />
                     </div>
                 </form>
             </ModalLayout>

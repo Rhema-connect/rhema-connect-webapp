@@ -23,10 +23,11 @@ function AudioResource(props: Props) {
 
     const [data, setData] = useState([] as Array<IPlaylistData>)
 
-    const { isLoading } = useQuery(['audiplaylist'], () => actionService.getservicedata(`/content/playlists`,
+    const { isLoading } = useQuery(['audiplaylist'], () => actionService.getservicedata(`/content/playlists/all`,
         {
             limit: 16,
             page: 0, 
+            type: "AUDIO"
         }),
         {
             onError: (error: any) => {

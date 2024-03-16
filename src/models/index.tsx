@@ -24,7 +24,8 @@ export interface ContentData {
   isDraft?: boolean,
   author_name?: string,
   author_image?: string,
-  id?: number | string
+  id?: number | string,
+  created_at?: string
 }
 
 export interface CommentData {

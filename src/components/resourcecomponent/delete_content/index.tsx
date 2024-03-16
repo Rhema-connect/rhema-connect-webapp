@@ -42,6 +42,7 @@ export default function DeleteContent(props: Props) {
 
             queryClient.invalidateQueries(['videolist'])
             queryClient.invalidateQueries(['audilist'])
+            queryClient.invalidateQueries(['bookslist'])
             
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -78,10 +79,10 @@ export default function DeleteContent(props: Props) {
             <button onClick={(e) => openHandler(e)} className=' w-5 ' >
                 <Image src='/images/trash.png' alt='trash' />
             </button>
-            <ModalLayout size={"md"} open={open} close={setOpen} title={"Delete Records"} >
+            <ModalLayout size={"md"} open={open} close={setOpen} title={"Delete Content"} >
                 <div className=' w-full flex flex-col justify-center items-center ' >
-                    <Image src='/trash.png' width={"100px"} alt='trash' />
-                    <CustomText className=' mt-4 font-medium ' >Are You sure You want to delete this Record?</CustomText>
+                    <Image src='/images/trash.png' width={"100px"} alt='trash' />
+                    <CustomText className=' mt-4 font-medium ' >Are You sure You want to delete this Content?</CustomText>
                     <div className=' w-full flex flex-col justify-center gap-3 mt-8 ' >
                         <Button variant={'outline'} outlineColor={'#1F7CFF'} borderWidth={'0px'} width='100%' height={'32px'} color='#1F7CFF' onClick={() => setOpen(false)} >Cancel</Button>
                         <Button onClick={() => submit()}
