@@ -63,6 +63,21 @@ export function useCreateContentCallback() {
   return { handleCreateContent }
 }
 
+export function useCreateBookCallback() {
+  const handleCreateBook = async (postData: any): Promise<any> => {
+    try {
+      const response = await axios.post('/content/create-book', postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleCreateBook }
+}
+
 export function useAddCommentsCallback() {
   const handleAddComments = async (postData: any, index: number): Promise<any> => {
     try {
@@ -76,14 +91,13 @@ export function useAddCommentsCallback() {
     }
   }
   return { handleAddComments }
-}
+} 
 
-export function useGetDataCallback() {
-  const handleGetData = async (url: string, params?: any): Promise<any> => {
+export function useDeleteContentCallback() {
+  const handleDeleteContent = async (index: number | string): Promise<any> => {
     try {
-      const response = await axios.get(url,
+      const response = await axios.delete('/content/'+index,
         {
-          params: params,
           headers: { 'Content-Type': 'application/json' },
         });
       return response
@@ -91,5 +105,20 @@ export function useGetDataCallback() {
       return err?.response
     }
   }
-  return { handleGetData }
-}
+  return { handleDeleteContent }
+} 
+
+export function useDeletePlaylistCallback() {
+  const handleDeletePlaylist = async (index: number | string): Promise<any> => {
+    try {
+      const response = await axios.delete('/content/playlist/'+index,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleDeletePlaylist }
+} 

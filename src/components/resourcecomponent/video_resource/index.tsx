@@ -6,6 +6,7 @@ import actionService from '@/connections/getdataaction'
 import { useQuery } from 'react-query'
 import { ContentData } from '@/models'
 import LoadingAnimation from '@/components/shared/loading_animation'
+import DeleteContent from '../delete_content'
 
 interface Props {
 
@@ -71,8 +72,8 @@ function VideoResource(props: Props) {
 
     const router = useRouter()
 
-    const clickHandler =(item: string | number)=> { 
-        router.push("/resources-info/video/"+item)
+    const clickHandler = (item: string | number) => {
+        router.push("/resources-info/video/" + item)
     }
 
     return (
@@ -84,12 +85,17 @@ function VideoResource(props: Props) {
                             <div className=' w-full lg:w-full lg:h-[180px] h-[160px] bg-red-900 rounded-2xl ' >
                                 <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
                             </div>
-                            <CustomText className=' leading-[30px] font-bold text-[20px] mt-4 '  >
-                                {item?.title}
-                            </CustomText>
-                            <CustomText className=' text-[14px] leading-6 ' >
-                                {item?.description}
-                            </CustomText>
+                            <div className=' w-full flex justify-between ' >
+                                <div>
+                                    <CustomText className=' leading-[30px] font-bold text-[20px] mt-4 '  >
+                                        {item?.title}
+                                    </CustomText>
+                                    <CustomText className=' text-[14px] leading-6 ' >
+                                        {item?.description}
+                                    </CustomText>
+                                </div>
+                                <DeleteContent id={item?.id} />
+                            </div>
                         </div>
                     )
                 })}

@@ -60,8 +60,7 @@ function BookResource(props: Props) {
     const { isLoading } = useQuery(['audilist'], () => actionService.getservicedata(`/content/books`,
         {
             limit: 10,
-            page: 0,
-            type: "AUDIO"
+            page: 0, 
         }),
         {
             onError: (error: any) => {

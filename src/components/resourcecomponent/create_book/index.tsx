@@ -1,3 +1,4 @@
+"use client"
 import CustomButton from '@/components/shared/custom_button'
 import CustomFilePicker from '@/components/shared/custom_file_picker'
 import CustomUploader from '@/components/shared/custom_uploader'
@@ -5,7 +6,7 @@ import InputComponent from '@/components/shared/inputcomponent'
 import ModalLayout from '@/components/shared/modal_layout'
 import CustomText from '@/components/shared/textcomponent'
 import { AddIcon } from '@/components/svg'
-import { useCreateContentCallback, useCreatePlaylistCallback, useUploaderCallback } from '@/connections/useaction'
+import { useCreateBookCallback, useCreateContentCallback, useCreatePlaylistCallback, useUploaderCallback } from '@/connections/useaction'
 import { ContentData, CreatePlaylistData } from '@/models'
 import { Checkbox, Select, useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
@@ -16,7 +17,7 @@ import PlaylistSelector from '../playlist_selector'
 
 interface Props { }
 
-function CreateAudioBtn(props: Props) {
+function CreateBookBtn(props: Props) {
     const { } = props
 
     const [open, setOpen] = useState(false)
@@ -28,12 +29,13 @@ function CreateAudioBtn(props: Props) {
 
     const queryClient = useQueryClient()
 
-    const { handleCreateContent } = useCreateContentCallback()
+    const { handleCreateBook } = useCreateBookCallback()
     const { handleUploader } = useUploaderCallback()
 
 
     const loginSchema = yup.object({
         title: yup.string().required('Required'),
+        author_name: yup.string().required('Required'),
         description: yup.string().required('Required'),
     })
 
@@ -41,9 +43,9 @@ function CreateAudioBtn(props: Props) {
     const formik = useFormik({
         initialValues: {
             title: "",
-            author: "",
+            author_name: "",
             description: "",
-            content_type: "AUDIO",
+            content_type: "BOOK",
         },
         validationSchema: loginSchema,
         onSubmit: () => { },
@@ -51,7 +53,7 @@ function CreateAudioBtn(props: Props) {
 
     //API call to handle adding user
     const createPlayistMutation = useMutation(async (formData: ContentData) => {
-        const response = await handleCreateContent(formData); 
+        const response = await handleCreateBook(formData); 
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -95,7 +97,7 @@ function CreateAudioBtn(props: Props) {
 
         if (response?.status === 201 || response?.status === 200) {
 
-            audioMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
+            bookMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
                 onSuccess: (data: any) => {
                     if (data) {
                         setOpen(false)
@@ -133,12 +135,12 @@ function CreateAudioBtn(props: Props) {
     });
 
     //API call to handle adding user
-    const audioMutation = useMutation(async (userdata: ContentData) => {
+    const bookMutation = useMutation(async (userdata: ContentData) => {
 
         let formData = new FormData()
-        formData.append("file", imageFile)
+        formData.append("file", videoFile)
 
-        const response = await handleUploader(formData, imageFile);
+        const response = await handleUploader(formData, videoFile);
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -225,7 +227,7 @@ function CreateAudioBtn(props: Props) {
                     <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Audio</CustomText>
                     <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources and select which playlist if needed</CustomText>
                     <div className=' w-full mt-6 ' >
-                        <CustomFilePicker type="audio" setImageFiles={setVideoFile} />
+                        <CustomFilePicker type="book" setImageFiles={setVideoFile} />
                     </div>
                     <div className=' w-full mt-6 ' >
                         <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Title</CustomText>
@@ -240,16 +242,16 @@ function CreateAudioBtn(props: Props) {
                             type='text' placeholder="Add Title" />
                     </div>
                     <div className=' w-full mt-6 ' >
-                        <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Author</CustomText>
+                        <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Author Name</CustomText>
                         <InputComponent
-                            name="title"
+                            name="author_name"
                             onChange={formik.handleChange}
                             onFocus={() =>
-                                formik.setFieldTouched("title", true, true)
+                                formik.setFieldTouched("author_name", true, true)
                             }
-                            touch={formik.touched.title}
-                            error={formik.errors.title} 
-                            type='text' placeholder="Add Title" />
+                            touch={formik.touched.author_name}
+                            error={formik.errors.author_name} 
+                            type='text' placeholder="Add Author Name" />
                     </div>
                     <div className=' w-full mt-4 ' >
                         <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Description</CustomText>
@@ -289,7 +291,7 @@ function CreateAudioBtn(props: Props) {
                     </div>
                     <div className=' w-full gap-4 flex mt-6 ' >
                         <CustomButton text={"Cancel"} secondary={true} />
-                        <CustomButton type="submit" isLoading={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || audioMutation?.isLoading} disable={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || audioMutation?.isLoading} text={"Create Audio"} secondary={false} />
+                        <CustomButton type="submit" isLoading={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} disable={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} text={"Create Audio"} secondary={false} />
                     </div>
                 </form>
             </ModalLayout>
@@ -297,4 +299,4 @@ function CreateAudioBtn(props: Props) {
     )
 }
 
-export default CreateAudioBtn
+export default CreateBookBtn

@@ -30,5 +30,6 @@ export interface ContentData {
 export interface CommentData {
   name: string,
   comment: string,
-  content_id: number
+  content_id: number,
+  created_at?: string
 }

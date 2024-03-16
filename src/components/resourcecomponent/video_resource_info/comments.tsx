@@ -20,8 +20,19 @@ function Comments(props: Props) {
     } = props
 
     const { handleAddComments } = useAddCommentsCallback()
-    const [data, setData] = useState([] as Array<CommentData>)
+    const [data, setData] = useState([] as Array<CommentData>) 
 
+    const { isLoading, refetch, isRefetching } = useQuery(['comment'], () => actionService.getservicedata(`/content/comments/${id}`,),
+        {
+            onError: (error: any) => {
+                console.error(error);
+            },
+            onSuccess: (data: any) => {
+                console.log(data?.data?.data);
+                setData(data?.data?.data)
+            }
+        }
+    ) 
 
     const CommentData = (props: CommentData) => {
         return (
@@ -83,6 +94,7 @@ function Comments(props: Props) {
                 position: "top",
             });
 
+            refetch()
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -101,8 +113,7 @@ function Comments(props: Props) {
             });
             return
         }
-    });
-
+    }); 
 
 
     const submit = async () => {
@@ -136,18 +147,6 @@ function Comments(props: Props) {
 
 
 
-    const { isLoading } = useQuery(['comment'], () => actionService.getservicedata(`/content/comments/${id}`, ),
-        {
-            onError: (error: any) => {
-                console.error(error);
-            },
-            onSuccess: (data: any) => {
-                console.log(data?.data?.data);
-                setData(data?.data?.data)
-            }
-        }
-    )
-
     return (
         <div className=' w-full ' >
             <CustomText className=' leading-[28px] font-bold text-lg ' >{data?.length} comments</CustomText>
@@ -177,11 +176,11 @@ function Comments(props: Props) {
                 </button>
             </div>
             <div className=' w-full py-9 flex flex-col gap-5  ' >
-                <LoadingAnimation loading={isLoading} length={data?.length} >
+                <LoadingAnimation loading={isLoading} length={data?.length} refeching={isRefetching} >
                     <>
                         {data?.map((item: CommentData, index: number) => {
-                            return( 
-                                <CommentData key={index} {...item} /> 
+                            return (
+                                <CommentData key={index} {...item} />
                             )
                         })}
                     </>

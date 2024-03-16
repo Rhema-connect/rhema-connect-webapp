@@ -135,9 +135,9 @@ function CreateAudioBtn(props: Props) {
     const audioMutation = useMutation(async (userdata: ContentData) => {
 
         let formData = new FormData()
-        formData.append("file", imageFile)
+        formData.append("file", videoFile)
 
-        const response = await handleUploader(formData, imageFile);
+        const response = await handleUploader(formData, videoFile);
 
         if (response?.status === 201 || response?.status === 200) {
 

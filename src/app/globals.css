@@ -48,3 +48,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #939393;
 }
+
+.animate-track {
+  background: rgb(204, 204, 204);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(0%);
+  pointer-events: none;
+}

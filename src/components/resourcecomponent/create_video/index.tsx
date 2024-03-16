@@ -51,10 +51,7 @@ function CreateVideoBtn(props: Props) {
     });
 
     //API call to handle adding user
-    const createVideoMutation = useMutation(async (formData: ContentData) => {
-
-        console.log(formData);
-        
+    const createVideoMutation = useMutation(async (formData: ContentData) => { 
 
         const response = await handleCreateContent(formData);
 
@@ -99,9 +96,7 @@ function CreateVideoBtn(props: Props) {
         let formData = new FormData()
         formData.append("file", imageFile)
 
-        const response = await handleUploader(formData, imageFile);
-
-        console.log(response);
+        const response = await handleUploader(formData, imageFile); 
 
         if (response?.status === 201 || response?.status === 200) {
 
