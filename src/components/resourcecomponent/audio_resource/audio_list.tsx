@@ -28,7 +28,10 @@ function Audiolist(props: Props) {
             },
             onSuccess: (data: any) => {
                 console.log(data?.data?.data);
-                setData(data?.data?.data)
+
+                if (data?.data?.data.length > 0) {
+                    setData(data?.data?.data)
+                }
             }
         }
     )

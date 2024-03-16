@@ -22,8 +22,9 @@ function CustomFilePicker(props: Props) {
 
         const selected: any = e.target.files[0];
         console.log(selected);
-        
 
+
+        const TYPES_Book = ["application/pdf"];
         const TYPES_Audio = ["audio/mpeg"];
         const TYPES_Video = ["video/x-matroska", "video/mp4", "image/jpeg"];
 
@@ -32,7 +33,12 @@ function CustomFilePicker(props: Props) {
             setImageView(selected)
             console.log(selected);
 
-        } else  if (type === "audio" && selected && TYPES_Audio.includes(selected.type)) {
+        } else if (type === "audio" && selected && TYPES_Audio.includes(selected.type)) {
+            setImageFiles(selected)
+            setImageView(selected)
+            console.log(selected);
+
+        } else if (type === "book" && selected && TYPES_Book.includes(selected.type)) {
             setImageFiles(selected)
             setImageView(selected)
             console.log(selected);
@@ -40,6 +46,8 @@ function CustomFilePicker(props: Props) {
         } else {
             console.log('Error')
         }
+
+
     }
 
     return (
@@ -62,10 +70,10 @@ function CustomFilePicker(props: Props) {
                         )}
                         {type === "audio" && (
                             <AudioIcon />
-                        )}    
+                        )}
                         {type === "book" && (
                             <BookIcon />
-                        )}                    
+                        )}
                         <div>
                             <p className=' text-[14px] text-[#344054] leading-[20px] font-medium ' >{(imageView?.name)?.length < 30 ? imageView?.name : (imageView?.name)?.slice(0, 30) + "..."}</p>
                             <p className=' text-[14px] leading-[20px] text-[#475467] ' >{imageView?.size / 1000} KB</p>

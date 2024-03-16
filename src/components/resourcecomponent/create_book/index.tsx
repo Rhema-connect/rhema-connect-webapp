@@ -219,13 +219,15 @@ function CreateBookBtn(props: Props) {
 
     }
 
+    // https://rhemaconnect.s3.eu-north-1.amazonaws.com/The-Book-of-Enoch-PDFdrive.com.co.%20PDF.pdf
+
     return (
         <>
             <CustomButton onClick={() => setOpen(true)} width={"fit-content"} icon={<AddIcon />} text={"Add New"} secondary={false} />
             <ModalLayout open={open} close={setOpen} title={""} size={"md"} >
                 <form onSubmit={(e)=> submit(e)} className=' w-full ' >
-                    <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Audio</CustomText>
-                    <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources and select which playlist if needed</CustomText>
+                    <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Book</CustomText>
+                    <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources </CustomText>
                     <div className=' w-full mt-6 ' >
                         <CustomFilePicker type="book" setImageFiles={setVideoFile} />
                     </div>
