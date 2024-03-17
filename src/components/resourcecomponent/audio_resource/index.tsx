@@ -46,7 +46,7 @@ function AudioResource(props: Props) {
                 <div className=' w-full grid md:grid-cols-3 grid-cols-4 gap-4 gap-y-10  ' >
                     {data?.map((item: IPlaylistData, index: number) => {
                         return (
-                            <div role='button' onClick={() => router.push("/resources-info/audio")} key={index} className=' w-full  ' >
+                            <div role='button' key={index} className=' w-full  ' >
                                 <div className=' w-full h-[204px] bg-red-900 rounded-2xl ' >
                                     <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
                                 </div>
