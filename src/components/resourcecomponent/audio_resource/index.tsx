@@ -12,10 +12,14 @@ import Audiolist from './audio_list'
 import AudioPlayer from '@/components/shared/musicplayer'
 import LoadingAnimation from '@/components/shared/loading_animation'
 
-interface Props { }
+interface Props {
+    admin?: boolean
+}
 
 function AudioResource(props: Props) {
-    const { } = props
+    const { 
+        admin
+    } = props
 
     const router = useRouter()
 
@@ -61,7 +65,7 @@ function AudioResource(props: Props) {
                     })}
                 </div>
             </LoadingAnimation>
-            <Audiolist />
+            <Audiolist admin={admin} />
         </div>
     )
 }

@@ -8,10 +8,14 @@ import { useQuery } from 'react-query'
 import DeleteContent from '../delete_content'
 import LoadingAnimation from '@/components/shared/loading_animation'
 
-interface Props { }
+interface Props {
+    admin?: boolean
+}
 
 function Audiolist(props: Props) {
-    const { } = props
+    const {
+        admin
+    } = props
 
     const [data, setData] = useState([] as Array<ContentData>)
     const [currentData, setCurrentData] = useState({} as ContentData)
@@ -68,11 +72,15 @@ function Audiolist(props: Props) {
                                         {item?.description}
                                     </CustomText>
                                 </div>
-                                {item?.url !== currentData?.url &&
-                                    <div className=' ml-auto ' >
-                                        <DeleteContent id={item?.id} />
-                                    </div>
-                                }
+                                {admin && (
+                                    <> 
+                                        {item?.url !== currentData?.url &&
+                                            <div className=' ml-auto ' >
+                                                <DeleteContent id={item?.id} />
+                                            </div>
+                                        }
+                                    </>
+                                )}
                             </div>
                         )
                     })}
