@@ -141,7 +141,7 @@ function CreateVideoBtn(props: Props) {
 
             if (playlist) {
 
-                addToPlaylistMutation.mutateAsync({ ...userdata, url: response?.data }, {
+                addToPlaylistMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
                     onSuccess: (data: any) => {
                         setOpen(false)
                     },

@@ -4,6 +4,7 @@ import { PersonIcon, SendIcon, ThumbsUp } from '@/components/svg'
 import actionService from '@/connections/getdataaction'
 import { useAddCommentsCallback } from '@/connections/useaction'
 import { CommentData } from '@/models'
+import { formatTimeAgo } from '@/util/dateformat'
 import { Spinner, useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
@@ -44,18 +45,18 @@ function Comments(props: Props) {
                     <div className=' pt-2 w-full ' >
                         <div className=' flex gap-3 items-center ' >
                             <CustomText className=' leading-[24px] font-medium ' >{props?.name}</CustomText>
-                            <CustomText className=' leading-[22px] text-[#707070] text-sm ' >2 days ago</CustomText>
+                            <CustomText className=' leading-[22px] text-[#707070] text-sm ' >{formatTimeAgo(new Date(props?.created_at ?? "").getTime())}</CustomText>
                         </div>
                         <CustomText className=' leading-[24px] mt-3 ' >{props?.comment}</CustomText>
                     </div>
-                    <div className=' w-fit flex gap-[13px]  ' >
+                    {/* <div className=' w-fit flex gap-[13px]  ' >
                         <div role='button' className=' w-[45px] h-[45px] rounded-full flex justify-center items-center border border-white ' >
                             <ThumbsUp />
                         </div>
                         <div role='button' className=' w-[45px] -rotate-180 h-[45px] rounded-full flex justify-center items-center border border-[#919EAB] ' >
                             <ThumbsUp color='#919EAB' />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         )

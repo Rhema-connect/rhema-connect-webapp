@@ -74,7 +74,7 @@ function VideoResourceInfo(props: Props) {
                 <div className=' w-full flex gap-6  ' >
                     <div className=' w-full py-6 ' >
                         <CustomText className=' leading-[44.8px] text-[32px] font-semibold ' >{data?.title}</CustomText>
-                        <CustomText className=' text-[#919EAB] leading-[22.4px] mt-[11px] ' >450 views</CustomText>
+                        {/* <CustomText className=' text-[#919EAB] leading-[22.4px] mt-[11px] ' >450 views</CustomText> */}
                         <CustomText className=' leading-[22.4px] my-[19px] ' >{data?.description}
                         {/* <span role='button' style={{ color: "#919EAB" }} >more</span> */}
                         </CustomText>

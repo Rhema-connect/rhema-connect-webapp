@@ -7,15 +7,16 @@ import { useQuery } from 'react-query'
 import { ContentData } from '@/models'
 import LoadingAnimation from '@/components/shared/loading_animation'
 import DeleteContent from '../delete_content'
+import { textLimit } from '@/util/textlimit'
 
 interface Props {
     admin?: boolean
 }
 
 function VideoResource(props: Props) {
-    const { 
+    const {
         admin
-    } = props  
+    } = props
 
     const [data, setData] = useState([] as Array<ContentData>)
 
@@ -52,17 +53,21 @@ function VideoResource(props: Props) {
                             <div className=' w-full lg:w-full lg:h-[180px] h-[160px] bg-red-900 rounded-2xl ' >
                                 <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
                             </div>
-                            <div className=' w-full flex justify-between ' >
+                            <div className=' w-full flex justify-between  mt-4 ' >
                                 <div>
-                                    <CustomText className=' leading-[30px] font-bold text-[20px] mt-4 '  >
+                                    <CustomText className=' leading-[30px] font-bold text-[20px]'  >
                                         {item?.title}
                                     </CustomText>
-                                    <CustomText className=' text-[14px] leading-6 ' >
-                                        {item?.description}
-                                    </CustomText>
+                                    {item?.description && (
+                                        <CustomText className=' text-[14px] leading-6 ' >
+                                            {textLimit(item?.description, 30)}
+                                        </CustomText>
+                                    )}
                                 </div>
                                 {admin && (
-                                    <DeleteContent id={item?.id} />
+                                    <div className=' w-fit ' >
+                                        <DeleteContent id={item?.id} />
+                                    </div>
                                 )}
                             </div>
                         </div>
