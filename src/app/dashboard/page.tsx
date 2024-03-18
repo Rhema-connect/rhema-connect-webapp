@@ -8,8 +8,8 @@ function Dashboard(props: Props) {
 
     return (
         <div className=' w-full h-full ' >
-            <div className=' w-full flex ' >
-                <p className=' font-bold text-[24px] leading-[36px] text-black ' >Playlist</p>
+            <div className=' w-full flex bg-white px-2 flex-col ' >
+                <p className=' font-bold text-[24px] leading-[36px] text-black ' >Resource</p>
             </div>
         </div>
     )
