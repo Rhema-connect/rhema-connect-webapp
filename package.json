@@ -11,7 +11,7 @@
   "resolutions": {
     "string-width": "4.2.3"
   },
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@hookform/resolvers": "^3.3.3",
