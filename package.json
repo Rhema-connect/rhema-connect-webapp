@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "type": "module",
+  "resolutions": {
+    "string-width": "4.2.3"
+ },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@hookform/resolvers": "^3.3.3",
