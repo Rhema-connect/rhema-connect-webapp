@@ -7,12 +7,12 @@ import { IoChevronBackCircleOutline, IoChevronForwardCircleOutline } from "react
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-export default function page({ params }: { params: { slug: string } }) {
+export default function BookPage({ params }: { params: { slug: string } }) {
 
     const [numPages, setNumPages] = useState<number | null>(null);
     const [pageNumber, setPageNumber] = useState<number>(1);
 
-    const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
+    const OnDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
         setNumPages(numPages);
     };
 
@@ -28,7 +28,7 @@ export default function page({ params }: { params: { slug: string } }) {
                         <Document
                             className={" flex justify-center items-center "}
                             file={"https://rhemaconnect.s3.eu-north-1.amazonaws.com/The-Book-of-Enoch-PDFdrive.com.co.%20PDF.pdf"}
-                            onLoadSuccess={onDocumentLoadSuccess}
+                            onLoadSuccess={OnDocumentLoadSuccess}
                         >
                             <Page height={700} pageNumber={pageNumber} />
                         </Document>
