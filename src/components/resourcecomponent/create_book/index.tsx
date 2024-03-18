@@ -267,26 +267,7 @@ function CreateBookBtn(props: Props) {
                             touch={formik.touched.description}
                             error={formik.errors.description}
                             type='text' placeholder="Description" />
-                    </div>
-                    <div className=' w-full mt-4 flex gap-2 ' >
-                        <Checkbox checked={show} onChange={(e) => setShow(e.target.checked)} />
-                        <CustomText className=" text-sm leading-[22px] text-[#212B36] " >Add to playlist</CustomText>
-                    </div>
-                    {show && (
-                        <div className=' w-full mt-4 ' >
-                            <CustomText className=" text-xs leading-[18px] mb-1 text-[#919EAB] " >Select Playlist</CustomText>
-                            <PlaylistSelector 
-                                // name="title"
-                                // textarea={true}
-                                // onChange={formik.handleChange}
-                                // onFocus={() =>
-                                //     formik.setFieldTouched("title", true, true)
-                                // }
-                                // touch={formik.touched.title}
-                                // error={formik.errors.title}
-                                type="VIDEO" />
-                        </div>
-                    )}
+                    </div>  
                     <div className=' w-full mt-4 ' >
                         <CustomText className=" text-xs leading-[18px] mb-1 text-[#212B36] " >Upload thumbnail</CustomText>
                         <CustomUploader setImage={setImageFIle} />

@@ -8,7 +8,8 @@ export interface IPlaylistData {
   type: string,
   title: string,
   thumbnail?: string,
-  items?: Array<string>
+  items?: Array<ContentData>,
+  id?: string | number
 }
 
 export interface ContentData {

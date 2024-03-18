@@ -9,46 +9,13 @@ import LoadingAnimation from '@/components/shared/loading_animation'
 import DeleteContent from '../delete_content'
 
 interface Props {
-
+    admin?: boolean
 }
 
 function VideoResource(props: Props) {
-    const { } = props
-
-    const datainfo = [
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-    ]
+    const { 
+        admin
+    } = props  
 
     const [data, setData] = useState([] as Array<ContentData>)
 
@@ -94,7 +61,9 @@ function VideoResource(props: Props) {
                                         {item?.description}
                                     </CustomText>
                                 </div>
-                                <DeleteContent id={item?.id} />
+                                {admin && (
+                                    <DeleteContent id={item?.id} />
+                                )}
                             </div>
                         </div>
                     )

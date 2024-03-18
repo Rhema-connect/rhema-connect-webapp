@@ -41,7 +41,7 @@ function Audiolist(props: Props) {
     )
 
     return (
-        <div className=' w-full mt-14 ' >
+        <div className=' w-full mt-14 pb-20 ' >
             <div className=' w-full flex justify-between items-center ' >
                 <CustomText className=' text-[20px] leading-[30px] font-bold ' >Audio Messages</CustomText>
                 <div className=' w-fit flex items-center gap-8 ' >

@@ -48,6 +48,21 @@ export function useCreatePlaylistCallback() {
   return { handleCreatePlaylist }
 }
 
+export function useupdatePlaylistCallback() {
+  const handleupdatePlaylist = async (postData: any, index: number | string): Promise<any> => {
+    try {
+      const response = await axios.put('/content/update-playlist/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleupdatePlaylist }
+}
+
 export function useCreateContentCallback() {
   const handleCreateContent = async (postData: any): Promise<any> => {
     try {

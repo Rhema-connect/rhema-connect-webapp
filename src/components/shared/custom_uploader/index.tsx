@@ -18,7 +18,7 @@ function CustomUploader(props: Props) {
     const handleImageChange = (e: any) => {
 
         const selected:any  = e.target.files[0];
-        const TYPES = ["image/png", "image/jpg", "image/jpeg"];
+        const TYPES = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
         if (selected && TYPES.includes(selected.type)) {
             setImage(selected)
             const reader: any = new FileReader();

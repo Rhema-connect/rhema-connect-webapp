@@ -21,9 +21,7 @@ function AudioResource(props: Props) {
         admin
     } = props
 
-    const router = useRouter()
-
-
+    const router = useRouter() 
 
     const [data, setData] = useState([] as Array<IPlaylistData>)
 
@@ -44,13 +42,17 @@ function AudioResource(props: Props) {
         }
     )
 
+    const clickHandler =(item: IPlaylistData)=> {
+        router?.push("/resources-info/audio/"+item?.id)
+    }
+
     return (
         <div className=' w-full ' >
             <LoadingAnimation loading={isLoading} length={data?.length} > 
                 <div className=' w-full grid md:grid-cols-3 grid-cols-4 gap-4 gap-y-10  ' >
                     {data?.map((item: IPlaylistData, index: number) => {
                         return (
-                            <div role='button' key={index} className=' w-full  ' >
+                            <div onClick={()=> clickHandler(item)} role='button' key={index} className=' w-full  ' >
                                 <div className=' w-full h-[204px] bg-red-900 rounded-2xl ' >
                                     <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
                                 </div>

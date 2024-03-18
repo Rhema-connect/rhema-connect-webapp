@@ -1,14 +1,11 @@
 import AudioResourceInfo from '@/components/resourcecomponent/audio_resource_info'
-import React from 'react'
+import React from 'react' 
 
-interface Props {}
-
-function AudioInfo(props: Props) {
-    const {} = props
+function AudioInfo({ params }: { params: { slug: string } }) { 
 
     return (
         <div className=' w-full text-white ' >
-            <AudioResourceInfo />
+            <AudioResourceInfo id={params?.slug} />
         </div>
     )
 }
