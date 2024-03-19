@@ -41,7 +41,7 @@ function HomeComponent(props: Props) {
 
                 {headerData?.map((item: { label: string, value: string, image: string }, index: number) => {
                     return (
-                        <div role='button' onClick={() => clickHandler(item?.value)} className=' w-full lg:w-fit flex gap-4 flex-col md:items-center lg:items-start ' >
+                        <div key={index} role='button' onClick={() => clickHandler(item?.value)} className=' w-full lg:w-fit flex gap-4 flex-col md:items-center lg:items-start ' >
                             <div className=' w-full lg:w-[226px] lg:h-[226px] h-[160px] rounded-2xl ' >
                                 <img className=' w-full h-full object-contain ' src={item?.image} />
                             </div>
@@ -65,7 +65,7 @@ function HomeComponent(props: Props) {
             <div className=' w-full hidden lg:flex flex-row gap-6 mt-8 ' >
                 {headerData?.filter((item: { label: string }) => item?.label !== "Arabic" && item?.label !== "Farsi" && item?.label !== "Turkish").map((item: { label: string, value: string, image: string }, index: number) => {
                     return (
-                        <div role='button' onClick={() => clickHandler(item?.value)} className=' lg:w-fit w-full flex gap-4 flex-col md:items-center lg:items-start ' >
+                        <div key={index} role='button' onClick={() => clickHandler(item?.value)} className=' lg:w-fit w-full flex gap-4 flex-col md:items-center lg:items-start ' >
                             <div className=' w-full lg:w-[126px] h-[160px] lg:h-[126px] rounded-2xl ' >
                                 <img className=' w-full h-full object-contain ' src={item?.image} />
                             </div>
