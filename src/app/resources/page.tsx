@@ -8,13 +8,13 @@ function Resoures(props: Props) {
     const {} = props
 
 
-    let lang = localStorage?.getItem("lang")?.toString()
+    let lang = localStorage.getItem("lang")?.toString()
 
     useEffect(()=> {
         if(lang !== "true"){ 
-            localStorage?.setItem("lang", "true")
-            window.location.reload()
+            (window as any).location.reload()
         }
+        localStorage.setItem("lang", "true")
     }, [])
     
     return ( 
