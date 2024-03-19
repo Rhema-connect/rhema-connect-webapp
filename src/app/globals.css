@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "rsuite/dist/rsuite.css";
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -58,4 +60,61 @@ body {
   left: 0;
   transform: translateX(0%);
   pointer-events: none;
+}
+
+.goog-te-gadget-simple{
+  display: flex !important;
+  background-color: transparent !important;
+  font-size: 16px !important;
+  border-left: 0px solid #D5D5D5 !important;
+  border-top: 0px solid #9B9B9B !important;
+  border-bottom: 0px solid #E8E8E8 !important;
+  border-right: 0px solid #D5D5D5 !important;
+}
+
+.goog-te-gadget{
+  font-family: var(--font-inter) !important;
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.goog-te-gadget img {
+  display: none;
+}
+
+.goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed {
+  color: white !important;
+  display: none;
+}
+/* .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
+  display: none;
+} */ 
+ #google_translate_element {
+  position: absolute !important;
+  
+ }
+ #google_translate_element span {
+  position: absolute !important;
+color: transparent;
+ }
+
+ element.style {
+  border-left: 0px solid rgb(187, 187, 187);
+}
+
+.goog-te-gadget-icon {
+  display: none !important;
+} 
+
+.VIpgJd-ZVi9od-ORHb {
+  margin: 0;
+  background-color: #E4EFFB;
+  overflow: hidden;
+  display: none !important;
+}
+
+/* Select the elements or text you want to prevent from translation */
+#notranslate {
+  /* Prevent translation for selected elements */
+  translate: no;
 }
