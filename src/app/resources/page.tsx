@@ -1,5 +1,6 @@
 "use client"
 import VideoResource from '@/components/resourcecomponent/video_resource'
+import checkdata from '@/store/checklang';
 import React, { useEffect } from 'react'
 
 interface Props {}
@@ -7,14 +8,13 @@ interface Props {}
 function Resoures(props: Props) {
     const {} = props
 
-
-    let lang = localStorage.getItem("lang")+""
+    const { check, setCheck } = checkdata((state) => state);
 
     useEffect(()=> {
-        if(lang !== "true"){ 
+        if(check){ 
             (window as any).location.reload()
         }
-        localStorage.setItem("lang", "true")
+        setCheck("")
     }, [])
     
     return ( 

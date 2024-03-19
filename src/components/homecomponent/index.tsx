@@ -1,10 +1,10 @@
 "use client"
-import React from 'react'
-import { Connect } from '../svg'
+import React from 'react' 
 import PageLayout from '../pagelayout'
 import CustomText from '../shared/textcomponent'
 import { usePathname, useRouter } from 'next/navigation'
 import { setCookie } from 'cookies-next';
+import checkdata from '@/store/checklang'
 
 interface Props { }
 
@@ -12,6 +12,8 @@ function HomeComponent(props: Props) {
     const { } = props
 
     const router = useRouter()
+    const { setCheck } = checkdata((state) => state);
+
     const pathname = usePathname()
 
     console.log(pathname);
@@ -29,7 +31,7 @@ function HomeComponent(props: Props) {
 
     const clickHandler = (item: string) => { 
         setCookie('googtrans', decodeURI(item))
-        localStorage?.setItem("lang", item)
+        setCheck(item) 
         router.push('/resources')
     }
 
@@ -80,3 +82,7 @@ function HomeComponent(props: Props) {
 }
 
 export default HomeComponent
+function filterdata(arg0: (state: any) => any): { filter: any; setFilter: any } {
+    throw new Error('Function not implemented.')
+}
+
