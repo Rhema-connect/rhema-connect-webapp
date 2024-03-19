@@ -46,6 +46,9 @@ function Dashboard(props: Props) {
 
             return response;
         } else if (response?.data?.statusCode === 400) {
+
+            console.log(response);
+            
             toast({
                 title: response?.data?.message,
                 status: "error",
@@ -58,7 +61,7 @@ function Dashboard(props: Props) {
                 title: "Something went wrong",
                 status: "error",
                 duration: 3000,
-                position: "top",
+                position: "bottom",
             });
             return
         }
@@ -84,15 +87,7 @@ function Dashboard(props: Props) {
 
         loginMutation.mutateAsync(loginData, {
             onSuccess: (data: any) => {
-                if (data) {
-                    console.log(data?.data?.data?.token);
-
-                    // localStorage.setItem("token", data?.data?.data?.token);
-                    // localStorage.setItem("email", data?.data?.data?.details?.email);
-                    // localStorage.setItem("phone", data?.data?.data?.details?.phone);
-                    // localStorage.setItem("id", data?.data?.data?.details?.id);
-                    // localStorage.setItem("name", data?.data?.data?.details?.name);
-                    // localStorage.setItem("notoken", "");
+                if (data) { 
                     navigate.push("/dashboard")
                 }
 
@@ -121,7 +116,7 @@ function Dashboard(props: Props) {
 
 
     return (
-        <div className=' w-full flex justify-center items-center h-full text-[#212B36] pt-24 ' >
+        <div className=' w-full flex justify-center items-center h-full text-[#212B36]  ' >
             <div className=' max-w-[460px]  w-full ' >
                 <div className=' flex gap-2 items-center '  >
                     <BackIcon />

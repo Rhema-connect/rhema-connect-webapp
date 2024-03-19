@@ -57,10 +57,10 @@ function Audiolist(props: Props) {
                 </div>
             </div>
             <LoadingAnimation loading={isLoading} length={data?.length} >
-                <div className=' w-full grid grid-cols-3 gap-9 mt-8 ' >
+                <div className=' w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 mt-8 ' >
                     {data?.map((item: ContentData, index: number) => {
                         return (
-                            <div role='button' onClick={() => setCurrentData(item)} key={index} className={` ${item?.url === currentData?.url ? " bg-[#BE0027] text-white " : ""} w-full flex items-center shadow-lg py-2 px-4 rounded-xl gap-[18px] `} >
+                            <div role='button' onClick={() => setCurrentData(item)} key={index} className={` ${item?.title === currentData?.title ? " bg-[#BE0027] text-white " : ""} w-full flex items-center shadow-lg py-2 px-4 rounded-xl gap-[18px] `} >
                                 <div className=' w-14 h-14 bg-red-900 rounded-2xl ' >
                                     <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
                                 </div>

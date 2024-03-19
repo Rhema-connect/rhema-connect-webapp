@@ -47,12 +47,12 @@ function AudioResource(props: Props) {
     }
 
     return (
-        <div className=' w-full ' >
+        <div className=' w-full flex-col flex items-center ' >
             <LoadingAnimation loading={isLoading} length={data?.length} > 
-                <div className=' w-full grid md:grid-cols-3 grid-cols-4 gap-4 gap-y-10  ' >
+                <div className=' w-fit md:w-fit lg:w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-10  ' >
                     {data?.map((item: IPlaylistData, index: number) => {
                         return (
-                            <div onClick={()=> clickHandler(item)} role='button' key={index} className=' w-full  ' >
+                            <div onClick={()=> clickHandler(item)} role='button' key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
                                 <div className=' w-full h-[204px] bg-red-900 rounded-2xl ' >
                                     <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
                                 </div>

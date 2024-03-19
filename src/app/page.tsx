@@ -1,8 +1,9 @@
-import HomeComponent from '@/components/homecomponent'
-import Navbar from '@/components/shared/navbar' 
+"use client"
+import HomeComponent from '@/components/homecomponent'  
 
 export default function Home() {
+
   return (
-      <HomeComponent /> 
+    <HomeComponent />
   )
 }

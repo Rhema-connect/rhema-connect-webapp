@@ -22,52 +22,31 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-
   const pathname = usePathname()
-  // Create a client    
-  useEffect(() => {
-    var addScript = document.createElement('script');
-    addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
-    document.body.appendChild(addScript);
-    (window as any).googleTranslateElementInit = googleTranslateElementInit;
-  }, [])
-
-  const googleTranslateElementInit = () => {
-
-    new (window as any).google.translate.TranslateElement({
-      pageLanguage: 'auto',
-      autoDisplay: false,
-      includedLanguages: "en,ar,fa,tr,es,fr,pt,it",
-      layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE
-    },
-      'google_translate_element');
-
-  }
-
 
   return (
     <html lang="en">
-      <body className={inter.variable}>
+      <body className={inter.variable+" !bg-[#3B3B3B] "}>
         <Provider>
-          <ChakraProvider>
-            <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white overflow-x-hidden inter `} >
-              <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " bg-[#3B3B3B] pb-3 "} lg:px-8 w-screen z-[100000000000000000] fixed top-0 ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
-                <Navbar pathname={pathname} />
-              </div>
+          <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white overflow-x-hidden inter `} >
+            <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " bg-[#3B3B3B] pb-3 "} lg:px-8 w-screen z-[1000] fixed top-0 ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
+              <Navbar pathname={pathname} />
+            </div>
+            {!pathname?.includes("/dashboard") &&
               <div className=' h-[100px]  ' />
-              <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1274px] lg:px-8"}  w-full h-fit `}>
+            }
+            <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1274px] lg:px-8"}  w-full h-fit `}>
 
-                <div className=' w-full h-full ' >
-                  <div className={` lg:static lg:px-0 ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-6 " : ""}  relative w-full `} >
-                    {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
-                      <div className=' w-[80%] lg:w-[625px] h-[146px] lg:h-[392px] bg-[#828282] lg:rounded-tr-none rounded-tr-2xl rounded-br-2xl opacity-20 absolute top-0 left-0 ' />
-                    )}
-                    {children}
-                  </div>
+              <div className=' w-full h-full ' >
+                <div className={` lg:static lg:px-0 ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-6 " : ""}  relative w-full `} >
+                  {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
+                    <div className=' w-[80%] lg:w-[625px] h-[146px] lg:h-[392px] bg-[#828282] lg:rounded-tr-none rounded-tr-2xl rounded-br-2xl opacity-20 absolute top-0 left-0 ' />
+                  )}
+                  {children}
                 </div>
               </div>
             </div>
-          </ChakraProvider>
+          </div>
         </Provider>
       </body>
     </html>

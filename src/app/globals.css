@@ -62,7 +62,7 @@ body {
   pointer-events: none;
 }
 
-.goog-te-gadget-simple{
+.goog-te-gadget-simple {
   display: flex !important;
   background-color: transparent !important;
   font-size: 16px !important;
@@ -72,7 +72,7 @@ body {
   border-right: 0px solid #D5D5D5 !important;
 }
 
-.goog-te-gadget{
+.goog-te-gadget {
   font-family: var(--font-inter) !important;
   background-color: transparent !important;
   color: white !important;
@@ -86,25 +86,27 @@ body {
   color: white !important;
   display: none;
 }
+
 /* .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
   display: none;
-} */ 
- #google_translate_element {
+} */
+#google_translate_element {
   position: absolute !important;
-  
- }
- #google_translate_element span {
-  position: absolute !important;
-color: transparent;
- }
 
- element.style {
+}
+
+#google_translate_element span {
+  position: absolute !important;
+  color: transparent;
+}
+
+element.style {
   border-left: 0px solid rgb(187, 187, 187);
 }
 
 .goog-te-gadget-icon {
   display: none !important;
-} 
+}
 
 .VIpgJd-ZVi9od-ORHb {
   margin: 0;

@@ -172,7 +172,7 @@ function Comments(props: Props) {
                     {addCommentsMutation?.isLoading ?
                         <Spinner size={"sm"} color='white' />
                         :
-                        <SendIcon />
+                        <SendIcon second={true} />
                     }
                 </button>
             </div>

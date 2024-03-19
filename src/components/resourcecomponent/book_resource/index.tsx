@@ -9,10 +9,14 @@ import DeleteContent from '../delete_content'
 import { formatTimeAgo } from '@/util/dateformat'
 import { useRouter } from 'next/navigation'
 
-interface Props { }
+interface Props {
+    admin?: boolean
+}
 
 function BookResource(props: Props) {
-    const { } = props
+    const {
+        admin
+    } = props
 
     const [data, setData] = useState([] as Array<ContentData>)
 
@@ -27,8 +31,7 @@ function BookResource(props: Props) {
             onError: (error: any) => {
                 console.error(error);
             },
-            onSuccess: (data: any) => {
-                console.log(data?.data?.data);
+            onSuccess: (data: any) => { 
                 if (data?.data?.data.length > 0) {
                     setData(data?.data?.data)
                 }
@@ -36,38 +39,40 @@ function BookResource(props: Props) {
         }
     )
 
-    const clickHandler =(item: ContentData)=> { 
+    const clickHandler = (item: ContentData) => {
 
-        let slug: string = item?.title?.toString().split(' ').join('-')+"" 
-        
-        localStorage?.setItem("bookurl", item?.url+"")
-        router.push("/resources-info/book/"+slug)
+        let slug: string = item?.title?.toString().split(' ').join('-') + ""
+
+        localStorage?.setItem("bookurl", item?.url + "")
+        router.push("/resources-info/book/" + slug)
     }
 
     return (
         <div className=' w-full ' >
             <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
-                <div className=' w-full grid grid-cols-3 gap-6 gap-y-12  ' >
+                <div className=' w-full grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-12  ' >
                     {data?.map((item: ContentData, index: number) => {
                         return (
                             // <a key={index} href={item?.url} target="_blank" > 
-                                <div role='button' key={index} onClick={()=> clickHandler(item)} className=' w-full rounded-2xl items-center flex p-3 shadow-xl  ' >
-                                    <div className=' w-full ' >
-                                        <div className=' flex items-center gap-2 ' >
-                                            <div className=' w-12 h-12 rounded-full bg-slate-600 '>
-                                                <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
-                                            </div>
-                                            <CustomText className=' leading-6 text-sm ' >{item?.author_name}</CustomText>
+                            <div role='button' key={index} onClick={() => clickHandler(item)} className=' w-full rounded-2xl items-center flex p-3 shadow-xl  ' >
+                                <div className=' w-full ' >
+                                    <div className=' flex items-center gap-2 ' >
+                                        <div className=' w-12 h-12 rounded-full bg-slate-600 '>
+                                            <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
                                         </div>
-                                        <CustomText className=' leading-[23px] font-medium mt-2 '  >
-                                            {item?.title}
-                                        </CustomText>
-                                        <CustomText className=' leading-[18px] text-xs ' >
-                                            {formatTimeAgo(new Date(item?.created_at ?? "").getTime())}
-                                        </CustomText>
+                                        <CustomText className=' leading-6 text-sm ' >{item?.author_name}</CustomText>
                                     </div>
-                                    <DeleteContent id={item?.id} />
+                                    <CustomText className=' leading-[23px] font-medium mt-2 '  >
+                                        {item?.title}
+                                    </CustomText>
+                                    <CustomText className=' leading-[18px] text-xs ' >
+                                        {formatTimeAgo(new Date(item?.created_at ?? "").getTime())}
+                                    </CustomText>
                                 </div>
+                                {admin &&
+                                    <DeleteContent id={item?.id} />
+                                }
+                            </div>
                             // </a>
                         )
                     })}
