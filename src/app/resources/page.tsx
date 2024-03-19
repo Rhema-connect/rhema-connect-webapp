@@ -8,7 +8,7 @@ function Resoures(props: Props) {
     const {} = props
 
 
-    let lang = localStorage.getItem("lang")?.toString()
+    let lang = localStorage.getItem("lang")+""
 
     useEffect(()=> {
         if(lang !== "true"){ 
