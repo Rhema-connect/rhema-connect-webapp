@@ -60,11 +60,11 @@ function VideoResourceInfo(props: Props) {
     return (
         <LoadingAnimation loading={isLoading} > 
             <div className=' w-full ' >
-                <div className=' w-full flex gap-6  ' >
+                <div className=' w-full  flex gap-6  ' >
                     <div className=' w-full h-[477px] rounded-[14px] bg-gray-600 ' >
                         <YouTube style={{borderRadius:"14px"}} videoId={data?.youtube_url?.slice(data?.youtube_url?.length - 11, data?.youtube_url?.length)} opts={opts} onReady={onReady} />
                     </div>
-                    <div className=' w-fit text-white ' >
+                    <div className=' w-fit lg:block hidden text-white ' >
                         <div className=' w-[321px] ' >
                             <CustomText className=' font-bold text-lg leading-7 ' >Others also likes</CustomText>
                             <Othervideo />
@@ -81,7 +81,7 @@ function VideoResourceInfo(props: Props) {
                         <Comments id={id ? id : 0} />
                     </div>
 
-                    <div className=' w-fit text-white ' >
+                    <div className=' lg:block hidden w-fit text-white ' >
                         <div className=' w-[321px] ' />
                     </div>
                 </div>
