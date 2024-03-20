@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "  " : " !bg-[#3B3B3B] "}  "`}>
         <Provider>
           <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white overflow-x-hidden inter `} >
-            <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " bg-[#3B3B3B] pb-3  z-[100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000] "} lg:px-8 w-screen z-[1000] fixed top-0 ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
+            <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " bg-[#3B3B3B] pb-3 !z-[1000000000] "} lg:px-8 w-screen z-[1000] fixed top-0 ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
               <Navbar pathname={pathname} />
             </div>
             {!pathname?.includes("/dashboard") &&
