@@ -31,7 +31,7 @@ function BookResource(props: Props) {
             onError: (error: any) => {
                 console.error(error);
             },
-            onSuccess: (data: any) => { 
+            onSuccess: (data: any) => {
                 if (data?.data?.data.length > 0) {
                     setData(data?.data?.data)
                 }
@@ -44,7 +44,11 @@ function BookResource(props: Props) {
         let slug: string = item?.title?.toString().split(' ').join('-') + ""
 
         localStorage?.setItem("bookurl", item?.url + "")
-        router.push("/resources-info/book/" + slug)
+        if (admin) {
+            router.push("/resources-info/book/" + slug)
+        } else {
+            router.push("/home/resources-info/book/" + slug)
+        }
     }
 
     return (

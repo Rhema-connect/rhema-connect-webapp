@@ -41,12 +41,16 @@ function VideoResource(props: Props) {
     const router = useRouter()
 
     const clickHandler = (item: string | number) => {
-        router.push("/resources-info/video/" + item)
+        if (admin) {
+            router.push("/resources-info/video/" + item)
+        } else {
+            router.push("/home/resources-info/video/" + item)
+        }
     }
 
     return (
         <LoadingAnimation loading={isLoading} length={data?.length} >
-            <div className=' w-full flex justify-center ' > 
+            <div className=' w-full flex justify-center ' >
                 <div className=' w-fit md:w-fit lg:w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
                     {data?.map((item: ContentData, index: number) => {
                         return (

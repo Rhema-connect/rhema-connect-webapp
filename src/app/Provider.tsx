@@ -1,24 +1,26 @@
 'use client';
 import { ChakraProvider } from '@chakra-ui/react';
+import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient();
 function Provider({ children }: any) {
 
+  const pathname = usePathname()
   // Create a client    
-  // useEffect(() => {
-  //   var addScript = document.createElement('script');
+  // useEffect(() => { 
+  //   var addScript: any = document.createElement('script');
   //   addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
-  //   document.body.appendChild(addScript);
+  //   document?.body?.appendChild(addScript);
   //   (window as any).googleTranslateElementInit = googleTranslateElementInit;
 
   //   // Cleanup function
-  //   return () => {
-  //     document.body.removeChild(addScript);
-  //     delete (window as any).googleTranslateElementInit;
-  //   };
-  // }, [])
+  //   // return () => {
+  //   //   document.body.removeChild(addScript);
+  //   //   delete (window as any).googleTranslateElementInit;
+  //   // };
+  // }, []) 
 
   // const googleTranslateElementInit = () => {
 
@@ -32,7 +34,7 @@ function Provider({ children }: any) {
   // }
 
   return (
-    <QueryClientProvider client={queryClient}> 
+    <QueryClientProvider client={queryClient}>
       <ChakraProvider>
         {children}
       </ChakraProvider>

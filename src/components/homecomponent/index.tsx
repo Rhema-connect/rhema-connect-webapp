@@ -22,7 +22,7 @@ function HomeComponent(props: Props) {
         { label: 'Arabic', value: '/auto/ar', image: '/images/flag1.png' },
         { label: 'Farsi', value: '/auto/fa', image: '/images/flag7.png' },
         { label: 'Turkish', value: '/auto/tr', image: '/images/flag3.png' },
-        { label: 'English', value: '', image: '/images/flag4.png' },
+        { label: 'English', value: '/auto/en', image: '/images/flag4.png' },
         { label: 'Spanish', value: '/auto/es', image: '/images/flag5.png' },
         { label: 'French', value: '/auto/fr', image: '/images/flag6.png' },
         { label: 'Portuguese', value: '/auto/pt', image: '/images/flag7.png' },
@@ -32,7 +32,7 @@ function HomeComponent(props: Props) {
     const clickHandler = (item: string) => { 
         setCookie('googtrans', decodeURI(item))
         setCheck(item) 
-        router.push('/resources')
+        router.push('/home/resources')
     }
 
     return (

@@ -19,7 +19,7 @@ function Books(props: Props) {
                 </div>
             </div> 
             <div className=' w-full pt-6 ' > 
-                <BookResource />
+                <BookResource admin={true} />
                 <div className=' h-12 ' />
             </div>
         </div>

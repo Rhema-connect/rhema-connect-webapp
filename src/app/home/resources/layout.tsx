@@ -25,15 +25,15 @@ function Layout(props: Props) {
     const route = [
         {
             name: 'Video',
-            route: '/resources'
+            route: '/home/resources'
         },
         {
             name: 'Audio',
-            route: '/resources/audio'
+            route: '/home/resources/audio'
         },
         {
             name: 'Books',
-            route: '/resources/book'
+            route: '/home/resources/book'
         },
     ]
 
