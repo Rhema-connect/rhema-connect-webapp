@@ -64,7 +64,7 @@ function Layout(props: Props) {
                         {route?.map((item: { name: string, route: string }, index) => {
                             if (item?.route === active)
                                 return (
-                                    <CustomText>{item?.name}</CustomText>
+                                    <CustomText key={index} >{item?.name}</CustomText>
                                 )
                         })}
                         <DownArrowIcon />
