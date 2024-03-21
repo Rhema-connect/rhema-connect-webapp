@@ -6,12 +6,6 @@ import React, { useEffect } from 'react'
 
 function Home() {
 
-  const router = useRouter()
-
-  useEffect(()=> {
-    router?.push("/dashboard/resources")
-  }, [])
-
   return (
     <HomeComponent />
   )

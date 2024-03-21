@@ -1,10 +1,17 @@
 import { Flex } from '@chakra-ui/react'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
 
 interface Props {}
 
 function Dashboard(props: Props) {
     const {} = props
+
+    const router = useRouter()
+  
+    useEffect(()=> {
+      router?.push("/dashboard/resources")
+    }, [])
 
     return (
         <div className=' w-full h-full ' >
