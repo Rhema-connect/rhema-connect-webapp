@@ -7,18 +7,20 @@ import { useQuery } from 'react-query';
 
 interface Props {
     type: "VIDEO" | "AUDIO",
+    setPlaylistId: (by: number | string) => void
     [x: string]: any;
 }
 
 function PlaylistSelector(props: Props) {
     const {
         type,
+        setPlaylistId,
         ...rest
     } = props
 
     const [data, setData] = useState([] as Array<IPlaylistData>)
 
-    const { isLoading, isRefetching } = useQuery(['videoplaylist'], () => actionService.getservicedata(`/content/playlists`,
+    const { isLoading, isRefetching } = useQuery(['videoplaylist'], () => actionService.getservicedata(`/content/playlists/all`,
         {
             limit: 10,
             page: 0,
@@ -36,12 +38,14 @@ function PlaylistSelector(props: Props) {
         }
     )
 
+    
+
     return (
         <LoadingAnimation loading={isLoading} length={data?.length} > 
-            <Select {...rest} placeholder='Select playlist' width={"full"} textColor="#000" fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"} >
+            <Select onChange={(e)=> setPlaylistId(e.target.value)} {...rest} placeholder='Select playlist' width={"full"} textColor="#000" fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"} >
                 {data?.map((item: IPlaylistData, index: number) => {
                     return (
-                        <option key={index} >{item?.title}</option>
+                        <option key={index} value={item?.id} >{item?.title}</option>
                     )
                 }
                 )}

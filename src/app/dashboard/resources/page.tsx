@@ -24,7 +24,7 @@ function Resources(props: Props) {
             <VideoPlatlist />
             <div className=' w-full pt-4 ' >
                 <p className=' font-bold text-[24px] leading-[36px] mb-4 text-black ' >Videos</p>
-                <VideoResource />
+                <VideoResource admin={true} />
                 <div className=' h-12 ' />
             </div>
         </div>

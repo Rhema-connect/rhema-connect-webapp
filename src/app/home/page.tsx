@@ -1,12 +1,13 @@
 'use client';
+import HomeComponent from '@/components/homecomponent';
 import { Button } from '@/components/ui/button';
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react'
 
 function Home() {
+
   return (
-    <div className="w-full h-screen flex items-center ustify-center">
-        <Button>Click me</Button>
-    </div>
+    <HomeComponent />
   )
 }
 

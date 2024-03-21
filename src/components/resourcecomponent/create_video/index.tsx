@@ -5,7 +5,7 @@ import InputComponent from '@/components/shared/inputcomponent'
 import ModalLayout from '@/components/shared/modal_layout'
 import CustomText from '@/components/shared/textcomponent'
 import { AddIcon } from '@/components/svg'
-import { useCreateContentCallback, useCreatePlaylistCallback, useUploaderCallback } from '@/connections/useaction'
+import { useCreateContentCallback, useCreatePlaylistCallback, useUploaderCallback, useupdatePlaylistCallback } from '@/connections/useaction'
 import { ContentData, CreatePlaylistData } from '@/models'
 import { Checkbox, Select, useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
@@ -20,10 +20,11 @@ function CreateVideoBtn(props: Props) {
     const { } = props
 
     const [open, setOpen] = useState(false)
-    const [show, setShow] = useState(false) 
+    const [show, setShow] = useState(false)
+    const [playlist, setPlaylistId] = useState("" as string | number)
 
     const [imageFile, setImageFIle] = useState("")
-    const [videoFile, setVideoFile] = useState("")
+    const { handleupdatePlaylist } = useupdatePlaylistCallback()
     const toast = useToast()
 
     const queryClient = useQueryClient()
@@ -44,7 +45,7 @@ function CreateVideoBtn(props: Props) {
             title: "",
             description: "",
             content_type: "AUDIO",
-            youtube_url: "", 
+            youtube_url: "",
         },
         validationSchema: loginSchema,
         onSubmit: () => { },
@@ -52,9 +53,6 @@ function CreateVideoBtn(props: Props) {
 
     //API call to handle adding user
     const createVideoMutation = useMutation(async (formData: ContentData) => {
-
-        console.log(formData);
-        
 
         const response = await handleCreateContent(formData);
 
@@ -94,6 +92,43 @@ function CreateVideoBtn(props: Props) {
     });
 
     //API call to handle adding user
+    const addToPlaylistMutation = useMutation(async (userdata: ContentData) => {
+
+        const response = await handleupdatePlaylist(userdata, playlist);
+
+        if (response?.status === 201 || response?.status === 200) {
+
+            toast({
+                title: response?.data?.message,
+                status: "success",
+                duration: 3000,
+                position: "top",
+            });
+
+            queryClient.invalidateQueries(['videolist'])
+            queryClient.invalidateQueries(['videoplaylist'])
+
+            return response;
+        } else if (response?.data?.statusCode === 400) {
+            toast({
+                title: response?.data?.message,
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        } else {
+            toast({
+                title: "Something went wrong",
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        }
+    });
+
+    //API call to handle adding user
     const uploaderMutation = useMutation(async (userdata: ContentData) => {
 
         let formData = new FormData()
@@ -101,25 +136,43 @@ function CreateVideoBtn(props: Props) {
 
         const response = await handleUploader(formData, imageFile);
 
-        console.log(response);
-
         if (response?.status === 201 || response?.status === 200) {
 
-            createVideoMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
-                onSuccess: (data: any) => {
-                    if (data) {
+
+            if (playlist) {
+
+                addToPlaylistMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
+                    onSuccess: (data: any) => {
                         setOpen(false)
-                    }
-                },
-            })
-                .catch(() => {
-                    toast({
-                        title: "Something went wrong",
-                        status: "error",
-                        duration: 3000,
-                        position: "top",
+                    },
+                })
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
                     });
-                });
+            } else {
+
+                createVideoMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
+                    onSuccess: (data: any) => {
+                        if (data) {
+                            setOpen(false)
+                        }
+                    },
+                })
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
+                    });
+
+            }
 
 
             return response;
@@ -166,7 +219,7 @@ function CreateVideoBtn(props: Props) {
 
         const userData = {
             ...formik?.values,
-            isDraft: false, 
+            isDraft: false,
             content_type: "VIDEO"
         };
 
@@ -186,10 +239,10 @@ function CreateVideoBtn(props: Props) {
         <>
             <CustomButton onClick={() => setOpen(true)} width={"fit-content"} icon={<AddIcon />} text={"Add New"} secondary={false} />
             <ModalLayout open={open} close={setOpen} title={""} size={"md"} >
-                <form onSubmit={(e)=> submit(e)} className=' w-full ' >
+                <form onSubmit={(e) => submit(e)} className=' w-full ' >
                     <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Videos</CustomText>
                     <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources and select which playlist if needed</CustomText>
-                    
+
                     <div className=' w-full mt-6 ' >
                         <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Video Url</CustomText>
                         <InputComponent
@@ -199,7 +252,7 @@ function CreateVideoBtn(props: Props) {
                                 formik.setFieldTouched("youtube_url", true, true)
                             }
                             touch={formik.touched.youtube_url}
-                            error={formik.errors.youtube_url} 
+                            error={formik.errors.youtube_url}
                             type='text' placeholder="Add Video" />
                     </div>
                     <div className=' w-full mt-6 ' >
@@ -211,7 +264,7 @@ function CreateVideoBtn(props: Props) {
                                 formik.setFieldTouched("title", true, true)
                             }
                             touch={formik.touched.title}
-                            error={formik.errors.title} 
+                            error={formik.errors.title}
                             type='text' placeholder="Add Title" />
                     </div>
                     <div className=' w-full mt-4 ' >
@@ -234,7 +287,8 @@ function CreateVideoBtn(props: Props) {
                     {show && (
                         <div className=' w-full mt-4 ' >
                             <CustomText className=" text-xs leading-[18px] mb-1 text-[#919EAB] " >Select Playlist</CustomText>
-                            <PlaylistSelector  
+                            <PlaylistSelector
+                                setPlaylistId={setPlaylistId}
                                 type="VIDEO" />
                         </div>
                     )}

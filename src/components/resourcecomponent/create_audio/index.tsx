@@ -5,8 +5,8 @@ import InputComponent from '@/components/shared/inputcomponent'
 import ModalLayout from '@/components/shared/modal_layout'
 import CustomText from '@/components/shared/textcomponent'
 import { AddIcon } from '@/components/svg'
-import { useCreateContentCallback, useCreatePlaylistCallback, useUploaderCallback } from '@/connections/useaction'
-import { ContentData, CreatePlaylistData } from '@/models'
+import { useCreateContentCallback, useCreatePlaylistCallback, useUploaderCallback, useupdatePlaylistCallback } from '@/connections/useaction'
+import { ContentData, CreatePlaylistData, IPlaylistData } from '@/models'
 import { Checkbox, Select, useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
@@ -20,9 +20,10 @@ function CreateAudioBtn(props: Props) {
     const { } = props
 
     const [open, setOpen] = useState(false)
-    const [show, setShow] = useState(false) 
+    const [show, setShow] = useState(false)
 
     const [imageFile, setImageFIle] = useState("")
+    const [playlist, setPlaylistId] = useState("" as string | number)
     const [videoFile, setVideoFile] = useState("")
     const toast = useToast()
 
@@ -30,11 +31,13 @@ function CreateAudioBtn(props: Props) {
 
     const { handleCreateContent } = useCreateContentCallback()
     const { handleUploader } = useUploaderCallback()
+    const { handleupdatePlaylist } = useupdatePlaylistCallback()
 
 
     const loginSchema = yup.object({
         title: yup.string().required('Required'),
         description: yup.string().required('Required'),
+        author_name: yup.string().required('Required'),
     })
 
     // formik
@@ -42,6 +45,7 @@ function CreateAudioBtn(props: Props) {
         initialValues: {
             title: "",
             description: "",
+            author_name: "",
             content_type: "AUDIO",
         },
         validationSchema: loginSchema,
@@ -50,7 +54,7 @@ function CreateAudioBtn(props: Props) {
 
     //API call to handle adding user
     const createPlayistMutation = useMutation(async (formData: ContentData) => {
-        const response = await handleCreateContent(formData); 
+        const response = await handleCreateContent(formData);
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -62,7 +66,8 @@ function CreateAudioBtn(props: Props) {
             });
 
             queryClient.invalidateQueries(['audilist'])
-
+            queryClient.invalidateQueries(['audiplaylist'])
+            
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -90,7 +95,7 @@ function CreateAudioBtn(props: Props) {
         formData.append("file", imageFile)
 
         const response = await handleUploader(formData, imageFile);
-        
+
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -135,28 +140,83 @@ function CreateAudioBtn(props: Props) {
     const audioMutation = useMutation(async (userdata: ContentData) => {
 
         let formData = new FormData()
-        formData.append("file", imageFile)
+        formData.append("file", videoFile)
 
-        const response = await handleUploader(formData, imageFile);
+        const response = await handleUploader(formData, videoFile);
 
         if (response?.status === 201 || response?.status === 200) {
 
-            createPlayistMutation.mutateAsync({ ...userdata, url: response?.data }, {
-                onSuccess: (data: any) => {
-                    if (data) {
+            if (playlist) {
+
+                addToPlaylistMutation.mutateAsync({ ...userdata, url: response?.data}, {
+                    onSuccess: (data: any) => {
                         setOpen(false)
-                    }
-                },
-            })
-                .catch(() => {
-                    toast({
-                        title: "Something went wrong",
-                        status: "error",
-                        duration: 3000,
-                        position: "top",
+                    },
+                })
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
                     });
-                });
- 
+            } else {
+
+                createPlayistMutation.mutateAsync({ ...userdata, url: response?.data }, {
+                    onSuccess: (data: any) => {
+                        if (data) {
+                            setOpen(false)
+                        }
+                    },
+                })
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
+                    });
+            }
+
+            return response;
+        } else if (response?.data?.statusCode === 400) {
+            toast({
+                title: response?.data?.message,
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        } else {
+            toast({
+                title: "Something went wrong",
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        }
+    });
+
+    //API call to handle adding user
+    const addToPlaylistMutation = useMutation(async (userdata: ContentData) => {
+
+        const response = await handleupdatePlaylist(userdata, playlist);
+
+        if (response?.status === 201 || response?.status === 200) {
+
+            toast({
+                title: response?.data?.message,
+                status: "success",
+                duration: 3000,
+                position: "top",
+            });
+
+            queryClient.invalidateQueries(['audilist'])
+            queryClient.invalidateQueries(['audiplaylist'])
+
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -216,11 +276,16 @@ function CreateAudioBtn(props: Props) {
 
     }
 
+    const closeHandler = () => {
+        setOpen(false)
+        setShow(false)
+    }
+
     return (
         <>
             <CustomButton onClick={() => setOpen(true)} width={"fit-content"} icon={<AddIcon />} text={"Add New"} secondary={false} />
-            <ModalLayout open={open} close={setOpen} title={""} size={"md"} >
-                <form onSubmit={(e)=> submit(e)} className=' w-full ' >
+            <ModalLayout open={open} close={closeHandler} title={""} size={"md"} >
+                <form onSubmit={(e) => submit(e)} className=' w-full ' >
                     <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Audio</CustomText>
                     <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources and select which playlist if needed</CustomText>
                     <div className=' w-full mt-6 ' >
@@ -235,8 +300,20 @@ function CreateAudioBtn(props: Props) {
                                 formik.setFieldTouched("title", true, true)
                             }
                             touch={formik.touched.title}
-                            error={formik.errors.title} 
+                            error={formik.errors.title}
                             type='text' placeholder="Add Title" />
+                    </div>
+                    <div className=' w-full mt-4 ' >
+                        <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Author Name</CustomText>
+                        <InputComponent
+                            name="author_name"
+                            onChange={formik.handleChange}
+                            onFocus={() =>
+                                formik.setFieldTouched("author_name", true, true)
+                            }
+                            touch={formik.touched.author_name}
+                            error={formik.errors.author_name}
+                            type='text' placeholder="Add Author Name" />
                     </div>
                     <div className=' w-full mt-4 ' >
                         <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Description</CustomText>
@@ -258,16 +335,9 @@ function CreateAudioBtn(props: Props) {
                     {show && (
                         <div className=' w-full mt-4 ' >
                             <CustomText className=" text-xs leading-[18px] mb-1 text-[#919EAB] " >Select Playlist</CustomText>
-                            <PlaylistSelector 
-                                // name="title"
-                                // textarea={true}
-                                // onChange={formik.handleChange}
-                                // onFocus={() =>
-                                //     formik.setFieldTouched("title", true, true)
-                                // }
-                                // touch={formik.touched.title}
-                                // error={formik.errors.title}
-                                type="VIDEO" />
+                            <PlaylistSelector
+                                setPlaylistId={setPlaylistId}
+                                type="AUDIO" />
                         </div>
                     )}
                     <div className=' w-full mt-4 ' >

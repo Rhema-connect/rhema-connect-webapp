@@ -22,7 +22,7 @@ function Audio(props: Props) {
                 </div>
             </div> 
             <div className=' w-full pt-4 ' > 
-                <AudioResource />
+                <AudioResource admin={true} />
                 <div className=' h-12 ' />
             </div>
         </div>

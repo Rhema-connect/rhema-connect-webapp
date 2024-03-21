@@ -6,48 +6,17 @@ import actionService from '@/connections/getdataaction'
 import { useQuery } from 'react-query'
 import { ContentData } from '@/models'
 import LoadingAnimation from '@/components/shared/loading_animation'
+import DeleteContent from '../delete_content'
+import { textLimit } from '@/util/textlimit'
 
 interface Props {
-
+    admin?: boolean
 }
 
 function VideoResource(props: Props) {
-    const { } = props
-
-    const datainfo = [
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-        {
-            title: 'This is the video title',
-            body: 'A short description goes here views and date'
-        },
-    ]
+    const {
+        admin
+    } = props
 
     const [data, setData] = useState([] as Array<ContentData>)
 
@@ -71,24 +40,45 @@ function VideoResource(props: Props) {
 
     const router = useRouter()
 
+    const clickHandler = (item: string | number) => {
+        if (admin) {
+            router.push("/resources-info/video/" + item)
+        } else {
+            router.push("/home/resources-info/video/" + item)
+        }
+    }
+
     return (
         <LoadingAnimation loading={isLoading} length={data?.length} >
-            <div className=' w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
-                {data?.map((item: ContentData, index: number) => {
-                    return (
-                        <div role='button' onClick={() => router.push("/resources-info/video")} key={index} className=' w-full  ' >
-                            <div className=' w-full lg:w-full lg:h-[180px] h-[160px] bg-red-900 rounded-2xl ' >
-                                <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
+            <div className=' w-full flex justify-center ' >
+                <div className=' w-fit md:w-fit lg:w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
+                    {data?.map((item: ContentData, index: number) => {
+                        return (
+                            <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
+                                <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
+                                    <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
+                                </div>
+                                <div className=' w-full flex justify-between  mt-4 ' >
+                                    <div>
+                                        <CustomText className=' leading-[30px] font-bold text-[20px]'  >
+                                            {item?.title}
+                                        </CustomText>
+                                        {item?.description && (
+                                            <CustomText className=' text-[14px] leading-6 ' >
+                                                {textLimit(item?.description, 30)}
+                                            </CustomText>
+                                        )}
+                                    </div>
+                                    {admin && (
+                                        <div className=' w-fit ' >
+                                            <DeleteContent id={item?.id} />
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                            <CustomText className=' leading-[30px] font-bold text-[20px] mt-4 '  >
-                                {item?.title}
-                            </CustomText>
-                            <CustomText className=' text-[14px] leading-6 ' >
-                                {item?.description}
-                            </CustomText>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
         </LoadingAnimation>
     )

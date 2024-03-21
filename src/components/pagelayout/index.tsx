@@ -19,7 +19,7 @@ function PageLayout(props: Props) {
 
     useEffect(() => {
         setActive(pathname)
-    }, [])
+    }, []) 
 
     return ( 
         <div className=' w-full relative mt-8 pb-4 ' >

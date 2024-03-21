@@ -14,16 +14,16 @@ function Sidebar(props: Props) {
     const topmenu = [
         {
             name: "Dashboard",
-            path: "/dashboard"
-        },
-        {
-            name: "Resources",
             path: "/dashboard/resources"
         },
-        {
-            name: "Statistics",
-            path: "/dashboard/statistics"
-        },
+        // {
+        //     name: "Resources",
+        //     path: "/dashboard/resources"
+        // },
+        // {
+        //     name: "Statistics",
+        //     path: "/dashboard/statistics"
+        // },
     ]
 
     const bottommenu = [
@@ -33,7 +33,7 @@ function Sidebar(props: Props) {
         },
         {
             name: "Configurations",
-            path: "/dashboard/configurations"
+            path: "/dashboard/configuration"
         },
     ]
 
@@ -57,12 +57,12 @@ function Sidebar(props: Props) {
             <div className=' w-full pt-6 flex flex-col gap-4 ' >
                 {topmenu?.map((item: { name: string, path: string }, index: number) => {
                     return (
-                        <div key={index} role='button' onClick={() => clickHandler(item?.path)} className={` w-full h-[56px] ${item?.name === "Dashboard" ? "bg-[#BE0027] text-white" : ""} ${(item?.name !== "Dashboard" && item?.path === active) ? " bg-[#F4F4F4] text-[#212B36] " : " text-white "} px-3 flex  items-center gap-3 rounded-[8px] `} >
+                        <div key={index} role='button' onClick={() => clickHandler(item?.path)} className={` w-full h-[56px] ${item?.name === "Dashboard" ? "bg-[#BE0027] text-white" : ""} ${(item?.name !== "Dashboard" && item?.path.includes(active)) ? " bg-[#F4F4F4] text-[#212B36] " : " text-white "} px-3 flex  items-center gap-3 rounded-[8px] `} >
                             {item?.name === "Dashboard" && (
                                 <DashboardIcon color='white' />
                             )}
                             {item?.name === "Resources" && (
-                                <ResourceIcon color={item?.path === active ? "#212B36" : 'white'} />
+                                <ResourceIcon color={item?.path.includes(active) ? "#212B36" : 'white'} />
                             )}
                             {item?.name === "Statistics" && (
                                 <FileIcon color='white' />
@@ -75,12 +75,12 @@ function Sidebar(props: Props) {
             <div className=' w-full pt-6 mt-auto flex flex-col gap-4 ' >
                 {bottommenu?.map((item: { name: string, path: string }, index: number) => {
                     return (
-                        <div key={index} role='button' onClick={() => clickHandler(item?.path)} className={` w-full h-[56px] ${item?.name === "Dashboard" ? "bg-[#BE0027] text-white" : ""} ${(item?.name !== "Dashboard" && item?.path === active) ? " bg-[#F4F4F4] text-[#212B36] " : " text-white "} px-3 flex  items-center gap-3 rounded-[8px] `} >
+                        <div key={index} role='button' onClick={() => clickHandler(item?.path)} className={` w-full h-[56px] ${item?.name === "Dashboard" ? "bg-[#BE0027] text-white" : ""} ${(item?.name !== "Dashboard" && item?.path.includes(active)) ? " bg-[#F4F4F4] text-[#212B36] " : " text-white "} px-3 flex  items-center gap-3 rounded-[8px] `} >
                             {item?.name === "Help Desk" && (
                                 <HelpIcon color='white' />
                             )}
                             {item?.name === "Configurations" && (
-                                <SettingsIcon color={item?.path === active ? "#212B36" : 'white'} />
+                                <SettingsIcon color={item?.path.includes(active) ? "#212B36" : 'white'} />
                             )}
                             {item?.name === "Statistics" && (
                                 <FileIcon color='white' />

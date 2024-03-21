@@ -3,16 +3,16 @@ import CustomButton from '@/components/shared/custom_button'
 import InputComponent from '@/components/shared/inputcomponent'
 import { BackIcon, EyeIcon } from '@/components/svg'
 import { LoginDataType, useLoginCallback } from '@/connections/useauth'
-import { Input, useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 import { useMutation } from 'react-query'
 
 interface Props { }
 
-function Dashboard(props: Props) {
+function Auth(props: Props) {
     const { } = props
     const toast = useToast()
     const navigate = useRouter()
@@ -43,9 +43,11 @@ function Dashboard(props: Props) {
             });
 
             localStorage.setItem("token", response.data?.data?.token);
+            localStorage.setItem("id", response?.data?.data?.user?.id); 
 
             return response;
         } else if (response?.data?.statusCode === 400) {
+ 
             toast({
                 title: response?.data?.message,
                 status: "error",
@@ -58,7 +60,7 @@ function Dashboard(props: Props) {
                 title: "Something went wrong",
                 status: "error",
                 duration: 3000,
-                position: "top",
+                position: "bottom",
             });
             return
         }
@@ -84,18 +86,10 @@ function Dashboard(props: Props) {
 
         loginMutation.mutateAsync(loginData, {
             onSuccess: (data: any) => {
-                if (data) {
-                    console.log(data?.data?.data?.token);
-
-                    // localStorage.setItem("token", data?.data?.data?.token);
-                    // localStorage.setItem("email", data?.data?.data?.details?.email);
-                    // localStorage.setItem("phone", data?.data?.data?.details?.phone);
-                    // localStorage.setItem("id", data?.data?.data?.details?.id);
-                    // localStorage.setItem("name", data?.data?.data?.details?.name);
-                    // localStorage.setItem("notoken", "");
-                    navigate.push("/dashboard")
+                if (data) { 
+                    // navigate.push("/dashboard")
+                    navigate?.push("/dashboard/resources")
                 }
-
             },
         })
             .catch(() => {
@@ -106,22 +100,10 @@ function Dashboard(props: Props) {
                     position: "top",
                 });
             });
-    }
-
-    // useEffect(() => {
-    //     if (localStorage.getItem("notoken") === "true") {
-    //         toast({
-    //             title: "Token expire, please login",
-    //             status: "error",
-    //             duration: 3000,
-    //             position: "top",
-    //         });
-    //     }
-    // }, [])
-
+    } 
 
     return (
-        <div className=' w-full flex justify-center items-center h-full text-[#212B36] pt-24 ' >
+        <div className=' w-full pt-10 flex justify-center items-center h-full text-[#212B36]  ' >
             <div className=' max-w-[460px]  w-full ' >
                 <div className=' flex gap-2 items-center '  >
                     <BackIcon />
@@ -164,4 +146,4 @@ function Dashboard(props: Props) {
     )
 }
 
-export default Dashboard
+export default Auth

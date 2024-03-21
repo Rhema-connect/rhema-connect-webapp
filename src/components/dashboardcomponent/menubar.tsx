@@ -9,7 +9,7 @@ function Menubar(props: Props) {
     const pathname = usePathname();
     const router = useRouter();
 
-    const clickHandler =(item: string)=> {
+    const clickHandler = (item: string) => {
         router.push(item)
     }
 
@@ -20,17 +20,25 @@ function Menubar(props: Props) {
                     <p className=' text-[20px] font-bold leading-[20px] '>Manage Resources</p>
                     <p className=' leading-[22px] text-[12px] mt-1' >Create, edit and resources</p>
                 </div>
-                <div className=' mt-5 flex ' >
-                    <div role='button' onClick={()=> clickHandler("/dashboard/resources")} className={` w-[95px] ${pathname === "/dashboard/resources"  ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
-                        Videos
+                {!pathname?.includes("configuration") ? ( 
+                    <div className=' mt-5 flex ' >
+                        <div role='button' onClick={() => clickHandler("/dashboard/resources")} className={` w-[95px] ${pathname === "/dashboard/resources" ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
+                            Videos
+                        </div>
+                        <div role='button' onClick={() => clickHandler("/dashboard/resources/audios")} className={` w-[127px] ${pathname === "/dashboard/resources/audios" ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
+                            Audios
+                        </div>
+                        <div role='button' onClick={() => clickHandler("/dashboard/resources/books")} className={` w-[117px] ${pathname === "/dashboard/resources/books" ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
+                            Pdfs/Books
+                        </div>
                     </div>
-                    <div role='button' onClick={()=> clickHandler("/dashboard/resources/audios")} className={` w-[127px] ${pathname === "/dashboard/resources/audios"  ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
-                        Audios
+                ) : (
+                    <div className=' mt-5 flex ' >
+                        <div role='button' className={` w-[95px] ${pathname?.includes("configuration") ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
+                            General
+                        </div>
                     </div>
-                    <div role='button' onClick={()=> clickHandler("/dashboard/resources/books")} className={` w-[117px] ${pathname === "/dashboard/resources/books"  ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
-                        Pdfs/Books
-                    </div>
-                </div>
+                )}
             </div>
         </div>
     )

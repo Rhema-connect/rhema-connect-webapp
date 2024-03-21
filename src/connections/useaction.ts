@@ -48,6 +48,37 @@ export function useCreatePlaylistCallback() {
   return { handleCreatePlaylist }
 }
 
+export function useupdatePlaylistCallback() {
+  const handleupdatePlaylist = async (postData: any, index: number | string): Promise<any> => {
+    try {
+      const response = await axios.put('/content/update-playlist/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleupdatePlaylist }
+}
+
+
+export function useupdatePasswordCallback() {
+  const handleupdatePassword = async (postData: any, index: number): Promise<any> => {
+    try {
+      const response = await axios.put('/admin/auth/change-password/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleupdatePassword }
+}
+
 export function useCreateContentCallback() {
   const handleCreateContent = async (postData: any): Promise<any> => {
     try {
@@ -63,12 +94,11 @@ export function useCreateContentCallback() {
   return { handleCreateContent }
 }
 
-export function useGetDataCallback() {
-  const handleGetData = async (url: string, params?: any): Promise<any> => {
+export function useCreateBookCallback() {
+  const handleCreateBook = async (postData: any): Promise<any> => {
     try {
-      const response = await axios.get(url,
+      const response = await axios.post('/content/create-book', postData,
         {
-          params: params,
           headers: { 'Content-Type': 'application/json' },
         });
       return response
@@ -76,5 +106,50 @@ export function useGetDataCallback() {
       return err?.response
     }
   }
-  return { handleGetData }
+  return { handleCreateBook }
 }
+
+export function useAddCommentsCallback() {
+  const handleAddComments = async (postData: any, index: number): Promise<any> => {
+    try {
+      const response = await axios.post('/content/comment/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleAddComments }
+} 
+
+export function useDeleteContentCallback() {
+  const handleDeleteContent = async (index: number | string): Promise<any> => {
+    try {
+      const response = await axios.delete('/content/'+index,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleDeleteContent }
+} 
+
+export function useDeletePlaylistCallback() {
+  const handleDeletePlaylist = async (index: number | string): Promise<any> => {
+    try {
+      const response = await axios.delete('/content/playlist/'+index,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleDeletePlaylist }
+} 
