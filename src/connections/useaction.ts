@@ -63,6 +63,22 @@ export function useupdatePlaylistCallback() {
   return { handleupdatePlaylist }
 }
 
+
+export function useupdatePasswordCallback() {
+  const handleupdatePassword = async (postData: any, index: number): Promise<any> => {
+    try {
+      const response = await axios.put('/admin/auth/change-password/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleupdatePassword }
+}
+
 export function useCreateContentCallback() {
   const handleCreateContent = async (postData: any): Promise<any> => {
     try {

@@ -91,9 +91,7 @@ function VideoResourceInfo(props: Props) {
 
                 <Drawer onClose={onClose} placement='bottom' size={"md"} isOpen={isOpen}>
                     <DrawerOverlay />
-                    <DrawerContent padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} >
-                        {/* <DrawerHeader borderBottom={"1px solid #828282"} color={"white"} >Others also likes</DrawerHeader>
-                        <DrawerCloseButton onClick={()=> onClose()} color={"white"} /> */}
+                    <DrawerContent padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} > 
                         <DrawerBody padding={"0px"} m={"0px"}>
                             <div className=' px-6 flex py-3 flex-col items-center ' >
                                 <div className=' bg-[#D9D9D9] h-1 w-[56px] rounded-sm ' />
@@ -105,7 +103,7 @@ function VideoResourceInfo(props: Props) {
                                 </div>
                             </div>
                             <div className=' w-full text-white flex flex-col bg-[#3b3b3b] pl-6 ' >
-                                {/* <CustomText className=' font-bold text-lg leading-7 ' >Others also likes</CustomText> */}
+                                <CustomText className=' font-bold text-lg hidden lg:block leading-7 ' >Others also likes</CustomText>
                                 <Othervideo />
                             </div>
                         </DrawerBody>

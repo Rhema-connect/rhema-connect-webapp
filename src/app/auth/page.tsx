@@ -43,6 +43,7 @@ function Auth(props: Props) {
             });
 
             localStorage.setItem("token", response.data?.data?.token);
+            localStorage.setItem("id", response?.data?.data?.user?.id); 
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -86,9 +87,9 @@ function Auth(props: Props) {
         loginMutation.mutateAsync(loginData, {
             onSuccess: (data: any) => {
                 if (data) { 
-                    navigate.push("/dashboard")
+                    // navigate.push("/dashboard")
+                    navigate?.push("/dashboard/resources")
                 }
-
             },
         })
             .catch(() => {

@@ -35,3 +35,20 @@ export interface CommentData {
   content_id: number,
   created_at?: string
 }
+
+export interface UserData {
+  id: number,
+  firstName: string,
+  lastName: string,
+  middleName: string,
+  email: string,
+  gender: string,
+  phone: number,
+  created_at: string,
+}
+
+export interface PasswordData {
+  oldPasswword: string,
+  password: string,
+  confirmPassword: string
+}
