@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+"use client"
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 
