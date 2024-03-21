@@ -98,11 +98,7 @@ body {
 #google_translate_element span {
   position: absolute !important;
   color: transparent;
-}
-
-element.style {
-  border-left: 0px solid rgb(187, 187, 187);
-}
+} 
 
 .goog-te-gadget-icon {
   display: none !important;
@@ -119,4 +115,28 @@ element.style {
 #notranslate {
   /* Prevent translation for selected elements */
   translate: no;
+}
+
+.drawer {
+  background-color: #3b3b3b !important;
+}
+
+.drawer__backdrop {
+  background-color: #3b3b3b !important;
+}
+
+.drawer__handle-wrapper {
+  background-color: #3b3b3b !important;
+}
+
+.drawer__handle {
+  background-color: #3b3b3b !important;
+}
+
+.rbd-nc9bzmek9lj-dr {
+  background-color: #3b3b3b !important;
+}
+
+.css-s0w88d {
+  z-index: 10000000000 !important;
 }

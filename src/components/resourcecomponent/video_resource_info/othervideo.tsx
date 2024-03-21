@@ -35,7 +35,7 @@ function Othervideo(props: Props) {
     }
 
     return (
-        <div className=' w-full mt-6 max-h-[420px] flex flex-col gap-4 pr-3 overflow-y-auto ' >
+        <div className=' w-full py-4 max-h-[70vh] lg:max-h-[420px] flex flex-col gap-4 overflow-y-auto ' >
             {data?.map((item: ContentData, index: number) => {
                 return (
                     <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' w-full flex items-center gap-3 ' >
@@ -49,7 +49,7 @@ function Othervideo(props: Props) {
                         </div>
                     </div>
                 )
-            })}
+            })} 
         </div>
     )
 }

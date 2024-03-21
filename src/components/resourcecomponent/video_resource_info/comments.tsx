@@ -44,8 +44,8 @@ function Comments(props: Props) {
                     </div>
                     <div className=' pt-2 w-full ' >
                         <div className=' flex gap-3 items-center ' >
-                            <CustomText className=' leading-[24px] font-medium ' >{props?.name}</CustomText>
-                            <CustomText className=' leading-[22px] text-[#707070] text-sm ' >{formatTimeAgo(new Date(props?.created_at ?? "").getTime())}</CustomText>
+                            <CustomText className=' leading-[24px] font-medium ' >{props?.name} <span style={{ fontSize: "13px", color: "#707070" }} >{formatTimeAgo(new Date(props?.created_at ?? "").getTime())}</span></CustomText>
+                            <CustomText className=' leading-[22px] text-[#707070] text-sm ' ></CustomText>
                         </div>
                         <CustomText className=' leading-[24px] mt-3 ' >{props?.comment}</CustomText>
                     </div>
