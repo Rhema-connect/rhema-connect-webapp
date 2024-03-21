@@ -21,7 +21,7 @@ export default function Password() {
         oldPasswword: yup.string().required('Your password is required').min(6, 'A minimium of 6 characters'),
     })
 
-    let userid = localStorage.getItem("id")?.toString()
+    let userid = typeof window !== "undefined" ? (window as any).localStorage.getItem("id")?.toString() : ""
 
     const { handleupdatePassword } = useupdatePasswordCallback()
 

@@ -24,7 +24,7 @@ export default function Configuration() {
         onSubmit: () => { },
     });
 
-    let userid = (window as any).localStorage.getItem("id")?.toString()
+    let userid = typeof window !== "undefined" ? (window as any).localStorage.getItem("id")?.toString() : ""
 
     // const [data, setData] = useState({} as Array<any>)
 
