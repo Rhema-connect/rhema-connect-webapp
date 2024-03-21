@@ -2,9 +2,7 @@
 import InputComponent from '@/components/shared/inputcomponent';
 import LoadingAnimation from '@/components/shared/loading_animation';
 import actionService from '@/connections/getdataaction';
-import { UserData } from '@/models';
-import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useFormik } from 'formik'; 
 import { useQuery } from 'react-query';
 import * as yup from 'yup'
 
@@ -26,7 +24,7 @@ export default function Configuration() {
         onSubmit: () => { },
     });
 
-    let userid = localStorage.getItem("id")?.toString()
+    let userid = (window as any).localStorage.getItem("id")?.toString()
 
     // const [data, setData] = useState({} as Array<any>)
 
