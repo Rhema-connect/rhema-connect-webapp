@@ -7,6 +7,7 @@ import Navbar from '@/components/shared/navbar'
 import { usePathname } from 'next/navigation'
 import { ChakraProvider } from '@chakra-ui/react'
 import { useEffect } from 'react'
+import CustomText from '@/components/shared/textcomponent'
 // import { useEffect } from 'react' 
 
 const inter = Inter({ subsets: ['latin'], variable: "--font-inter" })
@@ -26,23 +27,27 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "  " : " !bg-[#3B3B3B] "}  "`}>
+      <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "  " : " !bg-[#3B3B3B] "} !overflow-hidden "`}>
         <Provider>
-          <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : " !bg-[#3B3B3B] "} w-full flex flex-col items-center justify-center relative text-white overflow-x-hidden inter `} >
-            <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " bg-[#3B3B3B] pb-3 !z-[1000000000] "} lg:px-8 w-screen z-[1000] fixed top-0 ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
-              <Navbar pathname={pathname} />
-            </div>
-            {!pathname?.includes("/dashboard") &&
-              <div className=' h-[100px]  ' />
-            }
-            <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1274px] lg:px-8"}  w-full h-fit `}>
+          <div className=' w-screen h-screen fixed overflow-x-hidden overflow-y-hidden top-0 bottom-0 !z-[1000000000] !bg-[#3B3B3B] ' >
+            <img src='/images/bg.png' alt='bg' className=' fixed inset-0 object-cover w-full h-full z-10 ' />
+            <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : "  "} w-full flex flex-col items-center text-white h-screen overflow-x-hidden relative overflow-y-auto z-20 `} >
 
-              <div className=' w-full h-full ' >
-                <div className={` lg:static lg:px-0 ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-6 " : ""}  relative w-full `} >
-                  {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
-                    <div className=' w-[80%] lg:w-[625px] h-[146px] lg:h-[392px] bg-[#828282] lg:rounded-tr-none rounded-tr-2xl rounded-br-2xl opacity-20 absolute top-0 left-0 ' />
-                  )}
+              <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " pb-3 "} lg:px-8 w-screen lg:h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
+                <Navbar pathname={pathname} />
+              </div>
+              <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1145px] lg:px-8"} w-full h-auto `}>
+                {/* <div className=' w-full h-full  ' > */}
+                <div className={` ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-0 " : ""}  w-full h-full   `} >
                   {children}
+                </div>
+                {/* </div> */}
+              </div>
+              <div className=' w-full h-fit mt-auto ' > 
+                <div className=' w-full flex justify-center items-center h-[50px] bg-[#3B3B3B] ' >
+                  <div className=' max-w-[1145px] lg:px-8 px-6 w-full ' >
+                    <CustomText className='text-[16px] text-[#BEBEBE] text-sm ' >© RHEMA MENA 2023. All right reserved</CustomText>
+                  </div>
                 </div>
               </div>
             </div>

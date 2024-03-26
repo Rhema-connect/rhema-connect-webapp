@@ -52,7 +52,7 @@ function Navbar(props: Props) {
     }, [])
 
     return (
-        <div className={` w-full relative z-10 flex lg:px-6 px-6 ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "lg:h-[96px] h-[86px] text-black " : " h-full "} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "items-center  justify-between " : ""} lg:${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : "flex-col"} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "flex-row-reverse" : "flex-col-reverse"}  `} >
+        <div className={` w-full relative flex lg:px-6 px-6 ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "lg:h-[96px] h-[86px] text-black " : " h-full "} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "items-center  justify-between " : ""} lg:${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : "flex-col"} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "flex-row-reverse" : "flex-col"}  `} >
             {(!pathname?.includes("/auth") && pathname?.includes("home") ) ? (
                 <label className=' w-full flex lg:justify-end ' >
                     <div role='button' className={` w-fit relative flex  items-center ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " lg:h-[80px] lg:mt-0 mt-6" : "h-fit text-sm "} gap-2 `} >
@@ -76,11 +76,11 @@ function Navbar(props: Props) {
                     <img src='/images/logo.svg' alt='logo' /> :
                     <img src='/images/logoblack.svg' className=' ml-auto ' alt='logoblack' />
                 }
-                {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
+                {/* {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
                     <button className=' w-fit lg:hidden ' >
                         <MenuIcon />
                     </button>
-                )}
+                )} */}
             </div>
         </div>
     )
