@@ -1,7 +1,7 @@
 import { ImageIcon } from '@/components/svg'
 import React, { useState } from 'react'
 import CustomText from '../textcomponent'
-import { Image, Input } from '@chakra-ui/react'
+import { Image, Input, Toast, useToast } from '@chakra-ui/react'
 import CustomButton from '../custom_button'
 
 interface Props {
@@ -13,6 +13,7 @@ function CustomUploader(props: Props) {
         setImage
     } = props
 
+    const toast = useToast()
     const [imageView, setImageView] = useState("")
 
     const handleImageChange = (e: any) => {

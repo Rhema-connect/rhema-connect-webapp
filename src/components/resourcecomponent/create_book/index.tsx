@@ -273,7 +273,7 @@ function CreateBookBtn(props: Props) {
                         <CustomUploader setImage={setImageFIle} />
                     </div>
                     <div className=' w-full gap-4 flex mt-6 ' >
-                        <CustomButton text={"Cancel"} secondary={true} />
+                        <CustomButton onClick={()=> setOpen(false)}  text={"Cancel"} secondary={true} />
                         <CustomButton type="submit" isLoading={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} disable={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading} text={"Create Book"} secondary={false} />
                     </div>
                 </form>

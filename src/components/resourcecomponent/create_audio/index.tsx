@@ -345,7 +345,7 @@ function CreateAudioBtn(props: Props) {
                         <CustomUploader setImage={setImageFIle} />
                     </div>
                     <div className=' w-full gap-4 flex mt-6 ' >
-                        <CustomButton text={"Cancel"} secondary={true} />
+                        <CustomButton onClick={()=> setOpen(false)} text={"Cancel"} secondary={true} />
                         <CustomButton type="submit" isLoading={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || audioMutation?.isLoading} disable={createPlayistMutation?.isLoading || uploaderMutation?.isLoading || audioMutation?.isLoading} text={"Create Audio"} secondary={false} />
                     </div>
                 </form>

@@ -297,8 +297,8 @@ function CreateVideoBtn(props: Props) {
                         <CustomUploader setImage={setImageFIle} />
                     </div>
                     <div className=' w-full gap-4 flex mt-6 ' >
-                        <CustomButton text={"Cancel"} secondary={true} />
-                        <CustomButton type="submit" isLoading={uploaderMutation?.isLoading || createVideoMutation.isLoading} text={"Create Playlist"} secondary={false} />
+                        <CustomButton onClick={()=> setOpen(false)} text={"Cancel"} secondary={true} />
+                        <CustomButton type="submit" isLoading={uploaderMutation?.isLoading || createVideoMutation.isLoading} text={"Create Video"} secondary={false} />
                     </div>
                 </form>
             </ModalLayout>

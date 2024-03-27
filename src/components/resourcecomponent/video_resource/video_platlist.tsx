@@ -1,10 +1,13 @@
 import LoadingAnimation from '@/components/shared/loading_animation';
+import ModalLayout from '@/components/shared/modal_layout';
 import { VideoIcon } from '@/components/svg'
 import actionService from '@/connections/getdataaction';
 import { IPlaylistData } from '@/models';
 import { Image } from '@chakra-ui/react';
 import React, { useState } from 'react'
+import { IoMdMore } from "react-icons/io";
 import { useQuery } from 'react-query';
+import PlaylistForm from '../create_playlist/playlist_form';
 
 interface Props { }
 
@@ -12,6 +15,10 @@ function VideoPlatlist(props: Props) {
     const { } = props
 
     const [data, setData] = useState([] as Array<IPlaylistData>)
+    const [currentdata, setCurrentData] = useState({} as IPlaylistData)
+
+    const [show, setShow] = useState("")
+    const [open, setOpen] = useState(false)
 
 
     const { isLoading } = useQuery(['videoplaylist'], () => actionService.getservicedata(`/content/playlists/all`,
@@ -30,11 +37,20 @@ function VideoPlatlist(props: Props) {
             }
         }
     )
-    
+
+    const editHandler = (item: IPlaylistData) => {
+        setCurrentData(item)
+        setOpen(true)
+        setShow("")
+    }
+
+    console.log(show);
+
+
     return (
         <LoadingAnimation loading={isLoading} >
-            <div className=' w-full py-4 flex gap-4 ' >
-                {data?.slice(0, 2)?.map((item: IPlaylistData, index: number) => {
+            <div className=' w-full py-4 grid grid-cols-3 gap-6 ' >
+                {data?.map((item: IPlaylistData, index: number) => {
                     return (
                         <div key={index} className=' w-full flex gap-3 items-center justify-between px-4 shadow-xl py-2 rounded-lg ' >
                             <div className=' flex items-center gap-3 ' >
@@ -46,11 +62,34 @@ function VideoPlatlist(props: Props) {
                                     <p className=' text-[#637381] text-[12px] leading-[18px] mt-1 ' >Playlist ・{item?.items?.length} videos</p>
                                 </div>
                             </div>
-                            <VideoIcon />
+                            <div className=' flex gap-2 items-center ' > 
+                                <VideoIcon />
+                                <div className=' relative mt-1 ' >
+                                    <button onClick={() => setShow(item?.id + "")} className='  ' >
+                                        <IoMdMore size={"20px"} />
+                                    </button>
+                                    {show === item?.id + "" && (
+                                        <div className=' top-[30px] z-20 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                            <div onClick={() => editHandler(item)} role='button' className=' w-full  h-5 ' >
+                                                Edit playlist
+                                            </div>
+                                            <div role='button' className=' h-5 text-red-600 ' >
+                                                Delete
+                                            </div>
+                                        </div>
+                                    )}
+                                    {show === item?.id + "" && (
+                                        <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     )
                 })}
             </div>
+            <ModalLayout open={open} close={setOpen} size={"lg"} title={"Edit Platlist"} >
+                <PlaylistForm typeinfo={"VIDEO"} setOpen={setOpen} edit={true} data={currentdata} />
+            </ModalLayout>
         </LoadingAnimation>
     )
 }
