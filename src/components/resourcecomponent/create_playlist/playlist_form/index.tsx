@@ -2,7 +2,7 @@ import CustomButton from '@/components/shared/custom_button'
 import CustomUploader from '@/components/shared/custom_uploader'
 import InputComponent from '@/components/shared/inputcomponent'
 import CustomText from '@/components/shared/textcomponent'
-import { useCreatePlaylistCallback, useUploaderCallback, useupdatePlaylistCallback } from '@/connections/useaction'
+import { useCreatePlaylistCallback, useUploaderCallback, useupdatePlaylistCallback, useupdatePlaylistDetailsCallback } from '@/connections/useaction'
 import { CreatePlaylistData, IPlaylistData } from '@/models'
 import { useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
@@ -32,7 +32,7 @@ export default function PlaylistForm(props: Props) {
 
     const { handleCreatePlaylist } = useCreatePlaylistCallback()
     const { handleUploader } = useUploaderCallback()
-    const { handleupdatePlaylist } = useupdatePlaylistCallback()
+    const { handleupdatePlaylistDetails } = useupdatePlaylistDetailsCallback()
 
 
 
@@ -94,7 +94,7 @@ export default function PlaylistForm(props: Props) {
 
     //API call to handle adding user
     const updatePlayistMutation = useMutation(async (formData: CreatePlaylistData) => {
-        const response = await handleupdatePlaylist(formData, data?.id + "");
+        const response = await handleupdatePlaylistDetails(formData, data?.id + "");
 
         console.log(response?.data);
 
@@ -280,7 +280,7 @@ export default function PlaylistForm(props: Props) {
             </div>
             <div className=' w-full gap-4 flex mt-6 ' >
                 <CustomButton text={"Cancel"} secondary={true} onClick={() => setOpen(false)} />
-                <CustomButton isLoading={uploaderMutation?.isLoading || createPlayistMutation?.isLoading} disabled={(uploaderMutation?.isLoading || createPlayistMutation?.isLoading || !formik.dirty || !formik.isValid)} type="submit" text={"Create Playlist"} secondary={false} />
+                <CustomButton isLoading={uploaderMutation?.isLoading || createPlayistMutation?.isLoading || updatePlayistMutation?.isLoading} disabled={(uploaderMutation?.isLoading || createPlayistMutation?.isLoading || !formik.dirty || !formik.isValid || updatePlayistMutation?.isLoading)} type="submit" text={"Create Playlist"} secondary={false} />
             </div>
         </form>
     )

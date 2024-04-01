@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 import { IoMdMore } from "react-icons/io";
 import { useQuery } from 'react-query';
 import PlaylistForm from '../create_playlist/playlist_form';
+import DeleteContent from '../delete_content';
 
 interface Props { }
 
@@ -42,10 +43,7 @@ function VideoPlatlist(props: Props) {
         setCurrentData(item)
         setOpen(true)
         setShow("")
-    }
-
-    console.log(show);
-
+    } 
 
     return (
         <LoadingAnimation loading={isLoading} >
@@ -69,13 +67,11 @@ function VideoPlatlist(props: Props) {
                                         <IoMdMore size={"20px"} />
                                     </button>
                                     {show === item?.id + "" && (
-                                        <div className=' top-[30px] z-20 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                        <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                             <div onClick={() => editHandler(item)} role='button' className=' w-full  h-5 ' >
                                                 Edit playlist
                                             </div>
-                                            <div role='button' className=' h-5 text-red-600 ' >
-                                                Delete
-                                            </div>
+                                            <DeleteContent text={true} id={item?.id} type="Playlist" /> 
                                         </div>
                                     )}
                                     {show === item?.id + "" && (

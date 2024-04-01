@@ -74,7 +74,7 @@ function BookResource(props: Props) {
                                     </CustomText>
                                 </div>
                                 {admin &&
-                                    <DeleteContent id={item?.id} />
+                                    <DeleteContent type="Content" id={item?.id} />
                                 }
                             </div>
                             // </a>

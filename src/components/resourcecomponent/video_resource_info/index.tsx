@@ -1,7 +1,7 @@
 "use client"
 import CustomText from '@/components/shared/textcomponent'
 import { BackArrow, CloseIcon, PersonIcon, SendIcon, ThumbsUp } from '@/components/svg'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import YouTube from 'react-youtube';
 import Othervideo from './othervideo';
 import actionService from '@/connections/getdataaction';
@@ -10,7 +10,8 @@ import { useQuery } from 'react-query';
 import Comments from './comments';
 import LoadingAnimation from '@/components/shared/loading_animation';
 import { textLimit } from '@/util/textlimit';
-import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, useDisclosure, DrawerCloseButton } from '@chakra-ui/react';
+import ReactPlayer from 'react-player';
+import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, useDisclosure, DrawerCloseButton, Spinner } from '@chakra-ui/react';
 
 interface Props {
     id: string
@@ -20,7 +21,7 @@ function VideoResourceInfo(props: Props) {
     const {
         id
     } = props
- 
+
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const opts = {
@@ -38,6 +39,19 @@ function VideoResourceInfo(props: Props) {
     };
 
     const [data, setData] = useState({} as ContentData)
+    const [isBuffering, setIsBuffering] = useState(true);
+    const [videoError, setVideoError] = useState(false);
+
+    const handleProgress = (state: any) => {
+        // Check if video is still buffering 
+        if (state.loaded < state.loadedSeconds) {
+            setIsBuffering(true); 
+
+        } else {
+            setIsBuffering(false); 
+        }
+    };
+
 
 
     const { isLoading } = useQuery(['videolist', id], () => actionService.getservicedata(`/content/${id}`,
@@ -57,12 +71,41 @@ function VideoResourceInfo(props: Props) {
         }
     )
 
+    const handleError = (error: any) => {
+        console.error('Error playing video:', error);
+        setVideoError(true);
+    };
+
     return (
         <LoadingAnimation loading={isLoading} >
-            <div className=' w-full ' >
+            <div className=' w-full lg:px-0 px-6 ' >
                 <div className=' w-full  flex gap-6  ' >
-                    <div className=' w-full h-[477px] rounded-[14px] bg-gray-600 ' >
-                        <YouTube style={{ borderRadius: "14px" }} videoId={data?.youtube_url?.slice(data?.youtube_url?.length - 11, data?.youtube_url?.length)} opts={opts} onReady={onReady} />
+                    <div className=' w-full h-[477px] flex justify-center items-center bg-gray-600 rounded-[14px]  ' >
+                        {/* <LoadingAnimation loading={isBuffering} > */}
+                        <div className=' w-full h-full relative ' >
+                            {videoError && (
+                                <div className=' w-full text-lg text-white bg-gray-600 font-semibold h-full justify-center flex items-center ' >
+                                    <p>Error On Video Link</p>
+                                </div>
+                            )}
+                            {!videoError && (
+                                <ReactPlayer
+                                    url={data?.youtube_url}
+                                    className='react-player'
+                                    controls={true}
+                                    width='100%'
+                                    height='477px'
+                                    onError={handleError}
+                                    onProgress={handleProgress}
+                                />
+                            )}
+                            {isBuffering && (
+                                <div className=' w-full h-full flex justify-center items-center absolute inset-0 ' > 
+                                    <Spinner size={["lg", "md"]} color={'white'} />
+                                </div>
+                            )}
+                        </div>
+                        {/* </LoadingAnimation> */}
                     </div>
                     <div className=' w-fit lg:block hidden text-white ' >
                         <div className=' w-[321px] ' >
@@ -91,7 +134,7 @@ function VideoResourceInfo(props: Props) {
 
                 <Drawer onClose={onClose} placement='bottom' size={"md"} isOpen={isOpen}>
                     <DrawerOverlay />
-                    <DrawerContent padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} > 
+                    <DrawerContent padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} >
                         <DrawerBody padding={"0px"} m={"0px"}>
                             <div className=' px-6 flex py-3 flex-col items-center ' >
                                 <div className=' bg-[#D9D9D9] h-1 w-[56px] rounded-sm ' />

@@ -19,11 +19,7 @@ function Sidebar(props: Props) {
         {
             name: "Resources",
             path: "/dashboard/resources"
-        },
-        // {
-        //     name: "Statistics",
-        //     path: "/dashboard/statistics"
-        // },
+        }
     ]
 
     const bottommenu = [

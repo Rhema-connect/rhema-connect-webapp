@@ -56,15 +56,14 @@ function Navbar(props: Props) {
             {(!pathname?.includes("/auth") && pathname?.includes("home") ) ? (
                 <label className=' w-full flex lg:justify-end ' >
                     <div role='button' className={` w-fit relative flex  items-center ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " lg:h-[80px] lg:mt-0 mt-6" : "h-fit text-sm "} gap-2 `} >
-                        <ChatIcon />
-                        <div id="google_translate_element" style={{ width: '0px', height: '0px', position: 'absolute', left: '50%', zIndex: -99999 }}></div>
+                        <ChatIcon /> 
                         <select value={selected} className='notranslate bg-transparent outline-none text-base ' onChange={(evt: any) => langChange(evt?.target?.value)} >
                             {languages?.map((item: { label: string, value: string }) => {
                                 return (
                                     <option className=' text-black ' key={item?.label} value={item?.value} >{item?.label}</option>
                                 )
                             })}
-                        </select>
+                        </select> 
                     </div>
                 </label>
             ): (
@@ -75,12 +74,7 @@ function Navbar(props: Props) {
                 {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ?
                     <img src='/images/logo.svg' alt='logo' /> :
                     <img src='/images/logoblack.svg' className=' ml-auto ' alt='logoblack' />
-                }
-                {/* {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) && (
-                    <button className=' w-fit lg:hidden ' >
-                        <MenuIcon />
-                    </button>
-                )} */}
+                } 
             </div>
         </div>
     )

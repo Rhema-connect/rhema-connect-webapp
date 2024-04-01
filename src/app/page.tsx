@@ -1,20 +1,8 @@
 "use client"
-import HomeComponent from '@/components/homecomponent'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import HomeComponent from '@/components/homecomponent' 
 
-export default function Home() {
-
-  const router = useRouter()
-
-  useEffect(() => {
-    router.push("/home")
-  }, [])
-
+export default function Home() { 
   return (
-    <div className=' w-screen h-screen ' >
-      <img src='/images/logo.svg' alt='logo' />
-    </div>
-    // <HomeComponent />
+    <HomeComponent />
   )
 }

@@ -11,8 +11,9 @@ import {
 interface Props {
     open: any,
     close: any,
-    size: any,
-    title: any, 
+    size?: any,
+    width?: string,
+    title?: any, 
     height?: boolean,
     children: React.ReactNode, 
 }
@@ -23,15 +24,16 @@ export default function ModalLayout(props: Props) {
         open,
         close,
         size,
+        width,
         title, 
         children, 
     } = props; 
 
 
     return (
-        <Modal size={size} isCentered scrollBehavior="inside" isOpen={open} onClose={close}>
+        <Modal size={size ? size : ""} isCentered scrollBehavior="inside" isOpen={open} onClose={close}>
             <ModalOverlay />
-            <ModalContent bgColor="#FFFFFF">
+            <ModalContent width={width} bgColor="#FFFFFF">
                 {title && (
                     <>
                         <ModalHeader color={"#010203"} lineHeight={"23.2px"} textAlign={"center"} fontWeight={"medium"} >{title}</ModalHeader>

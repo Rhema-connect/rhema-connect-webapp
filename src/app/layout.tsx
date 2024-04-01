@@ -45,13 +45,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " bg-[#FFF]  " : " !bg-[#3B3B3B] "} !overflow-hidden "`}>
         <Provider>
-          <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " fixed top-0 bottom-0 !z-[1000000000] "} overflow-x-hidden overflow-y-hidden top-0 bottom-0 !z-[1000000000]  `} >
-            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
+          <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " !bg-[#3B3B3B] "} overflow-x-hidden overflow-y-hidden top-0 bottom-0 !z-[1000000000]  `} >
+            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/"))  && (
               <div className=' fixed inset-0 w-full h-full z-10 bg-black bg-opacity-15 ' >
                 <img src='/images/bg.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
               </div>
             )}
-            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard")) && (
+            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/") ) && (
               <div className=' inset-0 fixed bg-[#12121280] z-20 ' />
             )}
             <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : "  "} w-full flex flex-col items-center text-white h-screen overflow-x-hidden relative overflow-y-auto z-30 `} >
@@ -61,7 +61,7 @@ export default function RootLayout({
               </div>
               <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1145px] lg:px-8"} w-full h-auto `}>
                 {/* <div className=' w-full h-full  ' > */}
-                <div className={` ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-0 " : ""}  w-full h-full   `} >
+                <div className={` ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-0 " : ""}  w-full   `} >
                   {children}
                 </div>
                 {/* </div> */}

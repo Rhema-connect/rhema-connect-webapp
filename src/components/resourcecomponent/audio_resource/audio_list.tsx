@@ -7,6 +7,10 @@ import React, { useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import DeleteContent from '../delete_content'
 import LoadingAnimation from '@/components/shared/loading_animation'
+import ModalLayout from '@/components/shared/modal_layout'
+import PlaylistForm from '../create_playlist/playlist_form'
+import { IoMdMore } from 'react-icons/io'
+import Audioform from '../create_audio/audioform'
 
 interface Props {
     admin?: boolean
@@ -19,6 +23,9 @@ function Audiolist(props: Props) {
 
     const [data, setData] = useState([] as Array<ContentData>)
     const [currentData, setCurrentData] = useState({} as ContentData)
+    const [currentdata, setCurrentdata] = useState({} as ContentData)
+    const [show, setShow] = useState("")
+    const [open, setOpen] = useState(false)
 
     const { isLoading } = useQuery(['audilist'], () => actionService.getservicedata(`/content`,
         {
@@ -39,6 +46,20 @@ function Audiolist(props: Props) {
             }
         }
     )
+
+    const editHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: ContentData) => {
+        e.stopPropagation()
+
+        setCurrentdata(item)
+        setOpen(true)
+        setShow("")
+    }
+
+    const openModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: string) => {
+        e.stopPropagation()
+
+        setShow(item)
+    }
 
     return (
         <div className=' w-full mt-14 pb-20 ' >
@@ -73,13 +94,23 @@ function Audiolist(props: Props) {
                                     </CustomText>
                                 </div>
                                 {admin && (
-                                    <> 
-                                        {item?.url !== currentData?.url &&
-                                            <div className=' ml-auto ' >
-                                                <DeleteContent id={item?.id} />
+
+                                    <div className=' relative mt-1 ml-auto ' >
+                                        <button onClick={(e) => openModal(e, item?.id + "")} className=' p-2 ' >
+                                            <IoMdMore size={"20px"} />
+                                        </button>
+                                        {show === item?.id + "" && (
+                                            <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 text-black ' >
+                                                    Edit playlist
+                                                </button>
+                                                <DeleteContent text={true} id={item?.id} type="Playlist" />
                                             </div>
-                                        }
-                                    </>
+                                        )}
+                                        {show === item?.id + "" && (
+                                            <button onClick={(e) => openModal(e, "")} className=' fixed inset-0 z-10 ' />
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         )
@@ -89,6 +120,8 @@ function Audiolist(props: Props) {
             {currentData?.url && (
                 <AudioPlayer data={currentData} />
             )}
+
+            <Audioform data={currentdata} open={open} setOpen={setOpen} edit={true} />
         </div>
     )
 }
