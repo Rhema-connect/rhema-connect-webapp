@@ -217,9 +217,13 @@ export default function PlaylistForm(props: Props) {
 
         const userData = {
             title: formik.values.title,
-            content_type: typeinfo ? typeinfo : "",
-            description: "test",
-            isDraft: false
+            content_type: typeinfo ? typeinfo : "", 
+        };
+
+        const updateData = {
+            title: formik.values.title,
+            content_type: typeinfo ? typeinfo : "", 
+            thumbnail: data?.thumbnail
         };
 
         if (edit) {
@@ -234,7 +238,7 @@ export default function PlaylistForm(props: Props) {
                         });
                     });
             } else {
-                updatePlayistMutation.mutateAsync(userData)
+                updatePlayistMutation.mutateAsync(updateData)
                     .catch(() => {
                         toast({
                             title: "Something went wrong",
@@ -276,7 +280,7 @@ export default function PlaylistForm(props: Props) {
             </div>
             <div className=' w-full mt-4 ' >
                 <CustomText className=" text-xs leading-[18px] mb-2 text-[#212B36] " >Upload thumbnail</CustomText>
-                <CustomUploader setImage={setImageFIle} />
+                <CustomUploader initial={data?.thumbnail} setImage={setImageFIle} />
             </div>
             <div className=' w-full gap-4 flex mt-6 ' >
                 <CustomButton text={"Cancel"} secondary={true} onClick={() => setOpen(false)} />
