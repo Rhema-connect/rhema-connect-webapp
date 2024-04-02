@@ -41,13 +41,13 @@ export default function RootLayout({
     };
   }, [pathname, router]);
 
-  let token = localStorage.getItem("token")?.toString() 
+  let token = (localStorage as any).getItem("token")?.toString() 
 
 
   useEffect(() => {
     if (!pathname?.includes("/dashboard") && !pathname?.includes("/auth")) {
-      localStorage.setItem("token", "");
-      localStorage.setItem("id", ""); 
+      (localStorage as any).setItem("token", "");
+      (localStorage as any).setItem("id", ""); 
     } else {
       if (!token || token === "" || token === undefined || token === null) {
         router.push("/auth") 
