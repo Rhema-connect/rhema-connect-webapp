@@ -1,16 +1,16 @@
 import CustomButton from '@/components/shared/custom_button'
+import CustomFilePicker from '@/components/shared/custom_file_picker'
 import CustomUploader from '@/components/shared/custom_uploader'
 import InputComponent from '@/components/shared/inputcomponent'
 import ModalLayout from '@/components/shared/modal_layout'
 import CustomText from '@/components/shared/textcomponent'
-import { Checkbox, useToast } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import PlaylistSelector from '../playlist_selector'
-import * as yup from 'yup'
-import { useupdatePlaylistCallback, useCreateContentCallback, useUploaderCallback, useUpdateContentCallback } from '@/connections/useaction'
+import { useCreateBookCallback, useUpdateContentCallback, useUploaderCallback } from '@/connections/useaction'
 import { ContentData } from '@/models'
+import { useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
+import React, { useEffect, useState } from 'react'
 import { useQueryClient, useMutation } from 'react-query'
+import * as yup from 'yup'
 
 interface IProps {
     open: boolean,
@@ -19,7 +19,7 @@ interface IProps {
     data?: ContentData
 }
 
-export default function Videoform(props: IProps) {
+export default function Bookform(props: IProps) {
 
     const {
         open,
@@ -28,33 +28,29 @@ export default function Videoform(props: IProps) {
         data
     } = props
 
-    const [show, setShow] = useState(false)
-    const [playlist, setPlaylistId] = useState("" as string | number)
-
     const [imageFile, setImageFIle] = useState("")
-    const { handleupdatePlaylist } = useupdatePlaylistCallback()
-    const { handleUpdateContent } = useUpdateContentCallback()
-
+    const [videoFile, setVideoFile] = useState("")
     const toast = useToast()
 
     const queryClient = useQueryClient()
 
-    const { handleCreateContent } = useCreateContentCallback()
+    const { handleCreateBook } = useCreateBookCallback()
+    const { handleUpdateContent } = useUpdateContentCallback()
     const { handleUploader } = useUploaderCallback()
 
 
     const loginSchema = yup.object({
-        title: yup.string().required('required'),
-        description: yup.string().required('required'),
-        youtube_url: yup.string().required('required'),
+        title: yup.string().required('Required'),
+        author_name: yup.string().required('Required'),
+        description: yup.string().required('Required'),
     })
+
 
     useEffect(() => {
         if (edit) {
             formik.setFieldValue("title", data?.title)
             formik.setFieldValue("description", data?.description)
-            formik.setFieldValue("content_type", data?.content_type)
-            formik.setFieldValue("youtube_url", data?.youtube_url)
+            formik.setFieldValue("author_name", data?.author_name)
         }
     }, [data])
 
@@ -62,56 +58,17 @@ export default function Videoform(props: IProps) {
     const formik = useFormik({
         initialValues: {
             title: "",
+            author_name: "",
             description: "",
-            content_type: "AUDIO",
-            youtube_url: "",
+            content_type: "BOOK",
         },
         validationSchema: loginSchema,
         onSubmit: () => { },
     });
 
     //API call to handle adding user
-    const createVideoMutation = useMutation(async (formData: ContentData) => {
-
-        const response = await handleCreateContent(formData);
-
-        if (response?.status === 201 || response?.status === 200) {
-
-            toast({
-                title: response?.data?.message,
-                status: "success",
-                duration: 3000,
-                position: "top",
-            });
-
-            setOpen(false)
-
-            queryClient.invalidateQueries(['videolist'])
-
-            return response;
-        } else if (response?.data?.statusCode === 400) {
-            toast({
-                title: response?.data?.message,
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
-        } else {
-            toast({
-                title: "Something went wrong",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
-        }
-    });
-
-    //API call to handle adding user
-    const addToPlaylistMutation = useMutation(async (userdata: ContentData) => {
-
-        const response = await handleupdatePlaylist(userdata, playlist);
+    const createBookMutation = useMutation(async (formData: ContentData) => {
+        const response = await handleCreateBook(formData);
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -122,47 +79,7 @@ export default function Videoform(props: IProps) {
                 position: "top",
             });
 
-            queryClient.invalidateQueries(['videolist'])
-            queryClient.invalidateQueries(['videoplaylist'])
-
-            return response;
-        } else if (response?.data?.statusCode === 400) {
-            toast({
-                title: response?.data?.message,
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
-        } else {
-            toast({
-                title: "Something went wrong",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
-        }
-    });
-
-    //API call to handle adding user
-    const updateContentMutation = useMutation(async (userdata: ContentData) => {
-
-        const response = await handleUpdateContent(userdata, data?.id ?? "");
-
-        if (response?.status === 201 || response?.status === 200) {
-
-            toast({
-                title: response?.data?.message,
-                status: "success",
-                duration: 3000,
-                position: "top",
-            });
-
-            queryClient.invalidateQueries(['videolist'])
-            queryClient.invalidateQueries(['videoplaylist'])
-
-            setOpen(false)
+            queryClient.invalidateQueries(['bookslist'])
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -192,31 +109,59 @@ export default function Videoform(props: IProps) {
 
         const response = await handleUploader(formData, imageFile);
 
+
         if (response?.status === 201 || response?.status === 200) {
 
-            if(edit) {
-                updateContentMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
-                    onSuccess: () => {
-                        // if (data) {
-                            setOpen(false)
-                        // }
-                    },
-                })
-                    .catch(() => {
-                        toast({
-                            title: "Something went wrong",
-                            status: "error",
-                            duration: 3000,
-                            position: "top",
-                        });
-                    });
-            } else if (playlist) {
-
-                addToPlaylistMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
-                    onSuccess: (data: any) => {
+            bookMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
+                onSuccess: (data: any) => {
+                    if (data) {
                         setOpen(false)
-                    },
-                })
+                    }
+                },
+            })
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
+                    });
+                });
+
+
+            return response;
+        } else if (response?.data?.statusCode === 400) {
+            toast({
+                title: response?.data?.message,
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        } else {
+            toast({
+                title: "Something went wrong",
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        }
+    });
+
+    //API call to handle adding user
+    const bookMutation = useMutation(async (userdata: ContentData) => {
+
+        let formData = new FormData()
+        formData.append("file", videoFile)
+
+        const response = await handleUploader(formData, videoFile);
+
+        if (response?.status === 201 || response?.status === 200) {
+
+            if (edit) {
+ 
+                updateContentMutation.mutateAsync({ ...userdata, url: response?.data })
                     .catch(() => {
                         toast({
                             title: "Something went wrong",
@@ -227,7 +172,7 @@ export default function Videoform(props: IProps) {
                     });
             } else {
 
-                createVideoMutation.mutateAsync({ ...userdata, thumbnail: response?.data }, {
+                createBookMutation.mutateAsync({ ...userdata, url: response?.data }, {
                     onSuccess: (data: any) => {
                         if (data) {
                             setOpen(false)
@@ -242,10 +187,47 @@ export default function Videoform(props: IProps) {
                             position: "top",
                         });
                     });
-
             }
 
+            return response;
+        } else if (response?.data?.statusCode === 400) {
+            toast({
+                title: response?.data?.message,
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        } else {
+            toast({
+                title: "Something went wrong",
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        }
+    });
 
+
+
+    //API call to handle adding user
+    const updateContentMutation = useMutation(async (userdata: ContentData) => {
+
+        const response = await handleUpdateContent(userdata, data?.id ?? "");
+
+        if (response?.status === 201 || response?.status === 200) {
+
+            toast({
+                title: response?.data?.message,
+                status: "success",
+                duration: 3000,
+                position: "top",
+            });
+
+            queryClient.invalidateQueries(['bookslist'])
+
+            setOpen(false)
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -277,26 +259,42 @@ export default function Videoform(props: IProps) {
                 position: "top",
             });
             return;
-        }
-
+        } 
 
         const userData = {
             ...formik?.values,
             isDraft: false,
-            content_type: "VIDEO"
         };
 
         const updateData = {
             ...formik?.values,
             isDraft: false,
-            content_type: "VIDEO",
-            thumbnail: data?.thumbnail,
-
+            url: data?.url,
+            thumbnail: data?.thumbnail
         };
 
         if (edit) {
-
-            if (!imageFile) {
+            if (imageFile) {
+                uploaderMutation.mutateAsync(updateData)
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
+                    });
+            } else if (videoFile) { 
+                bookMutation.mutateAsync(updateData)
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
+                    });
+            } else {
                 updateContentMutation.mutateAsync(updateData)
                     .catch(() => {
                         toast({
@@ -306,59 +304,30 @@ export default function Videoform(props: IProps) {
                             position: "top",
                         });
                     });
-            } else {
-                uploaderMutation.mutateAsync(userData)
-                    .catch(() => {
-                        toast({
-                            title: "Something went wrong",
-                            status: "error",
-                            duration: 3000,
-                            position: "top",
-                        });
-                    });
             }
+
         } else {
-            if (!imageFile) {
-                toast({
-                    title: "Add a Thumbnail",
-                    status: "error",
-                    duration: 3000,
-                    position: "top",
-                });
-                return;
-            } else {
-                uploaderMutation.mutateAsync(userData)
-                    .catch(() => {
-                        toast({
-                            title: "Something went wrong",
-                            status: "error",
-                            duration: 3000,
-                            position: "top",
-                        });
+            uploaderMutation.mutateAsync(userData)
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
                     });
-            }
+                });
         }
+
 
     }
 
     return (
         <ModalLayout open={open} close={setOpen} title={""} size={"md"} >
             <form onSubmit={(e) => submit(e)} className=' w-full ' >
-                <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Videos</CustomText>
-                <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources and select which playlist if needed</CustomText>
-
+                <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Book</CustomText>
+                <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources </CustomText>
                 <div className=' w-full mt-6 ' >
-                    <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Video Url</CustomText>
-                    <InputComponent
-                        name="youtube_url"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("youtube_url", true, true)
-                        }
-                        value={formik.values.youtube_url}
-                        touch={formik.touched.youtube_url}
-                        error={formik.errors.youtube_url}
-                        type='text' placeholder="Add Video" />
+                    <CustomFilePicker initial={data?.url} type="book" setImageFiles={setVideoFile} />
                 </div>
                 <div className=' w-full mt-6 ' >
                     <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Title</CustomText>
@@ -372,6 +341,19 @@ export default function Videoform(props: IProps) {
                         touch={formik.touched.title}
                         error={formik.errors.title}
                         type='text' placeholder="Add Title" />
+                </div>
+                <div className=' w-full mt-6 ' >
+                    <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Author Name</CustomText>
+                    <InputComponent
+                        name="author_name"
+                        onChange={formik.handleChange}
+                        onFocus={() =>
+                            formik.setFieldTouched("author_name", true, true)
+                        }
+                        value={formik.values.author_name}
+                        touch={formik.touched.author_name}
+                        error={formik.errors.author_name}
+                        type='text' placeholder="Add Author Name" />
                 </div>
                 <div className=' w-full mt-4 ' >
                     <CustomText className=" text-xs leading-[18px] mb-2 text-[#919EAB] " >Description</CustomText>
@@ -387,27 +369,13 @@ export default function Videoform(props: IProps) {
                         error={formik.errors.description}
                         type='text' placeholder="Description" />
                 </div>
-                {!edit && (
-                    <div className=' w-full mt-4 flex gap-2 ' >
-                        <Checkbox checked={show} onChange={(e) => setShow(e.target.checked)} />
-                        <CustomText className=" text-sm leading-[22px] text-[#212B36] " >Add to playlist</CustomText>
-                    </div>
-                )}
-                {show && (
-                    <div className=' w-full mt-4 ' >
-                        <CustomText className=" text-xs leading-[18px] mb-1 text-[#919EAB] " >Select Playlist</CustomText>
-                        <PlaylistSelector
-                            setPlaylistId={setPlaylistId}
-                            type="VIDEO" />
-                    </div>
-                )}
                 <div className=' w-full mt-4 ' >
                     <CustomText className=" text-xs leading-[18px] mb-1 text-[#212B36] " >Upload thumbnail</CustomText>
-                    <CustomUploader initial={data?.thumbnail ?? ""} setImage={setImageFIle} />
+                    <CustomUploader initial={data?.thumbnail} setImage={setImageFIle} />
                 </div>
                 <div className=' w-full gap-4 flex mt-6 ' >
                     <CustomButton onClick={() => setOpen(false)} text={"Cancel"} secondary={true} />
-                    <CustomButton type="submit" isDisabled={uploaderMutation?.isLoading || createVideoMutation.isLoading || updateContentMutation?.isLoading} isLoading={uploaderMutation?.isLoading || createVideoMutation.isLoading || updateContentMutation?.isLoading} text={edit ? "Edit Video" : "Create Video"} secondary={false} />
+                    <CustomButton type="submit" isLoading={createBookMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading || updateContentMutation?.isLoading} disable={createBookMutation?.isLoading || uploaderMutation?.isLoading || bookMutation?.isLoading || updateContentMutation?.isLoading} text={edit ? "Edit Book" : "Create Book"} secondary={false} />
                 </div>
             </form>
         </ModalLayout>
