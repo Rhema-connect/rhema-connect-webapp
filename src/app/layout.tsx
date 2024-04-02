@@ -41,17 +41,33 @@ export default function RootLayout({
     };
   }, [pathname, router]);
 
+  let token = localStorage.getItem("token")?.toString() 
+
+
+  useEffect(() => {
+    if (!pathname?.includes("/dashboard") && !pathname?.includes("/auth")) {
+      localStorage.setItem("token", "");
+      localStorage.setItem("id", ""); 
+    } else {
+      if (!token || token === "" || token === undefined || token === null) {
+        router.push("/auth") 
+      }
+ 
+    }
+
+  }, [pathname])
+
   return (
     <html lang="en">
       <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " bg-[#FFF]  " : " !bg-[#3B3B3B] "} !overflow-hidden "`}>
         <Provider>
           <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " !bg-[#3B3B3B] "} overflow-x-hidden overflow-y-hidden top-0 bottom-0 !z-[1000000000]  `} >
-            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/"))  && (
+            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
               <div className=' fixed inset-0 w-full h-full z-10 bg-black bg-opacity-15 ' >
                 <img src='/images/bg.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
               </div>
             )}
-            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/") ) && (
+            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
               <div className=' inset-0 fixed bg-[#12121280] z-20 ' />
             )}
             <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : "  "} w-full flex flex-col items-center text-white h-screen overflow-x-hidden relative overflow-y-auto z-30 `} >
