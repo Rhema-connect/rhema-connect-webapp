@@ -107,7 +107,8 @@ export default function PlaylistForm(props: Props) {
                 position: "top",
             });
 
-            queryClient.invalidateQueries(['usertable'])
+            queryClient.invalidateQueries(['videoplaylist'])
+            queryClient.invalidateQueries(['audiplaylist'])
             setOpen(false)
 
             return response;
@@ -217,12 +218,12 @@ export default function PlaylistForm(props: Props) {
 
         const userData = {
             title: formik.values.title,
-            content_type: typeinfo ? typeinfo : "", 
+            type: typeinfo ? typeinfo : "", 
         };
 
         const updateData = {
             title: formik.values.title,
-            content_type: typeinfo ? typeinfo : "", 
+            type: typeinfo ? typeinfo : "", 
             thumbnail: data?.thumbnail
         };
 
@@ -284,7 +285,7 @@ export default function PlaylistForm(props: Props) {
             </div>
             <div className=' w-full gap-4 flex mt-6 ' >
                 <CustomButton text={"Cancel"} secondary={true} onClick={() => setOpen(false)} />
-                <CustomButton isLoading={uploaderMutation?.isLoading || createPlayistMutation?.isLoading || updatePlayistMutation?.isLoading} disabled={(uploaderMutation?.isLoading || createPlayistMutation?.isLoading || !formik.dirty || !formik.isValid || updatePlayistMutation?.isLoading)} type="submit" text={"Create Playlist"} secondary={false} />
+                <CustomButton isLoading={uploaderMutation?.isLoading || createPlayistMutation?.isLoading || updatePlayistMutation?.isLoading} disabled={(uploaderMutation?.isLoading || createPlayistMutation?.isLoading || !formik.dirty || !formik.isValid || updatePlayistMutation?.isLoading)} type="submit" text={edit ? "Update Playlist" : "Create Playlist"} secondary={false} />
             </div>
         </form>
     )

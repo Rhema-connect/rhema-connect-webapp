@@ -1,5 +1,5 @@
 export interface CreatePlaylistData {
-  content_type: string,
+  type: string,
   title: string,
   thumbnail?: string,
   description?: string,

@@ -74,10 +74,10 @@ export default function RootLayout({
             )}
             <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : "  "} w-full flex flex-col items-center text-white h-screen overflow-x-hidden relative overflow-y-auto z-30 `} >
 
-              <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " pb-3 "} lg:px-8 w-screen lg:h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} `}>
+              <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " pb-3 "}  w-screen lg:h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} flex justify-center `}>
                 <Navbar pathname={pathname} />
               </div>
-              <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1145px] lg:px-8"} w-full h-auto `}>
+              <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1360px] lg:px-8"} w-full h-auto `}>
                 {/* <div className=' w-full h-full  ' > */}
                 <div className={` ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-0 " : ""}  w-full   `} >
                   {children}
@@ -88,7 +88,7 @@ export default function RootLayout({
               {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard")) && (
                 <div className=' w-full h-fit mt-auto ' >
                   <div className=' w-full flex justify-center items-center h-[50px] bg-[#3B3B3B] ' >
-                    <div className=' max-w-[1145px] lg:px-8 px-6 w-full ' >
+                    <div className=' max-w-[1360px] lg:px-8 px-6 w-full ' >
                       <CustomText className='text-[16px] text-[#BEBEBE] text-sm ' >© RHEMA MENA 2023. All right reserved</CustomText>
                     </div>
                   </div>
