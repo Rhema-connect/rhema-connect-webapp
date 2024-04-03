@@ -11,20 +11,6 @@ function Layout(props: Props) {
     children
   } = props
 
-  useEffect(() => {
-    // Create script element
-    const script = document.createElement('script');
-    script.src = 'https://cdn.gtranslate.net/widgets/latest/dropdown.js';
-    script.defer = true; 
-    // Append script to the document body
-    document.body.appendChild(script);
-
-    // Cleanup function to remove the script when component unmounts
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   // useEffect(() => {
   //   const script = document.createElement('script');
   //   script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';

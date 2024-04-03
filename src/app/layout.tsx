@@ -59,6 +59,21 @@ export default function RootLayout({
 
   }, [pathname])
 
+
+  useEffect(() => {
+    // Create script element
+    const script = document.createElement('script');
+    script.src = 'https://cdn.gtranslate.net/widgets/latest/dropdown.js';
+    script.defer = true; 
+    // Append script to the document body
+    document.body.appendChild(script);
+
+    // Cleanup function to remove the script when component unmounts
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <html lang="en">
       <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " bg-[#FFF]  " : " !bg-[#3B3B3B] "} !overflow-hidden "`}>
