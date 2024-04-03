@@ -87,6 +87,8 @@ function Auth(props: Props) {
         loginMutation.mutateAsync(loginData, {
             onSuccess: (data: any) => {
                 if (data) { 
+                    console.log(data);
+                    
                     // navigate.push("/dashboard")
                     navigate?.push("/dashboard/resources")
                 }
