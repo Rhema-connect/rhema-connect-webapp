@@ -24,20 +24,6 @@ function VideoResourceInfo(props: Props) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const opts = {
-        height: '477',
-        width: '100%', // Set width to 100%
-        playerVars: {
-            autoplay: 1,
-        },
-    };
-
-
-    const onReady = (event: any) => {
-        // access to player in all event handlers via event.target
-        event.target.pauseVideo();
-    };
-
     const [data, setData] = useState({} as ContentData)
     const [isBuffering, setIsBuffering] = useState(true);
     const [videoError, setVideoError] = useState(false);
@@ -45,10 +31,10 @@ function VideoResourceInfo(props: Props) {
     const handleProgress = (state: any) => {
         // Check if video is still buffering 
         if (state.loaded < state.loadedSeconds) {
-            setIsBuffering(true); 
+            setIsBuffering(true);
 
         } else {
-            setIsBuffering(false); 
+            setIsBuffering(false);
         }
     };
 
@@ -80,7 +66,7 @@ function VideoResourceInfo(props: Props) {
         <LoadingAnimation loading={isLoading} >
             <div className=' w-full lg:px-0 ' >
                 <div className=' w-full  flex gap-6  ' >
-                    <div className=' w-full h-[477px] flex justify-center items-center bg-gray-600 rounded-[14px]  ' >
+                    <div className=' w-full h-[350px] lg:h-[477px] flex justify-center items-center bg-gray-600 rounded-[14px]  ' >
                         {/* <LoadingAnimation loading={isBuffering} > */}
                         <div className=' w-full h-full relative ' >
                             {videoError && (
@@ -89,18 +75,33 @@ function VideoResourceInfo(props: Props) {
                                 </div>
                             )}
                             {!videoError && (
-                                <ReactPlayer
-                                    url={data?.youtube_url}
-                                    className='react-player'
-                                    controls={true}
-                                    width='100%'
-                                    height='477px'
-                                    onError={handleError}
-                                    onProgress={handleProgress}
-                                />
+                                <> 
+                                    <div className=' w-full lg:block hidden ' >
+                                        <ReactPlayer
+                                            url={data?.youtube_url}
+                                            className='react-player'
+                                            controls={true}
+                                            width='100%'
+                                            height='477px'
+                                            onError={handleError}
+                                            onProgress={handleProgress}
+                                        />
+                                    </div>
+                                    <div className=' w-full lg:hidden ' >
+                                        <ReactPlayer
+                                            url={data?.youtube_url}
+                                            className='react-player'
+                                            controls={true}
+                                            width='100%'
+                                            height='350px'
+                                            onError={handleError}
+                                            onProgress={handleProgress}
+                                        />
+                                    </div>
+                                </>
                             )}
                             {isBuffering && (
-                                <div className=' w-full h-full flex justify-center items-center absolute inset-0 ' > 
+                                <div className=' w-full h-full flex justify-center items-center absolute inset-0 ' >
                                     <Spinner size={["lg", "md"]} color={'white'} />
                                 </div>
                             )}
@@ -117,9 +118,9 @@ function VideoResourceInfo(props: Props) {
                 <div className=' w-full flex gap-6  ' >
                     <div className=' w-full py-6 ' >
                         <div className=' w-full flex items-center justify-between ' >
-                            <CustomText className=' leading-[44.8px] text-[32px] font-semibold ' >{textLimit(data?.title ?? "", 20)}</CustomText> 
+                            <CustomText className=' leading-[44.8px] text-[32px] font-semibold ' >{textLimit(data?.title ?? "", 20)}</CustomText>
                         </div>
-                        <div className=' w-full flex items-center justify-end ' > 
+                        <div className=' w-full flex items-center justify-end ' >
                             <button onClick={onOpen} className=' outline-none font-bold lg:hidden ' >show other video</button>
                         </div>
                         {/* <CustomText className=' text-[#919EAB] leading-[22.4px] mt-[11px] ' >450 views</CustomText> */}
@@ -136,7 +137,7 @@ function VideoResourceInfo(props: Props) {
 
                 <Drawer onClose={onClose} placement='bottom' size={"md"} isOpen={isOpen}>
                     <DrawerOverlay />
-                    <DrawerContent  roundedTop={"24px"}  padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} >
+                    <DrawerContent roundedTop={"24px"} padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} >
                         <DrawerBody roundedTop={"24px"} padding={"0px"} m={"0px"}>
                             <div className=' px-6 flex py-3 flex-col items-center ' >
                                 <div className=' bg-[#D9D9D9] h-1 w-[56px] rounded-sm ' />
