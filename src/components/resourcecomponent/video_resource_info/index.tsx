@@ -75,7 +75,7 @@ function VideoResourceInfo(props: Props) {
                                 </div>
                             )}
                             {!videoError && (
-                                <> 
+                                <div className=' w-full relative z-30 ' > 
                                     <div className=' w-full lg:block hidden ' >
                                         <ReactPlayer
                                             url={data?.youtube_url}
@@ -98,10 +98,10 @@ function VideoResourceInfo(props: Props) {
                                             onProgress={handleProgress}
                                         />
                                     </div>
-                                </>
+                                </div>
                             )}
                             {isBuffering && (
-                                <div className=' w-full h-full flex justify-center items-center absolute inset-0 ' >
+                                <div className=' w-full h-full flex z-10 justify-center items-center absolute inset-0 ' >
                                     <Spinner size={["lg", "md"]} color={'white'} />
                                 </div>
                             )}
