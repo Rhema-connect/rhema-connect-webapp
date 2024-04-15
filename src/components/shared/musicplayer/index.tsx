@@ -67,7 +67,7 @@ const AudioPlayer = (props: IProps) => {
   }, [data?.url])
 
   return (
-    <div className=' shadow-lg fixed bottom-4 inset-x-4 flex flex-col items-center gap-2 pb-2 px-4 bg-[#3B3B3B] h-fit rounded-lg ' >
+    <div className=' shadow-lg fixed lg:pt-0 pt-4 bottom-4 inset-x-2 lg:inset-x-4 flex flex-col-reverse lg:flex-col items-center gap-2 pb-2 px-4 bg-[#3B3B3B] h-fit rounded-lg ' >
 
       <LoadingAnimation loading={currentMusic ? false : true} >
 
@@ -84,17 +84,18 @@ const AudioPlayer = (props: IProps) => {
               <img alt='thumbnail' src={data?.thumbnail} className="w-full h-full object-cover rounded-lg " />
             </div>
             <div>
-              <CustomText className=' font-medium text-[14px] '  >
+              <CustomText className=' font-medium text-[14px]  '  >
                 {data?.title}
               </CustomText>
               {data?.description && (
-                <CustomText className=' leading-[18px] text-xs ' >
-                  {data?.description?.length > 15 ? data?.description?.slice(0, 15) + "..." : data?.description}
+                <CustomText className=' mt-[0px] text-xs ' >
+                  {data?.description?.length > 25 ? data?.description?.slice(0, 25) + "..." : data?.description}
                 </CustomText>
               )}
+              <div className=' lg:hidden mt-1 font-medium text-[14px] ' >{formatTime(currentTime)}/ {formatTime(duration)}</div>
             </div>
           </div>
-          <div className=' flex items-center gap-8 ' >
+          <div className=' flex items-center gap-8 lg:pr-0 pr-5 ' >
             <button onClick={togglePlay} className=' outline-none ' >
               {!isPlaying ?
                 <FaPlay size={"20px"} /> :
@@ -103,7 +104,7 @@ const AudioPlayer = (props: IProps) => {
             </button>
           </div>
 
-          <div className=' font-medium text-[14px] ' >{formatTime(currentTime)}/ {formatTime(duration)}</div>
+          <div className=' lg:block hidden font-medium text-[14px] ' >{formatTime(currentTime)}/ {formatTime(duration)}</div>
 
           <audio
             ref={audioRef}

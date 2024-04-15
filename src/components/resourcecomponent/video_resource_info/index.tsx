@@ -78,7 +78,7 @@ function VideoResourceInfo(props: Props) {
 
     return (
         <LoadingAnimation loading={isLoading} >
-            <div className=' w-full lg:px-0 px-6 ' >
+            <div className=' w-full lg:px-0 ' >
                 <div className=' w-full  flex gap-6  ' >
                     <div className=' w-full h-[477px] flex justify-center items-center bg-gray-600 rounded-[14px]  ' >
                         {/* <LoadingAnimation loading={isBuffering} > */}
@@ -117,7 +117,9 @@ function VideoResourceInfo(props: Props) {
                 <div className=' w-full flex gap-6  ' >
                     <div className=' w-full py-6 ' >
                         <div className=' w-full flex items-center justify-between ' >
-                            <CustomText className=' leading-[44.8px] text-[32px] font-semibold ' >{textLimit(data?.title ?? "", 20)}</CustomText>
+                            <CustomText className=' leading-[44.8px] text-[32px] font-semibold ' >{textLimit(data?.title ?? "", 20)}</CustomText> 
+                        </div>
+                        <div className=' w-full flex items-center justify-end ' > 
                             <button onClick={onOpen} className=' outline-none font-bold lg:hidden ' >show other video</button>
                         </div>
                         {/* <CustomText className=' text-[#919EAB] leading-[22.4px] mt-[11px] ' >450 views</CustomText> */}
@@ -134,8 +136,8 @@ function VideoResourceInfo(props: Props) {
 
                 <Drawer onClose={onClose} placement='bottom' size={"md"} isOpen={isOpen}>
                     <DrawerOverlay />
-                    <DrawerContent padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} >
-                        <DrawerBody padding={"0px"} m={"0px"}>
+                    <DrawerContent  roundedTop={"24px"}  padding={"0px"} m={"0px"} backgroundColor={"#3b3b3b"} >
+                        <DrawerBody roundedTop={"24px"} padding={"0px"} m={"0px"}>
                             <div className=' px-6 flex py-3 flex-col items-center ' >
                                 <div className=' bg-[#D9D9D9] h-1 w-[56px] rounded-sm ' />
                                 <div className=' mt-4 w-full flex justify-between items-center ' >
