@@ -81,9 +81,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " bg-[#FFF]  " : " !bg-[#3B3B3B] "} !overflow-hidden "`}>
         <Provider>
-          <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " !bg-[#3B3B3B] "} overflow-x-hidden overflow-y-hidden top-0 bottom-0 !z-[1000000000]  `} >
+          <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " !bg-[#3B3B3B] "} overflow-x-hidden overflow-y-hidden relative top-0 bottom-0 !z-[1000000000]  `} >
             {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
-              <div className=' fixed inset-0 w-full h-full z-10 bg-black bg-opacity-15 ' >
+              <div className=' fixed inset-0 z-10 w-full h-full bg-black bg-opacity-15 ' >
                 {randomNumber === 1 && (
                   <img src='/images/bg.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
                 )}

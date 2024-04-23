@@ -20,7 +20,7 @@ function HomeComponent(props: Props) {
 
     const headerData = [
         { label: 'Arabic', value: '/auto/ar', image: '/images/flag1.png' },
-        { label: 'Farsi', value: '/auto/fa', image: '/images/flag7.png' },
+        { label: 'Farsi', value: '/auto/fa', image: '/images/flag2.png' },
         { label: 'Turkish', value: '/auto/tr', image: '/images/flag3.png' },
         { label: 'English', value: '/auto/en', image: '/images/flag4.png' },
         { label: 'Spanish', value: '/auto/es', image: '/images/flag5.png' },
