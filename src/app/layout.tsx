@@ -64,18 +64,7 @@ export default function RootLayout({
   }
 
   const [randomNumber, setRandomNumber] = useState(getRandomNumber(1, 5));
-
-
-  // const generateRandomNumber = () => {
-  //   const newRandomNumber = getRandomNumber(1, 5);
-  //   setRandomNumber(newRandomNumber);
-  // }
-
-  // useEffect(() => {
-  //   generateRandomNumber()
-  // }, [])
-
-  console.log(randomNumber);
+ 
 
   return (
     <html lang="en">
