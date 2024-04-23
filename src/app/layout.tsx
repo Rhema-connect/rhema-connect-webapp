@@ -6,7 +6,7 @@ import Provider from './Provider'
 import Navbar from '@/components/shared/navbar'
 import { usePathname, useRouter } from 'next/navigation'
 import { ChakraProvider } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import CustomText from '@/components/shared/textcomponent'
 // import { useEffect } from 'react' 
 
@@ -46,18 +46,36 @@ export default function RootLayout({
 
   useEffect(() => {
 
-    let token = window.localStorage.getItem("token")?.toString() 
+    let token = window.localStorage.getItem("token")?.toString()
     if (!pathname?.includes("/dashboard") && !pathname?.includes("/auth")) {
       window.localStorage.setItem("token", "");
-      window.localStorage.setItem("id", ""); 
+      window.localStorage.setItem("id", "");
     } else {
       if (!token || token === "" || token === undefined || token === null) {
-        router.push("/auth") 
+        router.push("/auth")
       }
- 
+
     }
 
   }, [pathname])
+
+  const getRandomNumber = (min: any, max: any) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const [randomNumber, setRandomNumber] = useState(getRandomNumber(1, 5));
+
+
+  // const generateRandomNumber = () => {
+  //   const newRandomNumber = getRandomNumber(1, 5);
+  //   setRandomNumber(newRandomNumber);
+  // }
+
+  // useEffect(() => {
+  //   generateRandomNumber()
+  // }, [])
+
+  console.log(randomNumber);
 
   return (
     <html lang="en">
@@ -66,7 +84,21 @@ export default function RootLayout({
           <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " !bg-[#3B3B3B] "} overflow-x-hidden overflow-y-hidden top-0 bottom-0 !z-[1000000000]  `} >
             {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
               <div className=' fixed inset-0 w-full h-full z-10 bg-black bg-opacity-15 ' >
-                <img src='/images/bg.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
+                {randomNumber === 1 && (
+                  <img src='/images/bg.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
+                )}
+                {randomNumber === 2 && (
+                  <img src='/images/rhema_one.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
+                )}
+                {randomNumber === 3 && (
+                  <img src='/images/rhema_two.jpg' alt='bg' className='  object-cover w-full h-full  ' />
+                )}
+                {randomNumber === 4 && (
+                  <img src='/images/rhema_three.png' alt='bg' className='  object-cover w-full h-full  ' />
+                )}
+                {randomNumber === 5 && (
+                  <img src='/images/rhema_four.jpg' alt='bg' className='  object-cover w-full h-full  ' />
+                )}
               </div>
             )}
             {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
