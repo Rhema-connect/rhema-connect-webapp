@@ -36,8 +36,7 @@ function VideoResource(props: Props) {
             onError: (error: any) => {
                 console.error(error);
             },
-            onSuccess: (data: any) => {
-                console.log(data?.data?.data);
+            onSuccess: (data: any) => { 
                 setData(data?.data?.data)
             }
         }

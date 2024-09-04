@@ -9,6 +9,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import CustomText from '@/components/shared/textcomponent'
 // import { useEffect } from 'react' 
+import '@radix-ui/themes/styles.css';
+import { Theme } from '@radix-ui/themes'
 
 const inter = Inter({ subsets: ['latin'], variable: "--font-inter" })
 
@@ -64,59 +66,61 @@ export default function RootLayout({
   }
 
   const [randomNumber, setRandomNumber] = useState(getRandomNumber(1, 5));
- 
+
 
   return (
     <html lang="en">
       <body className={` ${inter.variable} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " bg-[#FFF]  " : " !bg-[#3B3B3B] "} !overflow-hidden "`}>
         <Provider>
-          <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " !bg-[#3B3B3B] "} overflow-x-hidden overflow-y-hidden relative top-0 bottom-0 !z-[1000000000]  `} >
-            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
-              <div className=' fixed inset-0 z-10 w-full h-full bg-black bg-opacity-15 ' >
-                {randomNumber === 1 && (
-                  <img src='/images/bg.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
-                )}
-                {randomNumber === 2 && (
-                  <img src='/images/rhema_one.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
-                )}
-                {randomNumber === 3 && (
-                  <img src='/images/rhema_two.jpg' alt='bg' className='  object-cover w-full h-full  ' />
-                )}
-                {randomNumber === 4 && (
-                  <img src='/images/rhema_three.png' alt='bg' className='  object-cover w-full h-full  ' />
-                )}
-                {randomNumber === 5 && (
-                  <img src='/images/rhema_four.jpg' alt='bg' className='  object-cover w-full h-full  ' />
-                )}
-              </div>
-            )}
-            {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
-              <div className=' inset-0 fixed bg-[#12121280] z-20 ' />
-            )}
-            <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : "  "} w-full flex flex-col items-center text-white h-screen overflow-x-hidden relative overflow-y-auto z-30 `} >
-
-              <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " pb-3 "}  w-screen lg:h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} flex justify-center `}>
-                <Navbar pathname={pathname} />
-              </div>
-              <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1250px] lg:px-8"} w-full h-auto `}>
-                {/* <div className=' w-full h-full  ' > */}
-                <div className={` ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-0 " : ""}  w-full   `} >
-                  {children}
-                </div>
-                {/* </div> */}
-              </div>
-
-              {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard")) && (
-                <div className=' w-full h-fit mt-auto ' >
-                  <div className=' w-full flex justify-center items-center h-[50px] bg-[#3B3B3B] ' >
-                    <div className=' max-w-[1250px] lg:px-8 px-6 w-full ' >
-                      <CustomText className='text-[16px] text-[#BEBEBE] text-sm ' >© RHEMA MENA 2023. All right reserved</CustomText>
-                    </div>
-                  </div>
+          <Theme>
+            <div className={` w-screen h-screen ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : " !bg-[#3B3B3B] "} overflow-x-hidden overflow-y-hidden relative top-0 bottom-0 !z-[1000000000]  `} >
+              {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
+                <div className=' fixed inset-0 z-10 w-full h-full bg-black bg-opacity-15 ' >
+                  {randomNumber === 1 && (
+                    <img src='/images/bg.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
+                  )}
+                  {randomNumber === 2 && (
+                    <img src='/images/rhema_one.jpeg' alt='bg' className='  object-cover w-full h-full  ' />
+                  )}
+                  {randomNumber === 3 && (
+                    <img src='/images/rhema_two.jpg' alt='bg' className='  object-cover w-full h-full  ' />
+                  )}
+                  {randomNumber === 4 && (
+                    <img src='/images/rhema_three.png' alt='bg' className='  object-cover w-full h-full  ' />
+                  )}
+                  {randomNumber === 5 && (
+                    <img src='/images/rhema_four.jpg' alt='bg' className='  object-cover w-full h-full  ' />
+                  )}
                 </div>
               )}
+              {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard") && !pathname?.includes("/resources-info/video/")) && (
+                <div className=' inset-0 fixed bg-[#12121280] z-20 ' />
+              )}
+              <div className={`  ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "" : "  "} w-full flex flex-col items-center text-white h-screen overflow-x-hidden relative overflow-y-auto z-30 `} >
+
+                <div className={` ${(pathname?.includes("/auth")) ? "border-b border-[#F4F4F4] bg-[#F4F4F4]" : " pb-3 "}  w-screen lg:h-fit ${pathname?.includes("/dashboard") ? "hidden" : "block"} flex justify-center `}>
+                  <Navbar pathname={pathname} />
+                </div>
+                <div className={` ${pathname?.includes("/dashboard") ? "" : "max-w-[1250px] lg:px-8"} w-full h-auto `}>
+                  {/* <div className=' w-full h-full  ' > */}
+                  <div className={` ${!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "px-0 " : ""}  w-full   `} >
+                    {children}
+                  </div>
+                  {/* </div> */}
+                </div>
+
+                {(!pathname?.includes("/auth") && !pathname?.includes("/dashboard")) && (
+                  <div className=' w-full h-fit mt-auto ' >
+                    <div className=' w-full flex justify-center items-center h-[50px] bg-[#3B3B3B] ' >
+                      <div className=' max-w-[1250px] lg:px-8 px-6 w-full ' >
+                        <CustomText className='text-[16px] text-[#BEBEBE] text-sm ' >© RHEMA MENA 2023. All right reserved</CustomText>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          </Theme>
         </Provider>
       </body>
     </html>
