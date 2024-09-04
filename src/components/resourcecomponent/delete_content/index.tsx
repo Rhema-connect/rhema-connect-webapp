@@ -1,19 +1,23 @@
 import ModalLayout from '@/components/shared/modal_layout'
 import CustomText from '@/components/shared/textcomponent'
-import { useDeleteContentCallback } from '@/connections/useaction'
+import { useDeleteContentCallback, useDeletePlaylistCallback } from '@/connections/useaction'
 import { useToast, Flex, Button, Image } from '@chakra-ui/react'
 // import { Box } from 'framer-motion'
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 
 interface Props {
-    id?: string | number
+    id?: string | number,
+    type?: "Content" | "Playlist",
+    text?: boolean
 }
 
 export default function DeleteContent(props: Props) {
 
     const {
-        id
+        id,
+        text,
+        type
     } = props
 
     const [open, setOpen] = useState(false)
@@ -23,6 +27,7 @@ export default function DeleteContent(props: Props) {
     const queryClient = useQueryClient()
 
     const { handleDeleteContent } = useDeleteContentCallback()
+    const { handleDeletePlaylist } = useDeletePlaylistCallback()    
 
     //API call to handle adding user
     const deleteMutation = useMutation(async () => {
@@ -43,7 +48,41 @@ export default function DeleteContent(props: Props) {
             queryClient.invalidateQueries(['videolist'])
             queryClient.invalidateQueries(['audilist'])
             queryClient.invalidateQueries(['bookslist'])
-            
+            queryClient.invalidateQueries(['videoplaylist'])            
+
+            return response;
+        } else if (response?.data?.statusCode === 400) {
+            toast({
+                title: response?.data?.message,
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        }
+    });
+
+    //API call to handle adding user
+    const deletePlaylistMutation = useMutation(async () => {
+
+        let response = await handleDeletePlaylist(id ? id : "");
+
+        if (response?.status === 201 || response?.status === 200) {
+
+            toast({
+                title: response?.data?.message,
+                status: "success",
+                duration: 3000,
+                position: "top",
+            });
+
+            setOpen(false)
+
+            queryClient.invalidateQueries(['videolist'])
+            queryClient.invalidateQueries(['audilist'])
+            queryClient.invalidateQueries(['bookslist'])
+            queryClient.invalidateQueries(['videoplaylist'])            
+
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -58,35 +97,59 @@ export default function DeleteContent(props: Props) {
 
     const submit = async () => {
 
-        deleteMutation.mutateAsync()
-            .catch(() => {
-                toast({
-                    title: "Something went wrong",
-                    status: "error",
-                    duration: 3000,
-                    position: "top",
+        if(type === "Content") {
+            deleteMutation.mutateAsync()
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
+                    });
                 });
-            });
+        } else {
+            deletePlaylistMutation.mutateAsync()
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
+                    });
+                });
+        }
+
     }
 
-    const openHandler =(e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-        e.stopPropagation()
+    const openHandler = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if(e) {
+            e.stopPropagation()
+        }
         setOpen(true)
     }
 
     return (
         <>
-            <button onClick={(e) => openHandler(e)} className=' w-5 ' >
-                <Image src='/images/trash.png' alt='trash' />
-            </button>
-            <ModalLayout size={"md"} open={open} close={setOpen} title={"Delete Content"} >
+            {text && (
+                <button onClick={(e) => openHandler(e)}  className=' h-5 text-red-600 text-left ' >
+                    Delete
+                </button>
+            )}
+            {!text && (
+                <button onClick={(e) => openHandler(e)} className=' w-5 ' >
+                    <Image src='/images/trash.png' alt='trash' />
+                </button>
+            )}
+            <ModalLayout width='350px' open={open} close={setOpen}>
                 <div className=' w-full flex flex-col justify-center items-center ' >
-                    <Image src='/images/trash.png' width={"100px"} alt='trash' />
-                    <CustomText className=' mt-4 font-medium ' >Are You sure You want to delete this Content?</CustomText>
-                    <div className=' w-full flex flex-col justify-center gap-3 mt-8 ' >
+
+                    <Image alt='delete' src='/images/deleteaccount.svg' />
+                    <CustomText className=" text-[24px] font-bold mt-3 " >Delete {type} </CustomText>
+                    <CustomText className=" text-center text-gray-600 font-medium " color='grey'>Are you sure you want to delete this {type} ? this action cannot be undone.</CustomText>
+                    <div className=' w-full flex flex-col justify-center gap-3 mt-6 ' >
                         <Button variant={'outline'} outlineColor={'#1F7CFF'} borderWidth={'0px'} width='100%' height={'32px'} color='#1F7CFF' onClick={() => setOpen(false)} >Cancel</Button>
                         <Button onClick={() => submit()}
-                            isLoading={deleteMutation?.isLoading} isDisabled={deleteMutation?.isLoading} 
+                            isLoading={deleteMutation?.isLoading || deletePlaylistMutation?.isLoading} isDisabled={deleteMutation?.isLoading || deletePlaylistMutation?.isLoading}
                             variant={'solid'} bg='red' width='100%' height={'40px'} color='white' >Delete</Button>
                     </div>
                 </div>

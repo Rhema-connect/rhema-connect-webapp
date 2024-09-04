@@ -8,6 +8,8 @@ import { ContentData } from '@/models'
 import LoadingAnimation from '@/components/shared/loading_animation'
 import DeleteContent from '../delete_content'
 import { textLimit } from '@/util/textlimit'
+import { IoMdMore } from 'react-icons/io'
+import Videoform from '../create_video/videoform'
 
 interface Props {
     admin?: boolean
@@ -19,7 +21,10 @@ function VideoResource(props: Props) {
     } = props
 
     const [data, setData] = useState([] as Array<ContentData>)
+    const [show, setShow] = useState("")
+    const [open, setOpen] = useState(false)
 
+    const [currentdata, setCurrentData] = useState({} as ContentData)
 
     const { isLoading } = useQuery(['videolist'], () => actionService.getservicedata(`/content`,
         {
@@ -48,6 +53,20 @@ function VideoResource(props: Props) {
         }
     }
 
+    const editHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: ContentData) => {
+        e.stopPropagation()
+        
+        setCurrentData(item)
+        setOpen(true)
+        setShow("")
+    }
+
+    const openModal =(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: string)=> { 
+        e.stopPropagation()
+
+        setShow(item)
+    }
+
     return (
         <LoadingAnimation loading={isLoading} length={data?.length} >
             <div className=' w-full flex justify-center ' >
@@ -70,8 +89,21 @@ function VideoResource(props: Props) {
                                         )}
                                     </div>
                                     {admin && (
-                                        <div className=' w-fit ' >
-                                            <DeleteContent id={item?.id} />
+                                        <div className=' relative mt-1 ' >
+                                            <button onClick={(e) => openModal(e ,item?.id + "")} className='  ' >
+                                                <IoMdMore size={"24px"} />
+                                            </button>
+                                            {show === item?.id + "" && (
+                                                <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                    <button onClick={(e) => editHandler(e ,item)} role='button' className=' w-full text-left h-5 ' >
+                                                        Edit Video
+                                                    </button>
+                                                    <DeleteContent text={true} id={item?.id} type="Content" />
+                                                </div>
+                                            )}
+                                            {show === item?.id + "" && (
+                                                <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                            )}
                                         </div>
                                     )}
                                 </div>
@@ -79,6 +111,7 @@ function VideoResource(props: Props) {
                         )
                     })}
                 </div>
+                <Videoform data={currentdata} open={open} setOpen={setOpen} edit={true} />
             </div>
         </LoadingAnimation>
     )

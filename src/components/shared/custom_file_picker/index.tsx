@@ -1,22 +1,23 @@
 import { AudioIcon, BookIcon, TrashIcon, UploadIcon, VideoMp4Icon } from '@/components/svg'
 import React, { useState } from 'react'
 import CustomText from '../textcomponent'
-import { Image } from '@chakra-ui/react'
-import CustomButton from '../custom_button'
-import { string } from 'yup'
+import { Image, useToast } from '@chakra-ui/react'
 
 interface Props {
     type?: "video" | "audio" | "book",
-    setImageFiles?: any
+    setImageFiles?: any,
+    initial?: string
 }
 
 function CustomFilePicker(props: Props) {
     const {
         type,
-        setImageFiles
+        setImageFiles,
+        initial
     } = props
 
     const [imageView, setImageView] = useState({} as any)
+    const toast = useToast()
 
     const handleImageChange = (e: any) => {
 
@@ -28,7 +29,16 @@ function CustomFilePicker(props: Props) {
         const TYPES_Audio = ["audio/mpeg"];
         const TYPES_Video = ["video/x-matroska", "video/mp4", "image/jpeg"];
 
-        if (type === "video" && selected && TYPES_Video.includes(selected.type)) {
+        if (selected?.size > 32295253) {
+            toast({
+                title: "Size Should Not Be Above 30MB",
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+
+            return
+        } else if (type === "video" && selected && TYPES_Video.includes(selected.type)) {
             setImageFiles(selected)
             setImageView(selected)
             console.log(selected);
@@ -44,6 +54,21 @@ function CustomFilePicker(props: Props) {
             console.log(selected);
 
         } else {
+            if (type === "book") {
+                toast({
+                    title: "Accepts Only PDF",
+                    status: "error",
+                    duration: 3000,
+                    position: "top",
+                });
+            } else if (type === "audio") {
+                toast({
+                    title: "Accepts Only MP3",
+                    status: "error",
+                    duration: 3000,
+                    position: "top",
+                });
+            }
             console.log('Error')
         }
 
@@ -52,16 +77,16 @@ function CustomFilePicker(props: Props) {
 
     return (
         <div>
-            {!imageView?.name && (
+            {(!imageView?.name && !initial) && (
                 <label role='button' className=' border-[#919EAB52] border rounded-lg h-[126px] flex flex-col justify-center items-center ' >
                     <input accept="video" onChange={handleImageChange} className=' hidden ' type="file" />
                     <UploadIcon />
                     <CustomText className=" text-sm font-semibold leading-5 text-[#BE0027] " >Click to upload <span className=' text-[#475467] font-normal ' >or drag and drop</span></CustomText>
-                    <CustomText className=" text-xs leading-[18px] text-[#475467] " >SVG, PNG, JPG or MP4 (max. 800x400px)</CustomText>
+                    <CustomText className=" text-xs leading-[18px] text-[#475467] " >{type === "audio" ? "MP3" : "PDF"} (max. 30MB)</CustomText>
                 </label>
 
             )}
-            {imageView?.name && (
+            {(imageView?.name || initial) && (
                 <label role='button' className=' relative border-[#919EAB52] border rounded-lg h-[72px] flex px-4 justify-between items-center ' >
                     <input multiple={false} onChange={handleImageChange} className=' hidden ' type="file" />
                     <div className=' flex items-center gap-3 ' >
@@ -75,8 +100,10 @@ function CustomFilePicker(props: Props) {
                             <BookIcon />
                         )}
                         <div>
-                            <p className=' text-[14px] text-[#344054] leading-[20px] font-medium ' >{(imageView?.name)?.length < 30 ? imageView?.name : (imageView?.name)?.slice(0, 30) + "..."}</p>
-                            <p className=' text-[14px] leading-[20px] text-[#475467] ' >{imageView?.size / 1000} KB</p>
+                            <p className=' text-[14px] text-[#344054] leading-[20px] font-medium ' >{(imageView?.name ? imageView?.name : initial)?.length < 30 ? (imageView?.name ? imageView?.name : initial) : (imageView?.name ? imageView?.name : initial)?.slice(0, 30) + "..."}</p>
+                            {(imageView?.size) && (
+                                <p className=' text-[14px] leading-[20px] text-[#475467] ' >{imageView?.size / 1000} KB</p>
+                            )}
                         </div>
                     </div>
                     <TrashIcon />

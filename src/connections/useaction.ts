@@ -33,6 +33,21 @@ export function useUploaderCallback() {
   return { handleUploader }
 }
 
+export function useUpdateContentCallback() {
+  const handleUpdateContent = async (postData: any, index: number | string): Promise<any> => {
+    try {
+      const response = await axios.put('/content/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleUpdateContent }
+} 
+
 export function useCreatePlaylistCallback() {
   const handleCreatePlaylist = async (postData: any): Promise<any> => {
     try {
@@ -46,7 +61,7 @@ export function useCreatePlaylistCallback() {
     }
   }
   return { handleCreatePlaylist }
-}
+} 
 
 export function useupdatePlaylistCallback() {
   const handleupdatePlaylist = async (postData: any, index: number | string): Promise<any> => {
@@ -61,6 +76,21 @@ export function useupdatePlaylistCallback() {
     }
   }
   return { handleupdatePlaylist }
+}
+
+export function useupdatePlaylistDetailsCallback() {
+  const handleupdatePlaylistDetails = async (postData: any, index: number | string): Promise<any> => {
+    try {
+      const response = await axios.put('/content/update-playlist-details/'+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleupdatePlaylistDetails }
 }
 
 

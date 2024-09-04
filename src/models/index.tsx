@@ -1,7 +1,9 @@
 export interface CreatePlaylistData {
   type: string,
   title: string,
-  thumbnail?: string
+  thumbnail?: string,
+  description?: string,
+  isDraft?: boolean,
 }
 
 export interface IPlaylistData {

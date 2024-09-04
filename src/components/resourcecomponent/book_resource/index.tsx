@@ -8,6 +8,9 @@ import { useQuery } from 'react-query'
 import DeleteContent from '../delete_content'
 import { formatTimeAgo } from '@/util/dateformat'
 import { useRouter } from 'next/navigation'
+import { IoMdMore } from 'react-icons/io'
+import Videoform from '../create_video/videoform'
+import Bookform from '../create_book/bookform'
 
 interface Props {
     admin?: boolean
@@ -19,6 +22,10 @@ function BookResource(props: Props) {
     } = props
 
     const [data, setData] = useState([] as Array<ContentData>)
+    const [show, setShow] = useState("")
+    const [open, setOpen] = useState(false)
+
+    const [currentdata, setCurrentData] = useState({} as ContentData)
 
     const router = useRouter()
 
@@ -51,6 +58,20 @@ function BookResource(props: Props) {
         }
     }
 
+    const editHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: ContentData) => {
+        e.stopPropagation()
+        
+        setCurrentData(item)
+        setOpen(true)
+        setShow("")
+    }
+
+    const openModal =(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: string)=> { 
+        e.stopPropagation()
+
+        setShow(item)
+    }
+
     return (
         <div className=' w-full ' >
             <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
@@ -74,12 +95,28 @@ function BookResource(props: Props) {
                                     </CustomText>
                                 </div>
                                 {admin &&
-                                    <DeleteContent id={item?.id} />
+                                    <div className=' relative mt-1 ' >
+                                        <button onClick={(e) => openModal(e, item?.id + "")} className='  ' >
+                                            <IoMdMore size={"24px"} />
+                                        </button>
+                                        {show === item?.id + "" && (
+                                            <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
+                                                    Edit Video
+                                                </button>
+                                                <DeleteContent text={true} id={item?.id} type="Content" />
+                                            </div>
+                                        )}
+                                        {show === item?.id + "" && (
+                                            <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                        )}
+                                    </div>
                                 }
                             </div>
                             // </a>
                         )
                     })}
+                    <Bookform data={currentdata} open={open} setOpen={setOpen} edit={true} />
                 </div>
             </LoadingAnimation>
         </div>

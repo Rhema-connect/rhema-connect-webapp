@@ -1,4 +1,5 @@
 import { Flex, Spinner, Text } from '@chakra-ui/react'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 interface Props {
@@ -19,7 +20,9 @@ function LoadingAnimation(props: Props) {
         refeching,
         fix_height,
         color
-    } = props
+    } = props 
+
+  const pathname = usePathname()
 
     return (
         <>
@@ -28,7 +31,7 @@ function LoadingAnimation(props: Props) {
                     {children} 
                     {(!loading && refeching)&& (
                         <Flex width={"full"} justifyContent={"center"} height={fix_height ? "full": "auto"} fontSize={"20px"} py={fix_height ? "" : "8"}  >
-                            <Spinner size={["md", "sm"]} color={color? color : 'black'} />
+                            <Spinner size={["lg", "md"]} color={color? color : pathname?.includes("/dashboard") ? "black" : 'white'} />
                         </Flex>
                     )}
                 </>
@@ -45,7 +48,7 @@ function LoadingAnimation(props: Props) {
             )}
             {loading && (
                 <Flex width={"full"} justifyContent={"center"} fontSize={"20px"} py={"8"}  >
-                    <Spinner size={["md", "sm"]} color={color? color : 'black'} />
+                    <Spinner size={["lg", "md"]} color={color? color : pathname?.includes("/dashboard") ? "black" : 'white'} />
                 </Flex>
             )}
         </>

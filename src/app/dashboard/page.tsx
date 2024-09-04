@@ -9,9 +9,9 @@ function Dashboard(props: Props) {
 
     const router = useRouter()
   
-    useEffect(()=> {
-      router?.push("/dashboard/resources")
-    }, [])
+    // useEffect(()=> {
+    //   router?.push("/dashboard/resources")
+    // }, [])
 
     return (
         <div className=' w-full h-full ' >

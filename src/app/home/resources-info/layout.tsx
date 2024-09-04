@@ -39,7 +39,7 @@ function Layout(props: Props) {
                 )}
             </div>
             <ResourceHeader path={active} />
-            <div className=' w-full ' >
+            <div  style={{ background: pathname?.includes("/resources-info/video/") ? "" : "linear-gradient(126.5deg, rgba(255, 255, 255, 0.24) -4.87%, rgba(255, 255, 255, 0) 112.83%)" }} className=' w-full px-6 py-4 rounded-lg ' >
                 {children}
             </div>
         </PageLayout>
