@@ -322,7 +322,7 @@ export default function Bookform(props: IProps) {
     }
 
     return (
-        <ModalLayout open={open} close={setOpen} title={""} size={"md"} >
+        <ModalLayout open={open} close={()=> setOpen(false)} title={""} size={"md"} >
             <form onSubmit={(e) => submit(e)} className=' w-full ' >
                 <CustomText className=" font-bold text-[18px] leading-[28px] text-[#212B36] " >Upload Book</CustomText>
                 <CustomText className=" text-xs leading-[18px] text-[#637381] " >Upload resources </CustomText>

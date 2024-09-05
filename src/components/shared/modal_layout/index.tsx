@@ -5,12 +5,15 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton
+    ModalCloseButton, 
 } from "@chakra-ui/react"
+import { Popover } from '@radix-ui/themes'
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { IoMenu } from "react-icons/io5";
 
 interface Props {
-    open: any,
-    close: any,
+    open: boolean,
+    close: () => void,
     size?: any,
     width?: string,
     title?: any, 
@@ -47,5 +50,16 @@ export default function ModalLayout(props: Props) {
                 </ModalBody>
             </ModalContent>
         </Modal>
+
+                // <Popover.Root open={open} onOpenChange={close} >
+                //     {/* <Popover.Trigger>
+                //         <button role='button' onClick={() => setShow(true)} className=' text-primary lg:hidden ' >
+                //             <IoMenu size={"35px"} />
+                //         </button>
+                //     </Popover.Trigger> */}
+                //     <Popover.Content className=" z-[10000000000000000] " maxWidth={"500px"}> 
+                //         {children}
+                //     </Popover.Content>
+                // </Popover.Root>
     )
 }

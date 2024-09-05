@@ -32,8 +32,7 @@ function VideoPlatlist(props: Props) {
             onError: (error: any) => {
                 console.error(error);
             },
-            onSuccess: (data: any) => {
-                console.log(data?.data?.data);
+            onSuccess: (data: any) => { 
                 setData(data?.data?.data)
             }
         }
@@ -83,7 +82,7 @@ function VideoPlatlist(props: Props) {
                     )
                 })}
             </div>
-            <ModalLayout open={open} close={setOpen} size={"lg"} title={"Edit Platlist"} >
+            <ModalLayout open={open} close={()=> setOpen(false)} size={"lg"} title={"Edit Platlist"} >
                 <PlaylistForm typeinfo={"VIDEO"} setOpen={setOpen} edit={true} data={currentdata} />
             </ModalLayout>
         </LoadingAnimation>
