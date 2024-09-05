@@ -110,7 +110,7 @@ function AudioResource(props: Props) {
                 </div>
             </LoadingAnimation>
             <Audiolist admin={admin} />
-            <ModalLayout open={open} close={setOpen} size={"lg"} title={"Edit Platlist"} >
+            <ModalLayout open={open} close={()=> setOpen(false)} size={"lg"} title={"Edit Platlist"} >
                 <PlaylistForm typeinfo={"AUDIO"} setOpen={setOpen} edit={true} data={currentdata} />
             </ModalLayout>
         </div>

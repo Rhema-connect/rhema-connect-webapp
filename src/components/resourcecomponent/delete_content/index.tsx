@@ -140,7 +140,7 @@ export default function DeleteContent(props: Props) {
                     <Image src='/images/trash.png' alt='trash' />
                 </button>
             )}
-            <ModalLayout width='350px' open={open} close={setOpen}>
+            <ModalLayout width='350px' open={open} close={()=> setOpen(false)}>
                 <div className=' w-full flex flex-col justify-center items-center ' >
 
                     <Image alt='delete' src='/images/deleteaccount.svg' />
