@@ -140,17 +140,17 @@ export default function DeleteContent(props: Props) {
                     <Image src='/images/trash.png' alt='trash' />
                 </button>
             )}
-            <ModalLayout width='350px' open={open} close={()=> setOpen(false)}>
+            <ModalLayout size={"sm"} open={open} close={()=> setOpen(false)}>
                 <div className=' w-full flex flex-col justify-center items-center ' >
 
                     <Image alt='delete' src='/images/deleteaccount.svg' />
                     <CustomText className=" text-[24px] font-bold mt-3 " >Delete {type} </CustomText>
                     <CustomText className=" text-center text-gray-600 font-medium " color='grey'>Are you sure you want to delete this {type} ? this action cannot be undone.</CustomText>
                     <div className=' w-full flex flex-col justify-center gap-3 mt-6 ' >
-                        <Button variant={'outline'} outlineColor={'#1F7CFF'} borderWidth={'0px'} width='100%' height={'32px'} color='#1F7CFF' onClick={() => setOpen(false)} >Cancel</Button>
+                        <Button variant={'outline'} outlineColor={'#1F7CFF'} borderWidth={'0px'}  height={'32px'} color='#1F7CFF' onClick={() => setOpen(false)} >Cancel</Button>
                         <Button onClick={() => submit()}
-                            isLoading={deleteMutation?.isLoading || deletePlaylistMutation?.isLoading} isDisabled={deleteMutation?.isLoading || deletePlaylistMutation?.isLoading}
-                            variant={'solid'} bg='red' width='100%' height={'40px'} color='white' >Delete</Button>
+                            isLoading={deleteMutation?.isLoading || deletePlaylistMutation?.isLoading}  isDisabled={deleteMutation?.isLoading || deletePlaylistMutation?.isLoading}
+                            variant={'solid'} bg='red'  height={'40px'} color='white' >Delete</Button>
                     </div>
                 </div>
             </ModalLayout>
