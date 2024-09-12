@@ -34,9 +34,9 @@ function ResourceHeader(props: Props) {
                         <p className=' text-[20px] leading-[30px] text-white font-bold ' >Audio</p>
                     </div>
                     <SearchBar />
-                    <select className=' h-14 w-[200px] rounded-lg bg-[#3B3B3B] border border-[#919EAB52] px-4 pl-12 text-white ' >
+                    {/* <select className=' h-14 w-[200px] rounded-lg bg-[#3B3B3B] border border-[#919EAB52] px-4 pl-12 text-white ' >
                         <option>All Resources</option>
-                    </select>
+                    </select> */}
                 </div>
             )}
         </>
