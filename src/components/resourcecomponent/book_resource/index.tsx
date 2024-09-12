@@ -1,16 +1,14 @@
 "use client"
 import LoadingAnimation from '@/components/shared/loading_animation'
-import CustomText from '@/components/shared/textcomponent'
-import actionService from '@/connections/getdataaction'
+import CustomText from '@/components/shared/textcomponent' 
 import { ContentData } from '@/models'
-import React, { useState } from 'react'
-import { useQuery } from 'react-query'
+import React, { useEffect, useState } from 'react' 
 import DeleteContent from '../delete_content'
 import { formatTimeAgo } from '@/util/dateformat'
 import { useRouter } from 'next/navigation'
-import { IoMdMore } from 'react-icons/io'
-import Videoform from '../create_video/videoform'
+import { IoMdMore } from 'react-icons/io' 
 import Bookform from '../create_book/bookform'
+import InfiniteScrollerComponent from '@/connections/infiniteScrollerComponent' 
 
 interface Props {
     admin?: boolean
@@ -26,25 +24,30 @@ function BookResource(props: Props) {
     const [open, setOpen] = useState(false)
 
     const [currentdata, setCurrentData] = useState({} as ContentData)
+    // const { search, setSearchValue } = useSearchStore((state) => state);
 
     const router = useRouter()
 
-    const { isLoading, isRefetching } = useQuery(['bookslist'], () => actionService.getservicedata(`/content/books/all`,
-        {
-            limit: 10,
-            page: 1,
-        }),
-        {
-            onError: (error: any) => {
-                console.error(error);
-            },
-            onSuccess: (data: any) => {
-                if (data?.data?.data.length > 0) {
-                    setData(data?.data?.data)
-                }
-            }
-        }
-    )
+    // const { isLoading, isRefetching } = useQuery(['bookslist'], () => actionService.getservicedata(`/content/books/all`,
+    //     {
+    //         limit: 10,
+    //         page: 1,
+    //     }),
+    //     {
+    //         onError: (error: any) => {
+    //             console.error(error);
+    //         },
+    //         onSuccess: (data: any) => {
+    //             if (data?.data?.data.length > 0) {
+    //                 setData(data?.data?.data)
+    //             }
+    //         }
+    //     }
+    // )
+
+
+    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: "/content/books/all", limit: 10, filter: "id", type: "AUDIO", name: "audiplaylist" })
+ 
 
     const clickHandler = (item: ContentData) => {
 
@@ -71,6 +74,10 @@ function BookResource(props: Props) {
 
         setShow(item)
     }
+
+    // useEffect(()=> {
+    //     setSearchValue("")
+    // }, [])
 
     return (
         <div className=' w-full ' >

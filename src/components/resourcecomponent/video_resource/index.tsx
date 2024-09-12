@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomText from '../../shared/textcomponent'
 import { useRouter } from 'next/navigation'
 import actionService from '@/connections/getdataaction'
@@ -10,37 +10,25 @@ import DeleteContent from '../delete_content'
 import { textLimit } from '@/util/textlimit'
 import { IoMdMore } from 'react-icons/io'
 import Videoform from '../create_video/videoform'
+import InfiniteScrollerComponent from '@/connections/infiniteScrollerComponent'
+import useSearchStore from '@/store/useSearchData'
 
 interface Props {
-    admin?: boolean
+    admin?: boolean 
 }
 
 function VideoResource(props: Props) {
     const {
-        admin
+        admin, 
     } = props
 
-    const [data, setData] = useState([] as Array<ContentData>)
     const [show, setShow] = useState("")
     const [open, setOpen] = useState(false)
+    const { search, setSearchValue } = useSearchStore((state) => state);
 
     const [currentdata, setCurrentData] = useState({} as ContentData)
 
-    const { isLoading } = useQuery(['videolist'], () => actionService.getservicedata(`/content`,
-        {
-            limit: 20,
-            page: 0,
-            type: "VIDEO"
-        }),
-        {
-            onError: (error: any) => {
-                console.error(error);
-            },
-            onSuccess: (data: any) => { 
-                setData(data?.data?.data)
-            }
-        }
-    )
+    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/content${search ? `?keyword=${search}` : ""}`, limit: 10, filter: "id", type: "VIDEO", search: search })
 
     const router = useRouter()
 
@@ -54,60 +42,104 @@ function VideoResource(props: Props) {
 
     const editHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: ContentData) => {
         e.stopPropagation()
-        
+
         setCurrentData(item)
         setOpen(true)
         setShow("")
     }
 
-    const openModal =(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: string)=> { 
+    useEffect(()=> {
+        setSearchValue("")
+    }, [])
+
+    const openModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: string) => {
         e.stopPropagation()
 
         setShow(item)
     }
 
     return (
-        <LoadingAnimation loading={isLoading} length={data?.length} >
+        <LoadingAnimation loading={isLoading} refeching={isRefetching} length={results?.length} >
             <div className=' w-full flex justify-center ' >
-                <div className=' w-fit md:w-fit lg:w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
-                    {data?.map((item: ContentData, index: number) => {
-                        return (
-                            <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
-                                <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
-                                    <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
-                                </div>
-                                <div className=' w-full flex justify-between  mt-4 ' >
-                                    <div>
-                                        <CustomText className=' leading-[30px] font-bold text-[20px]'  >
-                                            {item?.title}
-                                        </CustomText>
-                                        {item?.description && (
-                                            <CustomText className=' text-[14px] leading-6 ' >
-                                                {textLimit(item?.description, 30)}
-                                            </CustomText>
-                                        )}
+                <div className=' w-full md:w-fit lg:w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
+                    {results?.map((item: ContentData, index: number) => {
+                        if (index === results?.length - 1) {
+                            return (
+                                <div ref={ref} role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full w-full md:w-[300px] ' >
+                                    <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
+                                        <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
                                     </div>
-                                    {admin && (
-                                        <div className=' relative mt-1 ' >
-                                            <button onClick={(e) => openModal(e ,item?.id + "")} className='  ' >
-                                                <IoMdMore size={"24px"} />
-                                            </button>
-                                            {show === item?.id + "" && (
-                                                <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
-                                                    <button onClick={(e) => editHandler(e ,item)} role='button' className=' w-full text-left h-5 ' >
-                                                        Edit Video
-                                                    </button>
-                                                    <DeleteContent text={true} id={item?.id} type="Content" />
-                                                </div>
-                                            )}
-                                            {show === item?.id + "" && (
-                                                <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                    <div className=' w-full flex justify-between  mt-4 ' >
+                                        <div>
+                                            <CustomText className=' leading-[30px] font-bold text-[20px]'  >
+                                                {item?.title}
+                                            </CustomText>
+                                            {item?.description && (
+                                                <CustomText className=' text-[14px] leading-6 ' >
+                                                    {textLimit(item?.description, 30)}
+                                                </CustomText>
                                             )}
                                         </div>
-                                    )}
+                                        {admin && (
+                                            <div className=' relative mt-1 ' >
+                                                <button onClick={(e) => openModal(e, item?.id + "")} className='  ' >
+                                                    <IoMdMore size={"24px"} />
+                                                </button>
+                                                {show === item?.id + "" && (
+                                                    <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                        <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
+                                                            Edit Video
+                                                        </button>
+                                                        <DeleteContent text={true} id={item?.id} type="Content" />
+                                                    </div>
+                                                )}
+                                                {show === item?.id + "" && (
+                                                    <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )
+                            )
+                        } else {
+                            return (
+                                <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
+                                    <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
+                                        <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
+                                    </div>
+                                    <div className=' w-full flex justify-between  mt-4 ' >
+                                        <div>
+                                            <CustomText className=' leading-[30px] font-bold text-[20px]'  >
+                                                {item?.title}
+                                            </CustomText>
+                                            {item?.description && (
+                                                <CustomText className=' text-[14px] leading-6 ' >
+                                                    {textLimit(item?.description, 30)}
+                                                </CustomText>
+                                            )}
+                                        </div>
+                                        {admin && (
+                                            <div className=' relative mt-1 ' >
+                                                <button onClick={(e) => openModal(e, item?.id + "")} className='  ' >
+                                                    <IoMdMore size={"24px"} />
+                                                </button>
+                                                {show === item?.id + "" && (
+                                                    <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                        <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
+                                                            Edit Video
+                                                        </button>
+                                                        <DeleteContent text={true} id={item?.id} type="Content" />
+                                                    </div>
+                                                )}
+                                                {show === item?.id + "" && (
+                                                    <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                        }
                     })}
                 </div>
                 <Videoform data={currentdata} open={open} setOpen={setOpen} edit={true} />
