@@ -47,14 +47,11 @@ function Layout(props: Props) {
     useEffect(() => {
         setActive(pathname)
     }, [router])
-
-    console.log(getCookie('googtrans'));
-
-
+ 
     return (
         <PageLayout>
             <div className=' w-full flex py-6 lg:py-[76px] lg:flex-row flex-col justify-between lg:items-center ' >
-                <CustomText className=' font-bold text-[24px] leading-[36px] max-w-[204px] lg:max-w-[188px] lg:px-0 px-6 lg:py-8' >YOUR RESOURCES</CustomText>
+                <CustomText className=' font-bold text-[24px] leading-[36px] max-w-[204px] lg:max-w-[188px] lg:px-0 px- lg:py-8' >YOUR RESOURCES</CustomText>
                 <button onClick={() => router.push('/')} className=' w-[141px] hidden h-[48px] rounded-lg lg:flex gap-2 items-center border border-[#919EAB52] justify-center ' >
                     <HomeIcon />
                     <CustomText className=' text-[15px] font-bold text-white leading-[26px] ' >Go home</CustomText>
@@ -74,7 +71,7 @@ function Layout(props: Props) {
                             <div className=' w-[140px] absolute top-9 z-20 flex flex-col gap-1 p-2 bg-[#828282] shadow-lg rounded-lg ' >
                                 {route?.map((item: { name: string, route: string }, index) => {
                                     return (
-                                        <div role='button' onClick={() => clickHandler(item?.route)} key={index} className={` text-white ${item?.route === active ? ' bg-[#3B3B3B]  ' : ''} h-9 flex items-center px-4 leading-6 `} >
+                                        <div role='button' onClick={() => clickHandler(item?.route)} key={index} className={` text-white font-semibold ${item?.route === active ? ' bg-[#3B3B3B]  ' : ''} h-9 flex items-center px-4 leading-6 `} >
                                             <CustomText>
                                                 {item?.name}
                                             </CustomText>
@@ -93,7 +90,7 @@ function Layout(props: Props) {
                     <div className=' w-[140px] hidden lg:flex flex-col gap-1 ' >
                         {route?.map((item: { name: string, route: string }, index) => {
                             return (
-                                <div role='button' onClick={() => clickHandler(item?.route)} key={index} className={` text-white border-[#BE0027] ${item?.route === active ? 'border-l-2' : ''} h-9 flex items-center px-4 leading-6 `} >
+                                <div role='button' onClick={() => clickHandler(item?.route)} key={index} className={` text-white border-[#BE0027] font-bold ${item?.route === active ? 'border-l-2' : ''} h-9 flex items-center px-4 leading-6 `} >
                                     <CustomText>
                                         {item?.name}
                                     </CustomText>

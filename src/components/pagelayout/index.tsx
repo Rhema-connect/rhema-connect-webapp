@@ -15,7 +15,7 @@ function PageLayout(props: Props) {
     const pathname = usePathname() 
 
     return (
-        <div className=' w-full h-full py-8 relative ' >
+        <div className=' w-full h-full py-8 relative lg:px-0 px-4 ' >
             {pathname.includes('/resources-info/video') && (
                 <div style={{ flexShrink: 0 }} className=' w-[90vw] lg:w-[625px] h-[142px] lg:h-[217px] absolute -z-10 rounded-2xl top-[50px] left-[170px] bg-[#720017] ' />
             )}

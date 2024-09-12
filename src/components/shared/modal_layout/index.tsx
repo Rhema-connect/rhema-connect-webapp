@@ -36,7 +36,7 @@ export default function ModalLayout(props: Props) {
     return (
         <Modal size={size ? size : ""} isCentered scrollBehavior="inside" isOpen={open} onClose={close}>
             <ModalOverlay />
-            <ModalContent width={width} bgColor="#FFFFFF">
+            <ModalContent bgColor="#FFFFFF">
                 {title && (
                     <>
                         <ModalHeader color={"#010203"} lineHeight={"23.2px"} textAlign={"center"} fontWeight={"medium"} >{title}</ModalHeader>
@@ -44,9 +44,9 @@ export default function ModalLayout(props: Props) {
                     </>
                 )}
                 <ModalBody bgColor="#FFFFFF" padding="6" borderRadius="8px" >
-                    <div >
+                    {/* <div > */}
                         {children}
-                    </div>
+                    {/* </div> */}
                 </ModalBody>
             </ModalContent>
         </Modal>
