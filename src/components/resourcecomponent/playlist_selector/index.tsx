@@ -20,7 +20,7 @@ function PlaylistSelector(props: Props) {
 
     const [data, setData] = useState([] as Array<IPlaylistData>)
 
-    const { isLoading, isRefetching } = useQuery(['videoplaylist'], () => actionService.getservicedata(`/content/playlists/all`,
+    const { isLoading, isRefetching } = useQuery([type+'playlist' ], () => actionService.getservicedata(`/content/playlists/all`,
         {
             limit: 10,
             page: 0,
