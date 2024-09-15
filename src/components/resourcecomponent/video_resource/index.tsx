@@ -28,7 +28,7 @@ function VideoResource(props: Props) {
 
     const [currentdata, setCurrentData] = useState({} as ContentData)
 
-    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/content${search ? `?keyword=${search}` : ""}`, limit: 10, filter: "id", type: "VIDEO", search: search })
+    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/content?type=VIDEO${search ? `&keyword=${search}` : ""}`, limit: 10, filter: "id", type: "VIDEO", search: search, name: "videolist" })
 
     const router = useRouter()
 

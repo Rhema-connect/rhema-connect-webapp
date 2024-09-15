@@ -29,18 +29,18 @@ function InfiniteScrollerComponent(props: Props) {
   const [results, setResults] = React.useState([] as any)
   const intObserver = React.useRef<IntersectionObserver>();
 
-  const { data, isLoading, refetch, isRefetching, isError } = useQuery(name ? [name, url, search, type] : [url], () => axios.get(`${url}`, {
+  const { data, isLoading, refetch, isRefetching, isError } = useQuery(name ? [name, url, search] : [url], () => axios.get(`${url}`, {
     params: {
       limit: size,
-      page: 0,
-      type: type
+      page: 0, 
     }
   }), {
     onError: (error: AxiosError<any, any>) => {
       // toast.error(error.response?.data);
     },
 
-    onSuccess: (data: any) => {
+    onSuccess: (data: any) => { 
+      
       if (isRefetching) {
         if (size === limit) {
           setResults(lodash.uniqBy(data?.data?.data, filter ? filter : "id"));
@@ -52,8 +52,7 @@ function InfiniteScrollerComponent(props: Props) {
       } else {
         setResults(lodash.uniqBy(data?.data?.data, filter ? filter : "id"));
       }
-      setHasNextPage(data?.data?.total > data?.data?.limit ? true : false);
-      console.log();
+      setHasNextPage(data?.data?.total > (data?.data?.data)?.length ? true : false);  
       
       window.scrollTo(0, window.innerHeight);
       //   setData(data.data.content);

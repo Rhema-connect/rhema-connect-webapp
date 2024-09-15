@@ -96,9 +96,17 @@ export default function PlaylistForm(props: Props) {
     const updatePlayistMutation = useMutation(async (formData: CreatePlaylistData) => {
         const response = await handleupdatePlaylistDetails(formData, data?.id + "");
 
+
         console.log(response?.data);
 
         if (response?.status === 201 || response?.status === 200) {
+ 
+            queryClient.refetchQueries(['videoplaylist'])
+            queryClient.invalidateQueries(['audiplaylist'])
+            queryClient.invalidateQueries(['videolist'])
+            queryClient.invalidateQueries(['audilist'])
+            queryClient.invalidateQueries(['bookslist'])
+            queryClient.invalidateQueries(['videoplaylist'])      
 
             toast({
                 title: response?.data?.message,
@@ -106,9 +114,6 @@ export default function PlaylistForm(props: Props) {
                 duration: 3000,
                 position: "top",
             });
-
-            queryClient.invalidateQueries(['videoplaylist'])
-            queryClient.invalidateQueries(['audiplaylist'])
             setOpen(false)
 
             return response;
@@ -129,7 +134,8 @@ export default function PlaylistForm(props: Props) {
             });
             return
         }
-    });
+    },
+);
 
     //API call to handle adding user
     const uploaderMutation = useMutation(async (userdata: CreatePlaylistData) => {
