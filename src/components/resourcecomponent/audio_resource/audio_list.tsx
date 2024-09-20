@@ -172,7 +172,7 @@ function Audiolist(props: Props) {
                   <div className=" w-14 h-14 bg-red-900 rounded-2xl ">
                     <img
                       alt="thumbnailyyyyyy"
-                      src={item?.uri}
+                      src={item?.thumbnail}
                       className="w-full h-full object-cover rounded-2xl "
                     />
                   </div>
