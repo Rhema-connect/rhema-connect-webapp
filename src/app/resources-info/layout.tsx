@@ -22,16 +22,26 @@ function Layout(props: Props) {
 
     useEffect(() => {
         setActive(pathname)
-    }, [router])
+    }, [])
+
+    const clickHandler = () => {
+        if(pathname?.includes("book")) {
+            router?.push("")
+        } else if(pathname?.includes("book")) {
+            router?.push("")
+        } else if(pathname?.includes("book")) {
+            router?.push("")
+        }
+    }
 
     return (
         <PageLayout>
             <div className=' w-full flex py-[4px] flex-col ' >
                 {/* <CustomText className=' font-bold text-[48px] leading-[64px]  ' >YOUR RESOURCES</CustomText> */}
-                <button onClick={() => router.back()} className=' w-fit h-[48px] rounded-lg flex gap-1 items-center bg-transparent justify-center ' >
+                <div role='button' onClick={() => router.back()} className=' w-fit h-[48px] rounded-lg flex gap-1 items-center bg-transparent justify-center ' >
                     <BackArrow />
                     <CustomText className=' text-white leading-[24px] ' >Go back</CustomText>
-                </button>
+                </div>
                 {active === '/resources-info/audio' && (
                     <div className=' mt-6 w-full flex justify-start ' >
                         <SearchBar />

@@ -49,7 +49,7 @@ export default function RootLayout({
   useEffect(() => {
 
     let token = window.localStorage.getItem("token")?.toString()
-    if (!pathname?.includes("/dashboard") && !pathname?.includes("/auth")) {
+    if (!pathname?.includes("/dashboard") && !pathname?.includes("/auth") && !pathname?.includes("resources-info")) {
       window.localStorage.setItem("token", "");
       window.localStorage.setItem("id", "");
     } else {

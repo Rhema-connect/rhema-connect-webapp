@@ -32,7 +32,7 @@ export default function InputComponent({ left, leftIcon, right, rightIcon, type,
     return (
         <>
             {!textarea && (
-                <InputGroup >
+                <InputGroup w={"full"} >
                     {left && (
                         <InputLeftElement >
                             <Box display="flex" height={h ? h : "35px"} justifyContent="center" alignItems="center" marginTop="6px" marginLeft="12px" >
@@ -40,7 +40,7 @@ export default function InputComponent({ left, leftIcon, right, rightIcon, type,
                             </Box>
                         </InputLeftElement>
                     )}
-                    <Input {...rest} type={intialType} textColor="#000" paddingLeft={left ? "45px" : ""} fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={h ? h : "45px"} />
+                    <Input {...rest} type={intialType} w={"full"} textColor="#000" paddingLeft={left ? "45px" : ""} fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={h ? h : "45px"} />
                     {right && (
                         <InputRightElement> 
                             <Box display="flex" height={h ? h : "35px"} justifyContent="center" alignItems="center" marginTop="6px" paddingRight="30px" marginLeft="12px" >
