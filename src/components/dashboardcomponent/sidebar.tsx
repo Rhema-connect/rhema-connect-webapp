@@ -14,7 +14,7 @@ function Sidebar(props: Props) {
     const topmenu = [
         {
             name: "Dashboard",
-            path: "/dashboard"
+            path: "/dashboard/resources"
         },
         {
             name: "Resources",
@@ -23,10 +23,10 @@ function Sidebar(props: Props) {
     ]
 
     const bottommenu = [
-        {
-            name: "Help Desk",
-            path: "/dashboard/help"
-        },
+        // {
+        //     name: "Help Desk",
+        //     path: "/dashboard/help"
+        // },
         {
             name: "Configurations",
             path: "/dashboard/configuration"
