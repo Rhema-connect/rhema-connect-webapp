@@ -39,7 +39,7 @@ function InfiniteScrollerComponent(props: Props) {
       // toast.error(error.response?.data);
     },
 
-    onSuccess: (data: any) => { 
+    onSuccess: (data: any) => {  
       
       if (isRefetching) {
         if (size === limit) {
@@ -52,7 +52,13 @@ function InfiniteScrollerComponent(props: Props) {
       } else {
         setResults(lodash.uniqBy(data?.data?.data, filter ? filter : "id"));
       }
-      setHasNextPage(data?.data?.total > (data?.data?.data)?.length ? true : false);  
+
+      if(data?.data?.limit > data?.data?.total) {
+        setHasNextPage(false)
+      } else {
+        setHasNextPage(true)
+      }
+      // setHasNextPage(!(data?.data?.data?.length > data?.data?.total));  
       
       window.scrollTo(0, window.innerHeight);
       //   setData(data.data.content);
