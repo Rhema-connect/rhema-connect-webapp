@@ -19,13 +19,15 @@ export default function RootLayout({
                 <Sidebar />
             </div>
             <div className={` w-full h-[100vh] overflow-y-auto  `} >
-                <div className="  w-full sticky z-30 top-0 " >
-                    <div className=" w-full h-[96px] bg-[#3B3B3B] border-b border-[#828282] " />
-                    {(pathname !== "/dashboard") && (
-                        <Menubar />
-                    )}
-                </div>
-                <div className={` w-full h-full flex flex-1 bg-[#FAFAFA]  ${pathname?.includes("configuration") ? " pl-6 pt-6 " : " p-6 "} gap-6 `} >
+                {!pathname?.includes("resources-info") &&
+                    <div className="  w-full sticky z-30 top-0 " >
+                        <div className=" w-full h-[96px] bg-[#3B3B3B] border-b border-[#828282] " />
+                        {((pathname !== "/dashboard") && !pathname?.includes("admin")) && (
+                            <Menubar />
+                        )}
+                    </div>
+                }
+                <div className={` w-full h-full flex flex-1 ${!pathname?.includes("resources-info") ? "bg-[#FAFAFA]" : "bg-white"}   ${pathname?.includes("configuration") ? " pl-6 pt-6 " : " p-6 "} gap-6 `} >
                     {pathname?.includes("configuration") && (
                         <div className=" w-fit flex sticky left-0 h-[60%] " >
                             <ConfigMenu />

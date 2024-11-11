@@ -19,8 +19,8 @@ function Menubar(props: Props) {
                 <div>
                     <p className=' text-[20px] font-bold leading-[20px] '>Manage Resources</p>
                     <p className=' leading-[22px] text-[12px] mt-1' >Create, edit and resources</p>
-                </div>
-                {!pathname?.includes("configuration") ? ( 
+                </div> 
+                {(!pathname?.includes("configuration")) ? ( 
                     <div className=' mt-5 flex ' >
                         <div role='button' onClick={() => clickHandler("/dashboard/resources")} className={` w-[95px] ${pathname === "/dashboard/resources" ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
                             Videos
@@ -36,7 +36,7 @@ function Menubar(props: Props) {
                     <div className=' mt-5 flex ' >
                         <div role='button' className={` w-[95px] ${pathname?.includes("configuration") ? "bg-white text-[#3B3B3B] font-semibold " : " text-sm font-medium "} flex justify-center items-center leading-[22px] text-[14px] rounded-t-[8px] h-[48px] `} >
                             General
-                        </div>
+                        </div> 
                     </div>
                 )}
             </div>

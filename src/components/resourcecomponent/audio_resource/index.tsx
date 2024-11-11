@@ -112,7 +112,7 @@ function AudioResource(props: Props) {
                                                         <IoMdMore size={"20px"} />
                                                     </button>
                                                     {show === item?.id + "" && (
-                                                        <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                        <div className=' top-[0px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                                             <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                                 Edit playlist
                                                             </button>
@@ -120,7 +120,7 @@ function AudioResource(props: Props) {
                                                         </div>
                                                     )}
                                                     {show === item?.id + "" && (
-                                                        <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                                        <div onClick={() => setShow("")} className=' fixed inset-0 z-30 ' />
                                                     )}
                                                 </div>
                                             </div>

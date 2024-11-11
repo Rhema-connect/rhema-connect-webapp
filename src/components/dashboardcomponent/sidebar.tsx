@@ -19,14 +19,14 @@ function Sidebar(props: Props) {
         {
             name: "Resources",
             path: "/dashboard/resources"
+        },
+        {
+            name: "Admin",
+            path: "/dashboard/admin"
         }
     ]
 
-    const bottommenu = [
-        // {
-        //     name: "Help Desk",
-        //     path: "/dashboard/help"
-        // },
+    const bottommenu = [ 
         {
             name: "Configurations",
             path: "/dashboard/configuration"
@@ -60,8 +60,8 @@ function Sidebar(props: Props) {
                             {item?.name === "Resources" && (
                                 <ResourceIcon color={item?.path === (pathname) ? "#212B36" : 'white'} />
                             )}
-                            {item?.name === "Statistics" && (
-                                <FileIcon color='white' />
+                            {item?.name === "Admin" && (
+                                <FileIcon color={item?.path === (pathname) ? "#212B36" : 'white'} />
                             )}
                             <p className=' font-medium text-sm leading-[22px] ' >{item?.name}</p>
                         </div>

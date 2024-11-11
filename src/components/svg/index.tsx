@@ -128,7 +128,7 @@ export function RoundedArrow() {
   );
 }
 
-export function BackArrow() {
+export function BackArrow({color}: {color?: string}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ export function BackArrow() {
     >
       <path
         d="M13.8297 18.9998C13.5271 19.0008 13.2403 18.8648 13.0497 18.6298L8.21968 12.6298C7.91636 12.2608 7.91636 11.7288 8.21968 11.3598L13.2197 5.35981C13.5731 4.93455 14.2044 4.87635 14.6297 5.22981C15.0549 5.58327 15.1131 6.21455 14.7597 6.63981L10.2897 11.9998L14.6097 17.3598C14.8594 17.6595 14.912 18.0771 14.7444 18.4294C14.5769 18.7817 14.2198 19.0044 13.8297 18.9998Z"
-        fill="white"
+        fill={color ? color:"white"}
       />
     </svg>
   );

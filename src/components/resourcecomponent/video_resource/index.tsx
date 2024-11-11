@@ -34,7 +34,7 @@ function VideoResource(props: Props) {
 
     const clickHandler = (item: string | number) => {
         if (admin) {
-            router.push("/resources-info/video/" + item)
+            router.push("/dashboard/resources-info/video/" + item)
         } else {
             router.push("/home/resources-info/video/" + item)
         }

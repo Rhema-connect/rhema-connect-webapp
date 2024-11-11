@@ -11,6 +11,7 @@ import PlaylistForm from '../create_playlist/playlist_form';
 import DeleteContent from '../delete_content';
 import InfiniteScrollerComponent from '@/connections/infiniteScrollerComponent';
 import { IoArrowBack, IoArrowForward } from 'react-icons/io5';
+import { textLimit } from '@/util/textlimit';
 
 interface Props { }
 
@@ -67,13 +68,13 @@ function VideoPlatlist(props: Props) {
                     </button>
                 </>
             )}
-            <div ref={refScroll} className=' w-full px-4 flex relative overflow-x-auto gap-4 items-center scroll-smooth no-scrollbar ' >
+            <div ref={refScroll} className=' w-full px-4 flex overflow-x-auto gap-4 items-center scroll-smooth no-scrollbar ' >
                 <LoadingAnimation loading={isLoading} >
                     <div className=' w-fit py-4  flex gap-6 ' >
                         {results?.map((item: IPlaylistData, index: number) => {
                             if (index === results?.length - 1) {
                                 return (
-                                    <div ref={ref} key={index} className=' w-full flex gap-3 items-center justify-between px-4 shadow-xl py-2 rounded-lg ' >
+                                    <div ref={ref} key={index} className=' w-[300px] relative flex gap-3 items-center justify-between px-4 py-2 rounded-lg ' >
                                         <div className=' flex items-center gap-3 ' >
                                             <div className=' w-fit ' >
                                                 <div className=' w-[56px] h-[56px] bg-slate-600 rounded-xl ' >
@@ -81,18 +82,18 @@ function VideoPlatlist(props: Props) {
                                                 </div>
                                             </div>
                                             <div className=' mr-6 ' >
-                                                <p className=' font-medium text-[14px] leading-[22px] ' >{item?.title}</p>
+                                                <p className=' font-medium text-[14px] leading-[22px] ' >{textLimit(item?.title, 30)}</p>
                                                 <p className=' text-[#637381] text-[12px] leading-[18px] mt-1 ' >Playlist ・{item?.items?.length} videos</p>
                                             </div>
                                         </div>
                                         <div className=' flex gap-2 items-center ' >
                                             <VideoIcon />
-                                            <div className=' relative mt-1 ' >
+                                            <div className=' mt-1 ' >
                                                 <button onClick={() => setShow(item?.id + "")} className='  ' >
                                                     <IoMdMore size={"20px"} />
                                                 </button>
                                                 {show === item?.id + "" && (
-                                                    <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                    <div className=' top-[0px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                                         <div onClick={() => editHandler(item)} role='button' className=' w-full  h-5 ' >
                                                             Edit playlist
                                                         </div>
@@ -108,7 +109,7 @@ function VideoPlatlist(props: Props) {
                                 )
                             } else {
                                 return (
-                                    <div key={index} className=' w-full flex gap-3 items-center justify-between px-4 shadow-xl py-2 rounded-lg ' >
+                                    <div key={index} className='w-[300px] relative flex gap-3 items-center justify-between px-4 py-2 rounded-lg ' >
                                         <div className=' flex items-center gap-3 ' >
                                             <div className=' w-fit ' >
 
@@ -117,18 +118,18 @@ function VideoPlatlist(props: Props) {
                                                 </div>
                                             </div>
                                             <div className=' mr-6 ' >
-                                                <p className=' font-medium text-[14px] leading-[22px] ' >{item?.title}</p>
+                                                <p className=' font-medium text-[14px] leading-[22px] ' >{textLimit(item?.title, 30)}</p>
                                                 <p className=' text-[#637381] text-[12px] leading-[18px] mt-1 ' >Playlist ・{item?.items?.length} videos</p>
                                             </div>
                                         </div>
                                         <div className=' flex gap-2 items-center ' >
                                             <VideoIcon />
-                                            <div className=' relative mt-1 ' >
+                                            <div className='  mt-1 ' >
                                                 <button onClick={() => setShow(item?.id + "")} className='  ' >
                                                     <IoMdMore size={"20px"} />
                                                 </button>
                                                 {show === item?.id + "" && (
-                                                    <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                    <div className=' top-0 z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                                         <div onClick={() => editHandler(item)} role='button' className=' w-full  h-5 ' >
                                                             Edit playlist
                                                         </div>
