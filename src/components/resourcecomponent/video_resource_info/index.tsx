@@ -12,6 +12,7 @@ import LoadingAnimation from '@/components/shared/loading_animation';
 import { textLimit } from '@/util/textlimit';
 import ReactPlayer from 'react-player';
 import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, useDisclosure, DrawerCloseButton, Spinner } from '@chakra-ui/react';
+import VideoPlayer from '@/components/shared/videoPlayer';
 
 interface Props {
     id: string,
@@ -53,7 +54,7 @@ function VideoResourceInfo(props: Props) {
                 console.error(error);
             },
             onSuccess: (data: any) => {
-                // console.log(data?.data?.data);
+                console.log(data?.data?.data);
                 setData(data?.data?.data)
             }
         }
@@ -63,6 +64,9 @@ function VideoResourceInfo(props: Props) {
         console.error('Error playing video:', error);
         setVideoError(true);
     };
+
+    console.log(data?.youtube_url);
+    
 
     return (
         <LoadingAnimation loading={isLoading} >
@@ -77,28 +81,14 @@ function VideoResourceInfo(props: Props) {
                                 </div>
                             )}
                             {!videoError && (
-                                <div className=' w-full relative z-30 ' > 
-                                    <div className=' w-full lg:block hidden ' >
-                                        <ReactPlayer
-                                            url={data?.youtube_url}
-                                            className='react-player'
-                                            controls={true}
-                                            width='100%'
-                                            height='477px'
-                                            onError={handleError}
-                                            onProgress={handleProgress}
-                                        />
+                                <div className=' w-full relative z-30 ' >
+                                    <div className=' w-full lg:block hidden ' > 
+                                        <VideoPlayer src={data?.youtube_url+""} measureType="px" rounded='16px' height={477} />
                                     </div>
                                     <div className=' w-full lg:hidden ' >
-                                        <ReactPlayer
-                                            url={data?.youtube_url}
-                                            className='react-player'
-                                            controls={true}
-                                            width='100%'
-                                            height='350px'
-                                            onError={handleError}
-                                            onProgress={handleProgress}
-                                        />
+                                        
+                                    <VideoPlayer src={data?.youtube_url+""} measureType="px" rounded='16px' height={350} />
+                                        {/* /> */}
                                     </div>
                                 </div>
                             )}
@@ -113,7 +103,7 @@ function VideoResourceInfo(props: Props) {
                     <div className=' w-fit lg:block hidden  ' >
                         <div className=' w-[321px] ' >
                             <CustomText className=' font-bold text-lg leading-7 ' >Others also likes</CustomText>
-                            <Othervideo />
+                            <Othervideo dashboard={dashboard} />
                         </div>
                     </div>
                 </div>

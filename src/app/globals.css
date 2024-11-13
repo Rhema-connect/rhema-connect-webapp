@@ -63,7 +63,7 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #939393;
-}
+}  
 
 .animate-track {
   background: rgb(204, 204, 204);

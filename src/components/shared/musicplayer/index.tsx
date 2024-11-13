@@ -76,7 +76,7 @@ const AudioPlayer = (props: IProps) => {
           value={currentTime}
           max={duration || 0}
           onChange={handleSeek}
-          className=' bg-slate-500 w-full '
+          className=' bg-white opacity-35 rounded-2xl mt-3 w-full '
         />
         <div className=' w-full text-white flex justify-between items-center gap-8 ' >
           <div className=' flex items-center gap-4 ' >

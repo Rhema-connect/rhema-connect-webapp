@@ -43,7 +43,7 @@ function BookResource(props: Props) {
   //     }
   // )
 
-  const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({
+  const { results, isLoading, ref, isRefetching, refetch } = InfiniteScrollerComponent({
     url: "/content/books/all",
     limit: 10,
     filter: "id",
@@ -91,73 +91,146 @@ function BookResource(props: Props) {
       <LoadingAnimation
         loading={isLoading}
         refeching={isRefetching}
-        length={data?.length}
+        length={results?.length}
       >
         <div className=" w-full grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-12  ">
-          {data?.map((item: ContentData, index: number) => {
-            return (
-              // <a key={index} href={item?.url} target="_blank" >
-              <div
-                role="button"
-                key={index}
-                onClick={() => clickHandler(item)}
-                className=" w-full rounded-2xl items-center flex p-3 shadow-xl  "
-              >
-                <div className=" w-full ">
-                  <div className=" flex items-center gap-2 ">
-                    <div className=" w-12 h-12 rounded-full bg-slate-600 ">
-                      <img
-                        alt="thumbnail"
-                        src={item?.thumbnail}
-                        className="w-full h-full object-cover rounded-2xl "
-                      />
+          {results?.map((item: ContentData, index: number) => {
+            if (results?.length === index + 1) {
+              return (
+                // <a key={index} href={item?.url} target="_blank" >
+                <div
+                  role="button"
+                  key={index}
+                  ref={ref}
+                  onClick={() => clickHandler(item)}
+                  className=" w-full rounded-2xl items-center flex p-3 shadow-xl  "
+                >
+                  <div className=" w-full ">
+                    <div className=" flex items-center gap-2 ">
+                      <div className=" w-fit " >
+                        <div className=" w-12 h-12 rounded-full bg-slate-600 ">
+                          <img
+                            alt="thumbnail"
+                            src={item?.thumbnail}
+                            className="w-full h-full object-cover rounded-2xl "
+                          />
+                        </div>
+                      </div>
+                      <CustomText className=" leading-6 text-sm ">
+                        {item?.author_name}
+                      </CustomText>
                     </div>
-                    <CustomText className=" leading-6 text-sm ">
-                      {item?.author_name}
+                    <CustomText className=" leading-[23px] font-medium mt-2 ">
+                      {item?.title}
+                    </CustomText>
+                    <CustomText className=" leading-[18px] text-xs ">
+                      {formatTimeAgo(new Date(item?.created_at ?? "").getTime())}
                     </CustomText>
                   </div>
-                  <CustomText className=" leading-[23px] font-medium mt-2 ">
-                    {item?.title}
-                  </CustomText>
-                  <CustomText className=" leading-[18px] text-xs ">
-                    {formatTimeAgo(new Date(item?.created_at ?? "").getTime())}
-                  </CustomText>
-                </div>
-                {admin && (
-                  <div className=" relative mt-1 ">
-                    <button
-                      onClick={(e) => openModal(e, item?.id + "")}
-                      className="  "
-                    >
-                      <IoMdMore size={"24px"} />
-                    </button>
-                    {show === item?.id + "" && (
-                      <div className=" top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ">
-                        <button
-                          onClick={(e) => editHandler(e, item)}
-                          role="button"
-                          className=" w-full text-left h-5 "
-                        >
-                          Edit Video
-                        </button>
-                        <DeleteContent
-                          text={true}
-                          id={item?.id}
-                          type="Content"
+                  {admin && (
+                    <div className=" relative mt-1 ">
+                      <button
+                        onClick={(e) => openModal(e, item?.id + "")}
+                        className="  "
+                      >
+                        <IoMdMore size={"24px"} />
+                      </button>
+                      {show === item?.id + "" && (
+                        <div className=" top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ">
+                          <button
+                            onClick={(e) => editHandler(e, item)}
+                            role="button"
+                            className=" w-full text-left h-5 "
+                          >
+                            Edit Video
+                          </button>
+                          <DeleteContent
+                            text={true}
+                            id={item?.id}
+                            type="Content"
+                            refetch={refetch}
+                          />
+                        </div>
+                      )}
+                      {show === item?.id + "" && (
+                        <div
+                          onClick={() => setShow("")}
+                          className=" fixed inset-0 z-10 "
                         />
+                      )}
+                    </div>
+                  )}
+                </div>
+                // </a>
+              );
+            } else {
+              return (
+                // <a key={index} href={item?.url} target="_blank" >
+                <div
+                  role="button"
+                  key={index}
+                  onClick={() => clickHandler(item)}
+                  className=" w-full rounded-2xl items-center flex p-3 shadow-xl  "
+                >
+                  <div className=" w-full ">
+                    <div className=" flex items-center gap-2 ">
+                      <div className=" w-fit " >
+                        <div className=" w-12 h-12 rounded-full bg-slate-600 ">
+                          <img
+                            alt="thumbnail"
+                            src={item?.thumbnail}
+                            className="w-full h-full object-cover rounded-2xl "
+                          />
+                        </div>
                       </div>
-                    )}
-                    {show === item?.id + "" && (
-                      <div
-                        onClick={() => setShow("")}
-                        className=" fixed inset-0 z-10 "
-                      />
-                    )}
+                      <CustomText className=" leading-6 text-sm ">
+                        {item?.author_name}
+                      </CustomText>
+                    </div>
+                    <CustomText className=" leading-[23px] font-medium mt-2 ">
+                      {item?.title}
+                    </CustomText>
+                    <CustomText className=" leading-[18px] text-xs ">
+                      {formatTimeAgo(new Date(item?.created_at ?? "").getTime())}
+                    </CustomText>
                   </div>
-                )}
-              </div>
-              // </a>
-            );
+                  {admin && (
+                    <div className=" relative mt-1 ">
+                      <button
+                        onClick={(e) => openModal(e, item?.id + "")}
+                        className="  "
+                      >
+                        <IoMdMore size={"24px"} />
+                      </button>
+                      {show === item?.id + "" && (
+                        <div className=" top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ">
+                          <button
+                            onClick={(e) => editHandler(e, item)}
+                            role="button"
+                            className=" w-full text-left h-5 "
+                          >
+                            Edit Video
+                          </button>
+                          <DeleteContent
+                            text={true}
+                            id={item?.id}
+                            type="Content"
+                            refetch={refetch}
+                          />
+                        </div>
+                      )}
+                      {show === item?.id + "" && (
+                        <div
+                          onClick={() => setShow("")}
+                          className=" fixed inset-0 z-10 "
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
+                // </a>
+              );
+            }
           })}
           <Bookform
             data={currentdata}

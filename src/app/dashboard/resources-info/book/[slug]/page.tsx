@@ -17,7 +17,7 @@ export default function BookPage({ params }: { params: { slug: string } }) {
     };
 
     return (
-        <div className=' w-full flex-col gap-4 ' > 
+        <div className=' w-full flex-col gap-4 text-black ' > 
             <p className=' text-center text-xl font-bold ' >{params?.slug?.toString().split('-').join(' ')+"" }</p>
             <div className=' w-full flex mt-4 items-center ' >
                 <button disabled={pageNumber === 1 ? true : false} onClick={() => setPageNumber((prev) => prev - 1)} className=' w-fit outline-none ' >

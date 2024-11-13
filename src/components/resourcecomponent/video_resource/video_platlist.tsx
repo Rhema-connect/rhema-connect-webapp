@@ -47,7 +47,7 @@ function VideoPlatlist(props: Props) {
     // )
 
 
-    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/content/playlists/all?type=VIDEO`, limit: 10, filter: "id", type: "VIDEO", name: "videoplaylist" })
+    const { results, isLoading, ref, isRefetching, refetch } = InfiniteScrollerComponent({ url: `/content/playlists/all?type=VIDEO`, limit: 10, filter: "id", type: "VIDEO", name: "videoplaylist" })
 
     const editHandler = (item: IPlaylistData) => {
         setCurrentData(item)
@@ -55,15 +55,18 @@ function VideoPlatlist(props: Props) {
         setShow("")
     }
 
+    console.log(results);
+    
+    
     return (
         <div className=' w-full flex relative h-fit items-center ' >
 
             {results?.length >= 4 && (
                 <> 
-                    <button onClick={() => scroll(-400)} role='button' className=' w-12 z-10 h-12 border bg-white rounded-full cursor-pointer absolute my-auto -left-4 flex justify-center items-center ' >
+                    <button onClick={() => scroll(-400)} role='button' className=' w-12 z-10 h-12 border bg-white text-black rounded-full cursor-pointer absolute my-auto -left-4 flex justify-center items-center ' >
                         <IoArrowBack />
                     </button>
-                    <button onClick={() => scroll(400)} role='button' className=' w-12 z-10 h-12 border bg-white rounded-full cursor-pointer absolute my-auto -right-4 flex justify-center items-center ' >
+                    <button onClick={() => scroll(400)} role='button' className=' w-12 z-10 h-12 border bg-white text-black rounded-full cursor-pointer absolute my-auto -right-4 flex justify-center items-center ' >
                         <IoArrowForward />
                     </button>
                 </>
@@ -97,7 +100,7 @@ function VideoPlatlist(props: Props) {
                                                         <div onClick={() => editHandler(item)} role='button' className=' w-full  h-5 ' >
                                                             Edit playlist
                                                         </div>
-                                                        <DeleteContent text={true} id={item?.id} type="Playlist" />
+                                                        <DeleteContent refetch={refetch} text={true} id={item?.id} type="Playlist" />
                                                     </div>
                                                 )}
                                                 {show === item?.id + "" && (
@@ -133,7 +136,7 @@ function VideoPlatlist(props: Props) {
                                                         <div onClick={() => editHandler(item)} role='button' className=' w-full  h-5 ' >
                                                             Edit playlist
                                                         </div>
-                                                        <DeleteContent text={true} id={item?.id} type="Playlist" />
+                                                        <DeleteContent refetch={refetch} text={true} id={item?.id} type="Playlist" />
                                                     </div>
                                                 )}
                                                 {show === item?.id + "" && (

@@ -4,7 +4,7 @@ import React from 'react'
 function VideoPage({ params }: { params: { slug: string } }) { 
 
     return (
-        <VideoResourceInfo id={""} dashboard={true}  />
+        <VideoResourceInfo id={params?.slug} dashboard={true}  />
     )
 }
 

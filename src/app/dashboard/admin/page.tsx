@@ -8,12 +8,15 @@ import { Select, useToast } from '@chakra-ui/react';
 import { SignUpDataType, useCreateAdmiinCallback } from '@/connections/useauth';
 import CustomButton from '@/components/shared/custom_button';
 import { EyeIcon } from '@/components/svg';
+import { useRouter } from 'next/navigation';
 
 export default function page() {
 
     const toast = useToast()
 
     const { handleCreateAdmin } = useCreateAdmiinCallback()
+
+    const router = useRouter()
 
     const loginSchema = yup.object({
         email: yup.string().email('This email is not valid').required('Your email is required'),
@@ -47,7 +50,7 @@ export default function page() {
                 duration: 3000,
                 position: "top",
             });
-
+            router?.refresh()
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -89,7 +92,7 @@ export default function page() {
                                 error={formik.errors.firstName}
                                 type='firstName' placeholder="Enter FirstName" />
                         </div>
-                        <div className=' w-full flex lg:flex-row flex-col items-center gap-4  ' >
+                        <div className=' w-full flex flex-col items-center gap-4  ' >
                             <div className=' w-full ' >
                                 <p className=' font-medium text-sm mb-2 ' >Middle Name</p>
                                 <InputComponent InputComponent
@@ -117,7 +120,7 @@ export default function page() {
                                     type='lastName' placeholder="Enter LastName" />
                             </div>
                         </div>
-                        <div className=' w-full flex lg:flex-row flex-col items-center gap-4  ' >
+                        <div className=' w-full flex flex-col items-center gap-4  ' >
                             <div className=' w-full ' >
                                 <p className=' font-medium text-sm mb-2 ' >Email</p>
                                 <InputComponent InputComponent
@@ -141,8 +144,8 @@ export default function page() {
                                     formik.setFieldTouched("gender", true, true)
                                 } 
                                 placeholder='Select Gender' w={"full"} textColor="#000" fontSize="14px" fontWeight="400" bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"} >
-                                    <option>male</option>
-                                    <option>female</option>
+                                    <option value={"MALE"} >Male</option>
+                                    <option value={"FEMALE"} >Female</option>
                                 </Select>
                             </div>
                         </div>
@@ -159,20 +162,7 @@ export default function page() {
                                     touch={formik.touched.phone}
                                     error={formik.errors.phone}
                                     type='phone' placeholder="Enter Phone" />
-                            </div>
-                            <div className=' w-full ' >
-                                <p className=' font-medium text-sm mb-2 ' >Phone 2</p>
-                                <InputComponent InputComponent
-                                    name="phone"
-                                    value={formik?.values?.phone}
-                                    onChange={formik.handleChange}
-                                    onFocus={() =>
-                                        formik.setFieldTouched("phone", true, true)
-                                    }
-                                    touch={formik.touched.phone}
-                                    error={formik.errors.phone}
-                                    type='phone' placeholder="Enter Phone" />
-                            </div>
+                            </div> 
                         </div>
                         <div className=' w-full ' >
                             <p className=' font-medium text-sm mb-2 ' >Password</p>

@@ -9,7 +9,8 @@ import { useMutation, useQueryClient } from 'react-query'
 interface Props {
     id?: string | number,
     type?: "Content" | "Playlist",
-    text?: boolean
+    text?: boolean,
+    refetch?: any
 }
 
 export default function DeleteContent(props: Props) {
@@ -17,7 +18,8 @@ export default function DeleteContent(props: Props) {
     const {
         id,
         text,
-        type
+        type,
+        refetch
     } = props
 
     const [open, setOpen] = useState(false)
@@ -48,7 +50,8 @@ export default function DeleteContent(props: Props) {
             queryClient.invalidateQueries(['videolist'])
             queryClient.invalidateQueries(['audilist'])
             queryClient.invalidateQueries(['bookslist'])
-            queryClient.invalidateQueries(['videoplaylist'])            
+            queryClient.invalidateQueries(['videoplaylist'])     
+            refetch()       
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -81,7 +84,8 @@ export default function DeleteContent(props: Props) {
             queryClient.invalidateQueries(['videolist'])
             queryClient.invalidateQueries(['audilist'])
             queryClient.invalidateQueries(['bookslist'])
-            queryClient.invalidateQueries(['videoplaylist'])            
+            queryClient.invalidateQueries(['videoplaylist'])   
+            refetch()                
 
             return response;
         } else if (response?.data?.statusCode === 400) {

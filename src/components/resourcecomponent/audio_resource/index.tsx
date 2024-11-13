@@ -47,7 +47,7 @@ function AudioResource(props: Props) {
     };
 
 
-    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/content/playlists/all?type=AUDIO${search ? `&keyword=${search}` : ""}`, limit: 4, type: "AUDIO", name: "audiplaylist" })
+    const { results, isLoading, ref, isRefetching, refetch } = InfiniteScrollerComponent({ url: `/content/playlists/all?type=AUDIO${search ? `&keyword=${search}` : ""}`, limit: 4, type: "AUDIO", name: "audiplaylist" })
 
 
     const clickHandler = (item: IPlaylistData) => {
@@ -79,10 +79,10 @@ function AudioResource(props: Props) {
                 
                 {results?.length >= 4 && (
                     <>
-                        <button onClick={() => scroll(-400)} role='button' className=' w-12 z-10 h-12 border bg-white rounded-full cursor-pointer absolute my-auto -left-4 flex justify-center items-center ' >
+                        <button onClick={() => scroll(-400)} role='button' className=' w-12 z-10 h-12 border bg-white text-black rounded-full cursor-pointer absolute my-auto -left-4 flex justify-center items-center ' >
                             <IoArrowBack />
                         </button>
-                        <button onClick={() => scroll(400)} role='button' className=' w-12 z-10 h-12 border bg-white rounded-full cursor-pointer absolute my-auto -right-4 flex justify-center items-center ' >
+                        <button onClick={() => scroll(400)} role='button' className=' w-12 z-10 h-12 border bg-white text-black rounded-full cursor-pointer absolute my-auto -right-4 flex justify-center items-center ' >
                             <IoArrowForward />
                         </button>
                     </>
@@ -116,7 +116,7 @@ function AudioResource(props: Props) {
                                                             <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                                 Edit playlist
                                                             </button>
-                                                            <DeleteContent text={true} id={item?.id} type="Playlist" />
+                                                            <DeleteContent refetch={refetch} text={true} id={item?.id} type="Playlist" />
                                                         </div>
                                                     )}
                                                     {show === item?.id + "" && (
@@ -150,7 +150,7 @@ function AudioResource(props: Props) {
                                                             <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                                 Edit playlist
                                                             </button>
-                                                            <DeleteContent text={true} id={item?.id} type="Playlist" />
+                                                            <DeleteContent  refetch={refetch} text={true} id={item?.id} type="Playlist" />
                                                         </div>
                                                     )}
                                                     {show === item?.id + "" && (

@@ -12,6 +12,7 @@ import { IoMdMore } from 'react-icons/io'
 import Videoform from '../create_video/videoform'
 import InfiniteScrollerComponent from '@/connections/infiniteScrollerComponent'
 import useSearchStore from '@/store/useSearchData'
+import VideoPlayer from '@/components/shared/videoPlayer'
 
 interface Props {
     admin?: boolean 
@@ -28,7 +29,7 @@ function VideoResource(props: Props) {
 
     const [currentdata, setCurrentData] = useState({} as ContentData)
 
-    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/content?type=VIDEO${search ? `&keyword=${search}` : ""}`, limit: 2, filter: "id", type: "VIDEO", search: search, name: "videolist" })
+    const { results, isLoading, ref, isRefetching, refetch } = InfiniteScrollerComponent({ url: `/content?type=VIDEO${search ? `&keyword=${search}` : ""}`, limit: 20, filter: "id", type: "VIDEO", search: search, name: "videolist" })
 
     const router = useRouter()
 
@@ -63,11 +64,14 @@ function VideoResource(props: Props) {
             <div className=' w-full flex justify-center ' >
                 <div className=' w-full md:w-fit lg:w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
                     {results?.map((item: ContentData, index: number) => {
+
+
                         if (index === results?.length - 1) {
                             return (
                                 <div ref={ref} role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full w-full md:w-[300px] ' >
                                     <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
-                                        <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
+                                        {/* <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' /> */}
+                                        <VideoPlayer src={item?.youtube_url + ""} measureType={'px'} rounded='16px' />
                                     </div>
                                     <div className=' w-full flex justify-between  mt-4 ' >
                                         <div>
@@ -90,7 +94,7 @@ function VideoResource(props: Props) {
                                                         <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                             Edit Video
                                                         </button>
-                                                        <DeleteContent text={true} id={item?.id} type="Content" />
+                                                        <DeleteContent refetch={refetch} text={true} id={item?.id} type="Content" />
                                                     </div>
                                                 )}
                                                 {show === item?.id + "" && (
@@ -105,7 +109,8 @@ function VideoResource(props: Props) {
                             return (
                                 <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
                                     <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
-                                        <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' />
+                                        {/* <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' /> */}
+                                        <VideoPlayer src={item?.youtube_url + ""}  rounded='16px' measureType={'px'} />
                                     </div>
                                     <div className=' w-full flex justify-between  mt-4 ' >
                                         <div>
@@ -128,7 +133,7 @@ function VideoResource(props: Props) {
                                                         <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                             Edit Video
                                                         </button>
-                                                        <DeleteContent text={true} id={item?.id} type="Content" />
+                                                        <DeleteContent refetch={refetch} text={true} id={item?.id} type="Content" />
                                                     </div>
                                                 )}
                                                 {show === item?.id + "" && (

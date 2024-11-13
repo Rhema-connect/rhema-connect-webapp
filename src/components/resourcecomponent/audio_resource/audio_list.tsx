@@ -24,29 +24,9 @@ function Audiolist(props: Props) {
   const [currentData, setCurrentData] = useState({} as ContentData);
   const [currentdata, setCurrentdata] = useState({} as ContentData);
   const [show, setShow] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); 
 
-  // const { isLoading } = useQuery(['audilist'], () => actionService.getservicedata(`/content`,
-  //     {
-  //         limit: 16,
-  //         page: 0,
-  //         type: "AUDIO"
-  //     }),
-  //     {
-  //         onError: (error: any) => {
-  //             console.error(error);
-  //         },
-  //         onSuccess: (data: any) => {
-  //             console.log(data?.data?.data);
-
-  //             if (data?.data?.data.length > 0) {
-  //                 setData(data?.data?.data)
-  //             }
-  //         }
-  //     }
-  // )
-
-  const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({
+  const { results, isLoading, ref, isRefetching, refetch } = InfiniteScrollerComponent({
     url: `/content?type=AUDIO`,
     limit: 10,
     filter: "id",
@@ -141,6 +121,7 @@ function Audiolist(props: Props) {
                             Edit playlist
                           </button>
                           <DeleteContent
+                           refetch={refetch}
                             text={true}
                             id={item?.id}
                             type="Playlist"
@@ -202,6 +183,7 @@ function Audiolist(props: Props) {
                             Edit playlist
                           </button>
                           <DeleteContent
+                           refetch={refetch}
                             text={true}
                             id={item?.id}
                             type="Playlist"
