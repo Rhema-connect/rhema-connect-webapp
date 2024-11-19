@@ -10,7 +10,7 @@ import CustomButton from '@/components/shared/custom_button';
 import { EyeIcon } from '@/components/svg';
 import { useRouter } from 'next/navigation';
 
-export default function page() {
+export default function Admin() {
 
     const toast = useToast()
 
