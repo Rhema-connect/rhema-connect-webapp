@@ -110,7 +110,7 @@ function VideoResourceInfo(props: Props) {
                 <div className=' w-full flex gap-6  ' >
                     <div className=' w-full py-6 ' >
                         <div className=' w-full flex items-center justify-between ' >
-                            <CustomText className=' leading-[44.8px] text-[32px] font-semibold ' >{textLimit(data?.title ?? "", 20)}</CustomText>
+                            <CustomText className=' leading-[44.8px] text-[32px] font-semibold ' >{data?.title}</CustomText>
                         </div>
                         <div className=' w-full flex items-center justify-end ' >
                             <button onClick={onOpen} className=' outline-none font-bold lg:hidden ' >show other video</button>
