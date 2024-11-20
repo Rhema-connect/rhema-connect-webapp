@@ -51,9 +51,9 @@ function InfiniteScrollerComponent(props: Props) {
         }
       } else {
         setResults(lodash.uniqBy(data?.data?.data, filter ? filter : "id"));
-      }
+      } 
 
-      if(data?.data?.limit > data?.data?.total) {
+      if(size > data?.data?.total) {
         setHasNextPage(false)
       } else {
         setHasNextPage(true)

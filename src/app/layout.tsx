@@ -50,8 +50,8 @@ export default function RootLayout({
 
     let token = window.localStorage.getItem("token")?.toString()
     if (!pathname?.includes("/dashboard") && !pathname?.includes("/auth")) {
-      window.localStorage.setItem("token", "");
-      window.localStorage.setItem("id", "");
+      // window.localStorage.setItem("token", "");
+      // window.localStorage.setItem("id", "");
     } else {
       if (!token || token === "" || token === undefined || token === null) {
         router.push("/auth")

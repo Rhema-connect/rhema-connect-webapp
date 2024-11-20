@@ -136,13 +136,13 @@ function BookResource(props: Props) {
                         <IoMdMore size={"24px"} />
                       </button>
                       {show === item?.id + "" && (
-                        <div className=" top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ">
+                        <div className=" top-[30px] z-40 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ">
                           <button
                             onClick={(e) => editHandler(e, item)}
                             role="button"
                             className=" w-full text-left h-5 "
                           >
-                            Edit Video
+                            Edit Pdf
                           </button>
                           <DeleteContent
                             text={true}
@@ -203,7 +203,7 @@ function BookResource(props: Props) {
                         <IoMdMore size={"24px"} />
                       </button>
                       {show === item?.id + "" && (
-                        <div className=" top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ">
+                        <div className=" top-[30px] z-40 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ">
                           <button
                             onClick={(e) => editHandler(e, item)}
                             role="button"

@@ -36,9 +36,7 @@ function AudioResource(props: Props) {
 
     useEffect(() => {
         setSearchValue("")
-    }, [])
-
-
+    }, []) 
 
     const refScroll: any = React.useRef(null);
 
@@ -52,7 +50,7 @@ function AudioResource(props: Props) {
 
     const clickHandler = (item: IPlaylistData) => {
         if (admin) {
-            router?.push("/resources-info/audio/" + item?.id)
+            router?.push("/dashboard/resources-info/audio/" + item?.id)
         } else {
             router?.push("/home/resources-info/audio/" + item?.id)
         }
@@ -94,7 +92,7 @@ function AudioResource(props: Props) {
                             {results?.map((item: IPlaylistData, index: number) => {
                                 if (index === results?.length - 1) {
                                     return (
-                                        <div ref={ref} onClick={() => clickHandler(item)} role='button' key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
+                                        <div ref={ref} onClick={() => clickHandler(item)} role='button' key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] relative ' >
                                             <div className=' w-full h-[204px] bg-red-900 rounded-2xl ' >
                                                 <img alt='thumbnail' src={item?.thumbnail} className="w-full h-[204px] object-cover rounded-2xl " />
                                             </div>
@@ -107,14 +105,14 @@ function AudioResource(props: Props) {
                                                         Playlist ・{item?.items?.length} audio
                                                     </CustomText>
                                                 </div>
-                                                <div className=' relative mt-1 ' >
+                                                <div className=' mt-1 ' >
                                                     <button onClick={(e) => openModal(e, item?.id + "")} className=' p-2 ' >
                                                         <IoMdMore size={"20px"} />
                                                     </button>
                                                     {show === item?.id + "" && (
                                                         <div className=' top-[0px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                                             <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
-                                                                Edit playlist
+                                                                Edit Audio
                                                             </button>
                                                             <DeleteContent refetch={refetch} text={true} id={item?.id} type="Playlist" />
                                                         </div>
@@ -128,7 +126,7 @@ function AudioResource(props: Props) {
                                     )
                                 } else {
                                     return (
-                                        <div onClick={() => clickHandler(item)} role='button' key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
+                                        <div onClick={() => clickHandler(item)} role='button' key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] relative ' >
                                             <div className=' w-full h-[204px] bg-red-900 rounded-2xl ' >
                                                 <img alt='thumbnail' src={item?.thumbnail} className="w-full h-full object-cover rounded-2xl " />
                                             </div>
@@ -141,14 +139,14 @@ function AudioResource(props: Props) {
                                                         Playlist ・{item?.items?.length} audio
                                                     </CustomText>
                                                 </div>
-                                                <div className=' relative mt-1 ' >
+                                                <div className=' mt-1 ' >
                                                     <button onClick={(e) => openModal(e, item?.id + "")} className=' p-2 ' >
                                                         <IoMdMore size={"20px"} />
                                                     </button>
                                                     {show === item?.id + "" && (
-                                                        <div className=' top-[30px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                        <div className=' bottom-[10px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                                             <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
-                                                                Edit playlist
+                                                                Edit Audio
                                                             </button>
                                                             <DeleteContent  refetch={refetch} text={true} id={item?.id} type="Playlist" />
                                                         </div>

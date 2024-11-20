@@ -60,12 +60,10 @@ function VideoResource(props: Props) {
     }
 
     return (
-        <LoadingAnimation loading={isLoading} refeching={isRefetching} length={results?.length} >
+        <LoadingAnimation loading={isLoading} length={results?.length} >
             <div className=' w-full flex justify-center ' >
                 <div className=' w-full md:w-fit lg:w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 ' >
-                    {results?.map((item: ContentData, index: number) => {
-
-
+                    {results?.map((item: ContentData, index: number) => { 
                         if (index === results?.length - 1) {
                             return (
                                 <div ref={ref} role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full w-full md:w-[300px] ' >
@@ -94,7 +92,7 @@ function VideoResource(props: Props) {
                                                         <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                             Edit Video
                                                         </button>
-                                                        <DeleteContent refetch={refetch} text={true} id={item?.id} type="Content" />
+                                                        <DeleteContent refetch={()=> refetch()} text={true} id={item?.id} type="Content" />
                                                     </div>
                                                 )}
                                                 {show === item?.id + "" && (

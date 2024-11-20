@@ -7,7 +7,7 @@ import { ContentData, IPlaylistData } from '@/models'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 
-interface Props {
+interface Props { 
     id?: string | number
 }
 
@@ -30,8 +30,7 @@ function AudioResourceInfo(props: Props) {
             onError: (error: any) => {
                 console.error(error);
             },
-            onSuccess: (data: any) => {
-                console.log(data?.data?.data);
+            onSuccess: (data: any) => { 
                 setData(data?.data?.data)
             }
         }

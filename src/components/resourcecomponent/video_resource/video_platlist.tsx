@@ -54,10 +54,7 @@ function VideoPlatlist(props: Props) {
         setOpen(true)
         setShow("")
     }
-
-    console.log(results);
-    
-    
+ 
     return (
         <div className=' w-full flex relative h-fit items-center ' >
 
@@ -72,7 +69,7 @@ function VideoPlatlist(props: Props) {
                 </>
             )}
             <div ref={refScroll} className=' w-full px-4 flex overflow-x-auto gap-4 items-center scroll-smooth no-scrollbar ' >
-                <LoadingAnimation loading={isLoading} >
+                <LoadingAnimation loading={isLoading} refeching={isRefetching} >
                     <div className=' w-fit py-4  flex gap-6 ' >
                         {results?.map((item: IPlaylistData, index: number) => {
                             if (index === results?.length - 1) {
