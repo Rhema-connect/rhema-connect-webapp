@@ -49,6 +49,7 @@ export default function DeleteContent(props: Props) {
 
             queryClient.invalidateQueries(['videolist'])
             queryClient.invalidateQueries(['audilist'])
+            queryClient.invalidateQueries(['audiplaylist'])
             queryClient.invalidateQueries(['bookslist'])
             queryClient.invalidateQueries(['videoplaylist'])     
             refetch()       
@@ -85,6 +86,7 @@ export default function DeleteContent(props: Props) {
             queryClient.invalidateQueries(['audilist'])
             queryClient.invalidateQueries(['bookslist'])
             queryClient.invalidateQueries(['videoplaylist'])   
+            queryClient.invalidateQueries(['audiplaylist'])
             refetch()                
 
             return response;

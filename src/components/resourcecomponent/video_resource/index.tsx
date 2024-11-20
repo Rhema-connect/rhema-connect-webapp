@@ -131,7 +131,7 @@ function VideoResource(props: Props) {
                                                         <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                             Edit Video
                                                         </button>
-                                                        <DeleteContent refetch={refetch} text={true} id={item?.id} type="Content" />
+                                                        <DeleteContent refetch={()=> refetch()} text={true} id={item?.id} type="Content" />
                                                     </div>
                                                 )}
                                                 {show === item?.id + "" && (

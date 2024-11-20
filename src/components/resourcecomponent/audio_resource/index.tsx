@@ -56,15 +56,13 @@ function AudioResource(props: Props) {
         }
     }
 
-    const openModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: string) => {
-        e.stopPropagation()
-
+    const openModal = (e: any, item: string) => {
+        e.stopPropagation() 
         setShow(item)
     }
 
-    const editHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, item: IPlaylistData) => {
-        e.stopPropagation()
-
+    const editHandler = (e: any, item: IPlaylistData) => {
+        e.stopPropagation() 
         setCurrentData(item)
         setOpen(true)
         setShow("")
@@ -110,15 +108,15 @@ function AudioResource(props: Props) {
                                                         <IoMdMore size={"20px"} />
                                                     </button>
                                                     {show === item?.id + "" && (
-                                                        <div className=' top-[0px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                        <div className=' bottom-[10px] !z-40 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                                             <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                                 Edit Audio
                                                             </button>
-                                                            <DeleteContent refetch={refetch} text={true} id={item?.id} type="Playlist" />
+                                                            <DeleteContent refetch={()=> refetch()} text={true} id={item?.id} type="Playlist" />
                                                         </div>
                                                     )}
                                                     {show === item?.id + "" && (
-                                                        <div onClick={() => setShow("")} className=' fixed inset-0 z-30 ' />
+                                                        <div onClick={(e) => openModal(e, "")} className=' fixed inset-0 z-30 ' />
                                                     )}
                                                 </div>
                                             </div>
@@ -144,15 +142,15 @@ function AudioResource(props: Props) {
                                                         <IoMdMore size={"20px"} />
                                                     </button>
                                                     {show === item?.id + "" && (
-                                                        <div className=' bottom-[10px] z-20 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
+                                                        <div className=' bottom-[10px] !z-40 right-0 bg-white w-32 gap-2 px-4 rounded-lg py-3 shadow-lg absolute flex flex-col ' >
                                                             <button onClick={(e) => editHandler(e, item)} role='button' className=' w-full text-left h-5 ' >
                                                                 Edit Audio
                                                             </button>
-                                                            <DeleteContent  refetch={refetch} text={true} id={item?.id} type="Playlist" />
+                                                            <DeleteContent  refetch={()=> refetch()} text={true} id={item?.id} type="Playlist" />
                                                         </div>
                                                     )}
                                                     {show === item?.id + "" && (
-                                                        <div onClick={() => setShow("")} className=' fixed inset-0 z-10 ' />
+                                                        <div onClick={(e) => openModal(e, "")} className=' fixed inset-0 z-10 ' />
                                                     )}
                                                 </div>
                                             </div>

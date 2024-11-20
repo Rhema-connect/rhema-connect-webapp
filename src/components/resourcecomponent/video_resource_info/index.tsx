@@ -63,10 +63,7 @@ function VideoResourceInfo(props: Props) {
     const handleError = (error: any) => {
         console.error('Error playing video:', error);
         setVideoError(true);
-    };
-
-    console.log(data?.youtube_url);
-    
+    }; 
 
     return (
         <LoadingAnimation loading={isLoading} >

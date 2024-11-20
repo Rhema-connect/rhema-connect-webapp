@@ -124,7 +124,7 @@ function Audiolist(props: Props) {
                            refetch={refetch}
                             text={true}
                             id={item?.id}
-                            type="Playlist"
+                            type="Content"
                           />
                         </div>
                       )}
@@ -186,7 +186,7 @@ function Audiolist(props: Props) {
                            refetch={refetch}
                             text={true}
                             id={item?.id}
-                            type="Playlist"
+                            type="Content"
                           />
                         </div>
                       )}

@@ -70,7 +70,13 @@ export default function PlaylistForm(props: Props) {
                 position: "top",
             });
 
-            queryClient.invalidateQueries(['usertable'])
+ 
+            queryClient.refetchQueries(['videoplaylist'])
+            queryClient.invalidateQueries(['audiplaylist'])
+            queryClient.invalidateQueries(['videolist'])
+            queryClient.invalidateQueries(['audilist'])
+            queryClient.invalidateQueries(['bookslist'])
+            queryClient.invalidateQueries(['videoplaylist'])  
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -144,9 +150,7 @@ export default function PlaylistForm(props: Props) {
         formData.append("file", imageFile)
 
         const response = await handleUploader(formData, imageFile);
-
-        console.log(response);
-
+ 
 
         if (response?.status === 201 || response?.status === 200) {
 
