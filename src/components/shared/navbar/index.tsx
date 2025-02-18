@@ -16,7 +16,7 @@ function Navbar(props: Props) {
     const router = useRouter()
 
     const [selected, setSelected] = useState("")
-    const [show, setShow] = useState(false)
+    // const [show, setShow] = useState(false)
 
     const languages = [
         { label: 'English', value: '/auto/en' },
@@ -34,7 +34,7 @@ function Navbar(props: Props) {
         if (hasCookie('googtrans')) {
             setCookie('googtrans', decodeURI(evt))
             setSelected(evt)
-            setShow(true)
+            // setShow(true)
         }
         else {
             setCookie('googtrans', evt)
@@ -68,8 +68,7 @@ function Navbar(props: Props) {
                 </label>
             ): (
                 <div />
-            )}
-
+            )} 
             <div onClick={() => router.push("/home")} role='button' className={`  z-40 flex items-center justify-between ${!(pathname?.includes("dashboard") || pathname?.includes("auth")) ? " h-[64px] lg:h-[80px] w-full  pt-4 " : "h-fit "} `} >
                 {!(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ?
                     <img src='/images/logo.svg' alt='logo' /> :
