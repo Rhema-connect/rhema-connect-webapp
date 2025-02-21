@@ -56,9 +56,9 @@ function BookResource(props: Props) {
 
     localStorage?.setItem("bookurl", item?.url + "");
     if (admin) {
-      router.push("/resources-info/book/" + slug);
+      router.push("/resources-info/book/" + item?.id);
     } else {
-      router.push("/home/resources-info/book/" + slug);
+      router.push("/home/resources-info/book/" + item?.id);
     }
   };
 

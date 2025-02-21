@@ -106,14 +106,14 @@ function Auth(props: Props) {
 
     return (
         <div className=' w-full pt-10 flex justify-center items-center h-full text-[#212B36]  ' >
-            <div className=' max-w-[460px]  w-full ' >
+            <div className=' max-w-[460px] relative flex flex-col w-full ' >
                 <div className=' flex gap-2 items-center '  >
                     <BackIcon />
                     <p className=' leading-6 ' >Go back</p>
                 </div>
                 <p className=' text-[24px] leading-9 mt-4 font-bold ' >Sign in</p>
                 <p className=' text-sm text-[#637381] ' >Sign into your account </p>
-                <form onSubmit={(e)=> submit(e)} className=' w-full mt-6 flex flex-col gap-4 ' >
+                <form onSubmit={(e)=> submit(e)} className=' w-full max-w-[460px] mt-6 flex flex-col gap-4 ' >
                     <div className=' w-full ' >
                         <p className=' font-medium text-sm mb-2 ' >Email</p>
                         <InputComponent InputComponent
@@ -140,7 +140,7 @@ function Auth(props: Props) {
                             type='password' rightIcon={<EyeIcon />} placeholder="Enter password" />
                     </div>
                     <div className=' mt-4 w-full ' >
-                        <CustomButton isLoading={loginMutation?.isLoading} disable={loginMutation?.isLoading || !formik.dirty || !formik.isValid } type='submit' text={"Sign in"} secondary={false} />
+                        <CustomButton width={"460px"} isLoading={loginMutation?.isLoading} disable={loginMutation?.isLoading || !formik.dirty || !formik.isValid } type='submit' text={"Sign in"} secondary={false} />
                     </div>
                 </form>
             </div>

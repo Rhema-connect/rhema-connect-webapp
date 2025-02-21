@@ -30,7 +30,7 @@ export default function InputComponent({ left, leftIcon, right, rightIcon, type,
     }
 
     return (
-        <>
+        <div className=" w-full " >
             {!textarea && (
                 <InputGroup w={"full"} >
                     {left && (
@@ -60,6 +60,6 @@ export default function InputComponent({ left, leftIcon, right, rightIcon, type,
                     initial={{ y: -100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }} color="#E84545" fontWeight="600" fontSize="xs" mt="3px" textAlign="left" >{error}</Text>
             )}
-        </>
+        </div>
     )
 }
