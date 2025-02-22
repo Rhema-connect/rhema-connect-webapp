@@ -84,46 +84,7 @@ body {
   border-top: 0px solid #9B9B9B !important;
   border-bottom: 0px solid #E8E8E8 !important;
   border-right: 0px solid #D5D5D5 !important;
-}
-
-.goog-te-gadget {
-  font-family: var(--font-inter) !important;
-  background-color: transparent !important;
-  color: white !important;
-}
-
-.goog-te-gadget img {
-  display: none;
-}
-
-.goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed {
-  color: white !important;
-  display: none;
-}
-
-/* .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
-  display: none;
-} */
-#google_translate_element {
-  position: absolute !important;
-
-}
-
-#google_translate_element span {
-  position: absolute !important;
-  color: transparent;
 } 
-
-.goog-te-gadget-icon {
-  display: none !important;
-}
-
-.VIpgJd-ZVi9od-ORHb {
-  margin: 0;
-  background-color: #E4EFFB;
-  overflow: hidden;
-  display: none !important;
-}
 
 /* Select the elements or text you want to prevent from translation */
 #notranslate {
@@ -310,3 +271,83 @@ input {
     transform: translate(-50%, -50%) scale(1);
   }
 }
+
+
+.goog-te-gadget-simple {
+  display: flex !important;
+  background-color: transparent !important;
+  font-size: 16px !important;
+  border-left: 0px solid #D5D5D5 !important;
+  border-top: 0px solid #9B9B9B !important;
+  border-bottom: 0px solid #E8E8E8 !important;
+  border-right: 0px solid #D5D5D5 !important;
+}
+
+.goog-te-gadget {
+  font-family: var(--font-inter) !important;
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.goog-te-gadget img {
+  display: none;
+}
+
+.goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed {
+  color: white !important;
+  display: none;
+}
+
+  /* .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
+    display: none;
+  } */
+  #google_translate_element {
+    position: absolute !important;
+  
+  }
+  
+  #google_translate_element span {
+    position: absolute !important;
+    color: transparent;
+  } 
+  
+
+.gt_selector:not(:first-child) {
+  display: none;
+}
+
+.relative .gt_selector {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  padding: 0.5rem 1rem;
+  padding-left: 0;
+}
+
+.relative .group .gt_selector {
+  --tw-bg-opacity: 1;
+  background-color: #212b36;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+}
+
+.relative .school .gt_selector {
+  --tw-bg-opacity: 1;
+  background-color: transparent;
+
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: white;
+}
+
+.relative .dashboard .gt_selector {
+  --tw-bg-opacity: 1;
+  background-color: transparent;
+
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: #212b36;
+}
+  

@@ -1,8 +1,6 @@
 'use client';
-import HomeComponent from '@/components/homecomponent';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react'
+import HomeComponent from '@/components/homecomponent'; 
+import React from 'react'
 
 function Home() {
 
