@@ -44,13 +44,43 @@ function Navbar(props: Props) {
         window.location.reload()
     }
 
-    useEffect(() => {
-        if (hasCookie('googtrans')) {
-            setSelected(getCookie('googtrans') + "")
-        } else {
-            setSelected('/auto/en')
-        }
-    }, [])
+
+
+  useEffect(() => {
+    // Initialize Google Translate
+    const script = document.createElement("script");
+    script.src = "https://cdn.gtranslate.net/widgets/latest/dropdown.js";
+    // script.src = "https://cdn.gtranslate.net/widgets/latest/fd.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+
+    // Define translation settings
+    (window as any).gtranslateSettings = {
+      default_language: "en",
+      detect_browser_language: true,
+      languages: ["en", "fr", "es", "ar", "tr", "sw", "iw", "pt", "ru"],
+      wrapper_selector: ".gtranslate_wrapper",
+      //   flag_size: 24,
+      //   horizontal_position: "right",
+      //   vertical_position: "top",
+      //   alt_flags: { en: "usa" },
+      //   select_language_label: "Select Language",
+    };
+
+    return () => {
+      // Remove the script when the component unmounts
+      document.body.removeChild(script);
+    };
+  }, []);
+
+    // useEffect(() => {
+    //     if (hasCookie('googtrans')) {
+    //         setSelected(getCookie('googtrans') + "")
+    //     } else {
+    //         setSelected('/auto/en')
+    //     }
+    // }, [])
 
     return (
         <div className={` max-w-[1360px] w-full relative flex lg:px-6 px-6 ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "lg:h-[96px] h-[86px] text-black " : " h-full "} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "items-center  justify-between " : ""} lg:${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? " " : "flex-col"} ${(pathname?.includes("/dashboard") || pathname?.includes("/auth")) ? "flex-row-reverse" : "flex-col"}  `} >
