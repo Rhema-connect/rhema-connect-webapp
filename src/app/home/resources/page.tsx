@@ -1,12 +1,12 @@
 "use client"
 import VideoResource from '@/components/resourcecomponent/video_resource'
 import checkdata from '@/store/checklang';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {}
 
 function Resoures(props: Props) {
-    const {} = props
+    const {} = props                 
 
     const { check, setCheck } = checkdata((state) => state);
 

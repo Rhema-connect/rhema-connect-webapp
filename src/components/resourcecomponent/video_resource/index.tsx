@@ -108,7 +108,7 @@ function VideoResource(props: Props) {
                                 <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
                                     <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
                                         {/* <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' /> */}
-                                        <VideoPlayer src={item?.youtube_url + ""}  rounded='16px' measureType={'px'} />
+                                        <VideoPlayer src={item?.youtube_url + ""}  rounded='16px' measureType={'px'}/>
                                     </div>
                                     <div className=' w-full flex justify-between  mt-4 ' >
                                         <div>

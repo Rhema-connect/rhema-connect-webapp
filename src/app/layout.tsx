@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import CustomText from '@/components/shared/textcomponent'
 // import { useEffect } from 'react' 
 import '@radix-ui/themes/styles.css';
-import { Theme } from '@radix-ui/themes'
+import { Theme } from '@radix-ui/themes';
 
 const inter = Inter({ subsets: ['latin'], variable: "--font-inter" })
 
@@ -65,7 +65,11 @@ export default function RootLayout({
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const [randomNumber, setRandomNumber] = useState(getRandomNumber(1, 5)); 
+  const [randomNumber, setRandomNumber] = useState(1); 
+
+  useEffect(() => {
+    setRandomNumber(getRandomNumber(1, 5));
+  }, []);
 
   return (
     <html lang="en">
