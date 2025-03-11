@@ -350,4 +350,41 @@ input {
   padding-right: 2rem;
   color: #212b36;
 }
+
+
+/* Add this to your globals.css or a separate CSS file */
+/* .gtranslate_wrapper {
+  position: relative;
+  z-index: 1000;
+} */
+
+/* Style the dropdown */
+/* .gtranslate_wrapper select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #141313;
+  font-size: 14px;
+}   */
+
+/* Add this to your globals.css or a separate CSS file */
+.gtranslate_wrapper {
+  color: black; /* Text color */
+  background-color: white; /* Background color */
+}
+
+/* Style the dropdown */
+.gtranslate_wrapper select {
+  color: black; /* Text color */
+  background-color: white; /* Background color */
+  border: 1px solid #ccc; /* Optional: Add a border */
+  padding: 8px; /* Optional: Add padding */
+  border-radius: 4px; /* Optional: Add rounded corners */
+}
+
+/* Style the dropdown options */
+.gtranslate_wrapper option {
+  color: black; /* Text color */
+  background-color: white; /* Background color */
+}
   

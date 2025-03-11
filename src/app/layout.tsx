@@ -65,7 +65,11 @@ export default function RootLayout({
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const [randomNumber, setRandomNumber] = useState(getRandomNumber(1, 5)); 
+  const [randomNumber, setRandomNumber] = useState(1); 
+
+  useEffect(() => {
+    setRandomNumber(getRandomNumber(1, 5));
+  }, []);
 
   return (
     <html lang="en">
