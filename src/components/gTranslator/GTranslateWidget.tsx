@@ -19,7 +19,6 @@ const GTranslateWidget = () => {
       languages: ["en", "fr", "es", "ar", "tr", "sw", "iw", "pt", "ru"],
       wrapper_selector: ".gtranslate_wrapper",
     };
-
     scriptLoaded.current = true;
 
     return () => {
