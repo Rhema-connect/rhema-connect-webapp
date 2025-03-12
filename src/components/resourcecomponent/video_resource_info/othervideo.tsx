@@ -57,7 +57,7 @@ const Othervideo=(props: Props)=> {
         return (
           <div
             key={index}
-            className={`w-full ${(item?.id == id) ? "border border-[#E84545]" : ""} rounded-[14px]  rounded-[14px] flex items-center gap-3 cursor-pointer`}
+            className={`w-full ${(item?.id == id) ? "border-2 border-[#E84545]" : ""} rounded-[14px]  rounded-[14px] flex items-center gap-3 p-2 cursor-pointer`}
             onClick={(e) => clickHandler(e, item?.id ?? "")}
           >
             <div className="w-[160px] h-[100px] rounded-lg bg-slate-950 relative">
@@ -74,7 +74,7 @@ const Othervideo=(props: Props)=> {
               />
             </div>
             <div>
-              <CustomText className="leading-[22px] font-medium text-sm">{textLimit(item?.title + "", 15)}</CustomText>
+              <CustomText className="leading-[22px] font-medium text-[16px] md:text-[20px] text-white">{textLimit(item?.title + "", 15)}</CustomText>
               <CustomText className="leading-[18px] text-[#BEBEBE] text-xs">
                 {textLimit(item?.description + "ubjdgud kfndjfbhd nfdjnfdbf fhfudbufb dfnkgnd", 40)}
               </CustomText>

@@ -149,23 +149,23 @@ function Comments(props: Props) {
   };
 
   return (
-    <div className=" w-full ">
+    <div className=" w-full mt-12">
       <CustomText className=" leading-[28px] font-bold text-lg ">
         {data?.length} comments
       </CustomText>
-      <div className={` w-full mt-4 px-[15px] pb-[15px] items-center justify-between  ${formik?.errors?.name ==="required" ? "border border-[#E84545]" : ""} rounded-[14px]`}>
+      <div className={`w-full mt-4 px-[15px] pb-[8px] md:pb-[15px] items-center justify-between border border-[#828282] ${formik?.errors?.name ==="required" ? "border border-[#E84545]" : ""} rounded-[14px]`}>
       <input
         name="name"
         onChange={formik.handleChange}
         onFocus={() => formik.setFieldTouched("name", true, true)}
         placeholder="Enter Name"
-        className={` bg-transparent mt-6 w-full px-4 border ${
+        className={` bg-transparent mt-2 md:mt-6 w-full px-4 border ${
           formik?.errors?.name  ? " placeholder:text-[#E84545]" : "border-[#828282] "
         }    rounded-[8px] outline-none py-2`}
       />
       </div>
 
-      <div className=" w-full mt-4 px-[25px] py-[21px] flex items-center justify-between border border-[#828282] rounded-[14px] ">
+      <div className=" w-full mt-4 px-[25px] py-[9px] md:py-[21px] flex items-center justify-between border border-[#828282] rounded-[14px] ">
         <div className=" w-full flex items-center gap-[25px]  ">
           <PersonIcon />
           <input

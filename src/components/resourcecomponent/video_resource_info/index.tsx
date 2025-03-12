@@ -86,7 +86,7 @@ function VideoResourceInfo(props: Props) {
       >
         <div className=" w-full  flex gap-6  ">
           <div
-            className={` w-full h-[350px] lg:h-[477px] flex justify-center items-center ${
+            className={` w-[622px] h-[350px] md:max-w-[622px] lg:max-w-full md:w-full md:h-auto lg:h-[477px] flex justify-center items-center ${
               dashboard ? "bg-white" : "bg-gray-600"
             } rounded-[14px]  `}
           >
@@ -146,23 +146,24 @@ function VideoResourceInfo(props: Props) {
         <div className=" w-full flex gap-6  ">
           <div className=" w-full py-6 ">
             <div className=" w-full flex items-center justify-between ">
-              <CustomText className=" leading-[44.8px] text-[32px] font-semibold ">
+              <CustomText className=" leading-[44.8px] text-[20px] md:text-[25px] lg:text-[32px] font-semibold ">
                 {data?.title}
               </CustomText>
             </div>
-            <div className=" w-full flex items-center justify-end ">
-              <button
-                onClick={onOpen}
-                className=" outline-none font-bold lg:hidden "
-              >
-                show other video
-              </button>
-            </div>
-            {/* <CustomText className=' text-[#919EAB] leading-[22.4px] mt-[11px] ' >450 views</CustomText> */}
-            <CustomText className=" leading-[22.4px] my-[19px] ">
+                        {/* <CustomText className=' text-[#919EAB] leading-[22.4px] mt-[11px] ' >450 views</CustomText> */}
+                        <CustomText className=" leading-[22.4px] my-[19px] ">
               {data?.description}
               {/* <span role='button' style={{ color: "#919EAB" }} >more</span> */}
             </CustomText>
+            <div className="inline lg:hidden w-full items-center justify-start border-2 border-[#E84545] p-[5px] rounded-[4px] bg-[#E84545]">
+              <button
+                onClick={onOpen}
+                className=" outline-none font-bold text-[#fff] text-[14px]"
+              >
+                Show Other Videos
+              </button>
+            </div>
+
             <Comments id={id ? id : 0} />
           </div>
 
@@ -187,15 +188,15 @@ function VideoResourceInfo(props: Props) {
             <DrawerBody roundedTop={"24px"} padding={"0px"} m={"0px"}>
               <div className=" px-6 flex py-3 flex-col items-center ">
                 <div className=" bg-[#D9D9D9] h-1 w-[56px] rounded-sm " />
-                <div className=" mt-4 w-full flex justify-between items-center ">
-                  <p className="  ">Others also likes</p>
+                <div className=" mt-4 w-full flex justify-end items-center ">
+                  {/* <p className="  ">Others also likes</p> */}
                   <button onClick={onClose}>
                     <CloseIcon />
                   </button>
                 </div>
               </div>
               <div className=" w-full  flex flex-col bg-[#3b3b3b] pl-6 ">
-                <CustomText className=" font-bold text-lg hidden lg:block leading-7 ">
+                <CustomText className=" font-bold text-lg hidden lg:block leading-7 text-[#fff]">
                   Others also likes
                 </CustomText>
                <Othervideo/>
