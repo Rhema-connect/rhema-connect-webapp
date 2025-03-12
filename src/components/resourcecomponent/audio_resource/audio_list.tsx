@@ -73,7 +73,7 @@ function Audiolist(props: Props) {
                 </div> */}
       </div>
       <LoadingAnimation loading={isLoading} length={results?.length}>
-        <div className=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 mt-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
           {results?.map((item: ContentData, index: number) => {
             if (index === results?.length - 1) {
               return (
@@ -86,7 +86,7 @@ function Audiolist(props: Props) {
                     item?.title === currentData?.title
                       ? " bg-[#BE0027] text-white "
                       : ""
-                  } w-full flex items-center shadow-lg py-2 px-4 rounded-xl gap-[18px] `}
+                  } w-full flex flex-col items-start md:flex-row md:items-center shadow-lg py-2 px-4 rounded-xl gap-[18px] `}
                 >
                   <div className=" w-14 h-14 bg-red-900 rounded-2xl ">
                     <img
@@ -96,10 +96,10 @@ function Audiolist(props: Props) {
                     />
                   </div>
                   <div>
-                    <CustomText className=" leading-[22px] font-medium text-[14px] ">
+                    <CustomText className=" leading-[22px] font-medium text-[16px] md:text-[18px] ">
                       {item?.title}
                     </CustomText>
-                    <CustomText className=" leading-[18px] text-xs ">
+                    <CustomText className=" leading-[18px] text-xs w-full md:w-[270px]">
                       {item?.description}
                     </CustomText>
                   </div>
@@ -148,7 +148,7 @@ function Audiolist(props: Props) {
                     item?.title === currentData?.title
                       ? " bg-[#BE0027] text-white "
                       : ""
-                  } w-full flex items-center shadow-lg py-2 px-4 rounded-xl gap-[18px] `}
+                  }w-full flex flex-col items-start md:flex-row md:items-center shadow-lg py-2 px-4 rounded-xl gap-[18px] `}
                 >
                   <div className=" w-14 h-14 bg-red-900 rounded-2xl ">
                     <img
@@ -158,10 +158,10 @@ function Audiolist(props: Props) {
                     />
                   </div>
                   <div>
-                    <CustomText className=" leading-[22px] font-medium text-[14px] ">
+                    <CustomText className=" leading-[22px] font-medium text-[16px] md:text-[18px] ">
                       {item?.title}
                     </CustomText>
-                    <CustomText className=" leading-[18px] text-xs ">
+                    <CustomText className=" leading-[18px] text-xs w-full md:w-[270px]">
                       {item?.description}
                     </CustomText>
                   </div>

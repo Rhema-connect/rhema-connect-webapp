@@ -116,7 +116,7 @@ function BookResource(props: Props) {
                           />
                         </div>
                       </div>
-                      <CustomText className=" leading-6 text-sm ">
+                      <CustomText className=" leading-6 text-[16px] md:text-[18px] font-medium">
                         {item?.author_name}
                       </CustomText>
                     </div>
@@ -183,7 +183,7 @@ function BookResource(props: Props) {
                           />
                         </div>
                       </div>
-                      <CustomText className=" leading-6 text-sm ">
+                      <CustomText className=" leading-6 text-[16px] md:text-[18px] font-medium ">
                         {item?.author_name}
                       </CustomText>
                     </div>
