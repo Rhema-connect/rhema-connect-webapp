@@ -199,7 +199,7 @@ function VideoResourceInfo(props: Props) {
                 <CustomText className=" font-bold text-lg hidden lg:block leading-7 text-[#fff]">
                   Others also likes
                 </CustomText>
-               <Othervideo/>
+               <Othervideo  id={id}/>
               </div>
             </DrawerBody>
           </DrawerContent>
