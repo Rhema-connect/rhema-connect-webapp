@@ -90,31 +90,33 @@ function HomeComponent(props: Props) {
     };
   }, []);
 
+    // // Change language function
+    // const changeLanguage = (e: any, languageCode: string) => {
+    //   console.log("function called")
+    //  // e.preventDefault();
+    //  // e.stopPropagation();
+    //     const selectField: HTMLSelectElement | null = document.querySelector('.gtranslate_wrapper select');
+        
+    //     if (selectField) {
+    //       // Set the desired language code 
+    //       selectField.value = languageCode;
+          
+    //       // Trigger the change event
+    //       const event = new Event('change', { bubbles: true });
+    //       selectField.dispatchEvent(event); 
+        
+    //       setTimeout(() => {
+    //         router.push('/home/resources');
+    //       }, 1000);
+    //     } else {
+    //       console.error('GTranslate dropdown not found.');
+    //     }
+    //   };
+
     // Change language function
     const changeLanguage = (e: any, languageCode: string) => {
-      console.log("function called")
-     // e.preventDefault();
-     // e.stopPropagation();
-        const selectField: HTMLSelectElement | null = document.querySelector('.gtranslate_wrapper select');
-        
-        if (selectField) {
-          // Set the desired language code 
-          selectField.value = languageCode;
-          
-          // Trigger the change event
-          const event = new Event('change', { bubbles: true });
-          selectField.dispatchEvent(event); 
-        
-          setTimeout(() => {
             router.push('/home/resources');
-          }, 1000);
-        } else {
-          console.error('GTranslate dropdown not found.');
-        }
       };
-
-    //   const query = document.getElementsByClassName('gtranslate_wrapper');
-    //   console.log('query', query);
 
   return (
     <PageLayout>

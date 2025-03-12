@@ -1,8 +1,16 @@
 "use client";
-import { Box, HStack, VStack } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import { Box, HStack } from "@chakra-ui/react";
+import React, { useRef, useState } from "react";
 import { Play, Pause, Maximize2, VolumeSlash, VolumeHigh } from "iconsax-react";
 import ReactPlayer from "react-player";
+
+declare global {
+  interface HTMLDivElement {
+    webkitRequestFullscreen?: () => Promise<void>;
+    mozRequestFullScreen?: () => Promise<void>;
+    msRequestFullscreen?: () => Promise<void>;
+  }
+}
 
 function VideoPlayer({
   src,
@@ -11,7 +19,7 @@ function VideoPlayer({
   measureType = "px",
   rounded = "0px",
   showCustomControl = true,
-  reactPlayerControl= false,
+  reactPlayerControl = false,
 }: {
   src: string;
   width?: number;
@@ -21,12 +29,11 @@ function VideoPlayer({
   showCustomControl?: boolean;
   reactPlayerControl?: boolean;
 }) {
-  const [isPlaying, setIsPlaying] = React.useState(false);
-  const [isMuted, setIsMuted] = React.useState(true);
-  const [showControl, setShowControl] = React.useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [showControl, setShowControl] = useState(true);
 
-  const videoRef: any = useRef<HTMLVideoElement>();
-  const boxRef = useRef<HTMLDivElement>();
+  const boxRef = useRef<HTMLDivElement>(null);
 
   // Toggle play/pause state
   const togglePlayPause = (e: any) => {
@@ -39,33 +46,55 @@ function VideoPlayer({
     setIsMuted((prevIsMuted) => !prevIsMuted);
   };
 
-  // Enter fullscreen
+
+
   const handleFullScreen = (e: any) => {
     e.stopPropagation();
-    const videoElement = videoRef?.current?.getInternalPlayer();
-    if (videoElement.requestFullscreen) {
-      videoElement.requestFullscreen();
-    } else if (videoElement.webkitRequestFullscreen) {
-      // Safari
-      videoElement.webkitRequestFullscreen();
-    } else if (videoElement.mozRequestFullScreen) {
-      // Firefox
-      videoElement.mozRequestFullScreen();
-    } else if (videoElement.msRequestFullscreen) {
-      // IE/Edge
-      videoElement.msRequestFullscreen();
+    const container = boxRef.current;
+  
+    if (document.fullscreenElement) {
+      // If fullscreen is active, exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        // Safari
+        (document as any).webkitExitFullscreen();
+      } else if ((document as any).mozCancelFullScreen) {
+        // Firefox
+        (document as any).mozCancelFullScreen();
+      } else if ((document as any).msExitFullscreen) {
+        // IE/Edge
+        (document as any).msExitFullscreen();
+      }
+    } else {
+      // If not fullscreen, request fullscreen
+      if (container) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if ((container as any).webkitRequestFullscreen) {
+          // Safari
+          (container as any).webkitRequestFullscreen();
+        } else if ((container as any).mozRequestFullScreen) {
+          // Firefox
+          (container as any).mozRequestFullScreen();
+        } else if ((container as any).msRequestFullscreen) {
+          // IE/Edge
+          (container as any).msRequestFullscreen();
+        }
+      }
     }
   };
+  
 
   return (
     <Box
-      ref={boxRef as any}
+      ref={boxRef}
       bgColor={"gray"}
       pos={"relative"}
       onMouseOver={() => setShowControl(true)}
-      onMouseOut={() =>  setShowControl(true)}
-      width={width ? width : "100%"}
-      height={height ? height : "100%"}
+      onMouseOut={() => setShowControl(true)}
+      width={width ? `${width}${measureType}` : "100%"}
+      height={height ? `${height}${measureType}` : "100%"}
       maxH={"full"}
       overflow={"hidden"}
       rounded={rounded}
@@ -74,14 +103,12 @@ function VideoPlayer({
       <ReactPlayer
         width={"100%"}
         height={"100%"}
-        ref={videoRef as any}
-        controls={reactPlayerControl ? true : false}
+        controls={reactPlayerControl}
         muted={isMuted}
-        playing={ reactPlayerControl? true : isPlaying}
-       // playing={showCustomControl ? isPlaying : true}
+        playing={reactPlayerControl ? true : isPlaying}
         url={src}
       />
-      {showCustomControl && (<Box pos={"absolute"} inset={"0px"} zIndex={10} />)}
+      {showCustomControl && <Box pos={"absolute"} inset={"0px"} zIndex={10} />}
       {showControl && showCustomControl && (
         <HStack
           width="100%"
@@ -103,12 +130,8 @@ function VideoPlayer({
             borderRadius={"15px"}
             bg="white"
           >
-            {!isPlaying && (
-              <Play size="20px" variant="Linear" color={"black"} />
-            )}
-            {isPlaying && (
-              <Pause size="20px" variant="Linear" color={"black"} />
-            )}
+            {!isPlaying && <Play size="20px" variant="Linear" color={"black"} />}
+            {isPlaying && <Pause size="20px" variant="Linear" color={"black"} />}
           </HStack>
 
           <HStack>
@@ -140,7 +163,6 @@ function VideoPlayer({
               )}
             </HStack>
             <HStack
-              onClick={togglePlayPause}
               cursor={"pointer"}
               justifyContent="center"
               alignItems={"center"}
