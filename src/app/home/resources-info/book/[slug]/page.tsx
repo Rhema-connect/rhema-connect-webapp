@@ -8,6 +8,7 @@ import { IoChevronBackCircleOutline, IoChevronForwardCircleOutline } from "react
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export default function BookPage({ params }: { params: { slug: string } }) {
+    const bookUrl = localStorage.getItem("bookurl");
 
     const [numPages, setNumPages] = useState<number | null>(null);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -15,6 +16,7 @@ export default function BookPage({ params }: { params: { slug: string } }) {
     const OnDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
         setNumPages(numPages);
     };
+
 
     return (
         <div className=' w-full flex-col gap-4 ' > 
@@ -27,7 +29,7 @@ export default function BookPage({ params }: { params: { slug: string } }) {
                     <div className=' w-full h-[700px] bg-slate-500 ' >
                         <Document
                             className={" flex justify-center items-center "}
-                            file={"https://rhemaconnect.s3.eu-north-1.amazonaws.com/The-Book-of-Enoch-PDFdrive.com.co.%20PDF.pdf"}
+                            file={bookUrl ?? "https://rhemaconnect.s3.eu-north-1.amazonaws.com/The-Book-of-Enoch-PDFdrive.com.co.%20PDF.pdf"}
                             onLoadSuccess={OnDocumentLoadSuccess}
                         >
                             <Page height={700} pageNumber={pageNumber} />

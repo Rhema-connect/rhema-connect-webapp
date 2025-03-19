@@ -86,6 +86,18 @@ function BookResource(props: Props) {
   //     setSearchValue("")
   // }, [])
 
+  useEffect(()=>{
+    localStorage.removeItem("bookurl");
+  },[])
+
+  // useEffect(()=>{
+  //   if(!open){
+  //     console.log('Aditya')
+  //     refetch();
+  //   }
+
+  // },[open])
+
   return (
     <div className=" w-full ">
       <LoadingAnimation

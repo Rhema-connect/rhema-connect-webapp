@@ -124,13 +124,31 @@ function CreateBookBtn(props: Props) {
             });
             return
         } else {
-            toast({
-                title: "Something went wrong",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
+            // toast({
+            //     title: "Something went wrong",
+            //     status: "error",
+            //     duration: 3000,
+            //     position: "top",
+            // });
+            // return
+            bookMutation.mutateAsync({ ...userdata, thumbnail: "/images/thumnail.jpg" }, {
+                onSuccess: (data: any) => {
+                    if (data) {
+                        setOpen(false)
+                    }
+                },
+            })
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
+                    });
+                });
+
+
+            return response;
         }
     });
 
@@ -191,15 +209,17 @@ function CreateBookBtn(props: Props) {
                 position: "top",
             });
             return;
-        } else if (!imageFile) {
-            toast({
-                title: "Add a Thumbnail",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return;
         }
+        
+        // else if (!imageFile) {
+        //     toast({
+        //         title: "Add a Thumbnail",
+        //         status: "error",
+        //         duration: 3000,
+        //         position: "top",
+        //     });
+        //     return;
+        // }
 
 
         const userData = {

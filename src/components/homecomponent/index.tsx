@@ -1,14 +1,16 @@
 "use client";
-import React, { useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useLayoutEffect, useState } from 'react';
 import PageLayout from '../pagelayout';
 import CustomText from '../shared/textcomponent';
 import { useRouter } from 'next/navigation';
 import GTranslateWidget from '../gTranslator/GTranslateWidget';
+import InfoPopUp from '../popUp/infoPopUp';
 
 interface Props {}
 
 function HomeComponent(props: Props) {
   const router = useRouter();
+  const [ infoPopUp, setInfoPopUp] = useState(false);
 
   const headerData = [
     { label: 'English', value: 'en|en', image: '/images/flag4.png' },
@@ -28,98 +30,21 @@ function HomeComponent(props: Props) {
   ];
 
 
-  // Load GTranslate script
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.gtranslate.net/widgets/latest/dropdown.js';
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
 
-    (window as any).gtranslateSettings = {
-      default_language: 'en',
-      detect_browser_language: true,
-      languages: ['en', 'fr', 'es', 'ar', 'tr', 'sw', 'iw', 'pt', 'ru'],
-      wrapper_selector: '.gtranslate_wrapper',
-    };
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-    // Wait for GTranslate dropdown to load
-    useEffect(() => {
-        const observer = new MutationObserver((mutations, obs) => {
-            const gtranslateWrapper = document.querySelector('.gtranslate_wrapper gt_container--wz96ug gt_selector notranslate') as HTMLElement | null;
-          if (gtranslateWrapper ) {
-            console.log('GTranslate wrapper found:', gtranslateWrapper);
-            gtranslateWrapper.click();
-            console.log('GTranslate wrapper clicked.');
-            obs.disconnect();
-          }
-        });
-    
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
-    
-        return () => {
-          observer.disconnect();
-        };
-      }, []);
-
-  // Wait for GTranslate dropdown to load
-  useEffect(() => {
-    const observer = new MutationObserver((mutations, obs) => {
-      const selectField = document.querySelector('.gtranslate_wrapper select');
-      if (selectField) {
-        console.log('GTranslate dropdown found!');
-        obs.disconnect();
-      }
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-    // // Change language function
-    // const changeLanguage = (e: any, languageCode: string) => {
-    //   console.log("function called")
-    //  // e.preventDefault();
-    //  // e.stopPropagation();
-    //     const selectField: HTMLSelectElement | null = document.querySelector('.gtranslate_wrapper select');
-        
-    //     if (selectField) {
-    //       // Set the desired language code 
-    //       selectField.value = languageCode;
-          
-    //       // Trigger the change event
-    //       const event = new Event('change', { bubbles: true });
-    //       selectField.dispatchEvent(event); 
-        
-    //       setTimeout(() => {
-    //         router.push('/home/resources');
-    //       }, 1000);
-    //     } else {
-    //       console.error('GTranslate dropdown not found.');
-    //     }
-    //   };
-
-    // Change language function
+    // Change flag function
     const changeLanguage = (e: any, languageCode: string) => {
+    const selectField: HTMLSelectElement | null = document.querySelector('.gtranslate_wrapper select');
+          if (selectField?.value == languageCode){
             router.push('/home/resources');
+          } else {
+            setInfoPopUp(true);
+          }
       };
 
   return (
     <PageLayout>
+      <>
       <div className=" w-full lg:px-0 px-6 relative -z-100">
         <CustomText className="font-bold text-[32px] lg:text-[24px] leading-[48px] lg:leading-[36px] max-w-64 py-11 lg:py-8">
           PLEASE SELECT YOUR LANGUAGE
@@ -212,6 +137,11 @@ function HomeComponent(props: Props) {
           </div>
         </div>
       </div>
+      <InfoPopUp
+        isOpen= {infoPopUp}
+        onClose = {()=>setInfoPopUp(false)}
+        message =  {"please Select the language from dropdown"} />
+        </>
     </PageLayout>
   );
 }
