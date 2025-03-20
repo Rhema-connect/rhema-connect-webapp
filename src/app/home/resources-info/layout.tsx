@@ -28,7 +28,7 @@ function Layout(props: Props) {
         <PageLayout>
             <div className=' w-full flex py-[4px] flex-col ' >
                 {/* <CustomText className=' font-bold text-[48px] leading-[64px]  ' >YOUR RESOURCES</CustomText> */}
-                <button onClick={() => router.back()} className=' w-fit h-[48px] rounded-lg flex gap-1 items-center bg-transparent justify-center ' >
+                <button onClick={() => {localStorage.removeItem("bookurl"); router.back()}} className=' w-fit h-[48px] rounded-lg flex gap-1 items-center bg-transparent justify-center ' >
                     <BackArrow />
                     <CustomText className=' text-white leading-[24px] ' >Go back</CustomText>
                 </button>

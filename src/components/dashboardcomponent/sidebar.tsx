@@ -21,7 +21,11 @@ function Sidebar(props: Props) {
             path: "/dashboard/resources"
         },
         {
-            name: "Admin",
+            name: "Admin User's",
+            path: "/dashboard/adminManagement"
+        },
+        {
+            name: "Add Admin",
             path: "/dashboard/admin"
         }
     ]
@@ -60,7 +64,10 @@ function Sidebar(props: Props) {
                             {item?.name === "Resources" && (
                                 <ResourceIcon color={item?.path === (pathname) ? "#212B36" : 'white'} />
                             )}
-                            {item?.name === "Admin" && (
+                            {item?.name === "Admin User's" && (
+                                <FileIcon color={item?.path === (pathname) ? "#212B36" : 'white'} />
+                            )}
+                             {item?.name === "Add Admin" && (
                                 <FileIcon color={item?.path === (pathname) ? "#212B36" : 'white'} />
                             )}
                             <p className=' font-medium text-sm leading-[22px] ' >{item?.name}</p>

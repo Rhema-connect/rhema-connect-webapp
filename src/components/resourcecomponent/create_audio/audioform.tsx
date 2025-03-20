@@ -119,7 +119,7 @@ export default function Audioform(props: IProps) {
         if (response?.status === 201 || response?.status === 200) {
 
             if (!videoFile) {
-                updateContentMutation.mutateAsync({ ...userdata, thumbnail: response?.data, url: data?.url }, {
+                updateContentMutation.mutateAsync({ ...userdata, thumbnail: response?.data ?? "/images/thumnail.jpg", url: data?.url }, {
                     onSuccess: (data: any) => {
                         if (data) {
                             setOpen(false)
@@ -164,13 +164,29 @@ export default function Audioform(props: IProps) {
             });
             return
         } else {
-            toast({
-                title: "Something went wrong",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
+            // toast({
+            //     title: "Something went wrong",
+            //     status: "error",
+            //     duration: 3000,
+            //     position: "top",
+            // });
+            // return
+
+            audioMutation.mutateAsync({ ...userdata, thumbnail: "/images/thumnail.jpg" }, {
+                onSuccess: (data: any) => {
+                    if (data) {
+                        setOpen(false)
+                    }
+                },
+            })
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
+                    });
+                });
         }
     });
 
@@ -387,25 +403,34 @@ export default function Audioform(props: IProps) {
             }
 
         } else {
-            if (!imageFile) {
+            uploaderMutation.mutateAsync(userData)
+            .catch(() => {
                 toast({
-                    title: "Add a Thumbnail",
+                    title: "Something went wrong",
                     status: "error",
                     duration: 3000,
                     position: "top",
                 });
-                return;
-            } else {
-                uploaderMutation.mutateAsync(userData)
-                    .catch(() => {
-                        toast({
-                            title: "Something went wrong",
-                            status: "error",
-                            duration: 3000,
-                            position: "top",
-                        });
-                    });
-            }
+            });
+            // if (!imageFile) {
+            //     toast({
+            //         title: "Add a Thumbnail",
+            //         status: "error",
+            //         duration: 3000,
+            //         position: "top",
+            //     });
+            //     return;
+            // } else {
+            //     uploaderMutation.mutateAsync(userData)
+            //         .catch(() => {
+            //             toast({
+            //                 title: "Something went wrong",
+            //                 status: "error",
+            //                 duration: 3000,
+            //                 position: "top",
+            //             });
+            //         });
+            // }
         }
 
 

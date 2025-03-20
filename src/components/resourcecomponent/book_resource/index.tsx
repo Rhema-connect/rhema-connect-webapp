@@ -86,6 +86,18 @@ function BookResource(props: Props) {
   //     setSearchValue("")
   // }, [])
 
+  useEffect(()=>{
+    localStorage.removeItem("bookurl");
+  },[])
+
+  // useEffect(()=>{
+  //   if(!open){
+  //     console.log('Aditya')
+  //     refetch();
+  //   }
+
+  // },[open])
+
   return (
     <div className=" w-full ">
       <LoadingAnimation
@@ -116,7 +128,7 @@ function BookResource(props: Props) {
                           />
                         </div>
                       </div>
-                      <CustomText className=" leading-6 text-sm ">
+                      <CustomText className=" leading-6 text-[16px] md:text-[18px] font-medium">
                         {item?.author_name}
                       </CustomText>
                     </div>
@@ -183,7 +195,7 @@ function BookResource(props: Props) {
                           />
                         </div>
                       </div>
-                      <CustomText className=" leading-6 text-sm ">
+                      <CustomText className=" leading-6 text-[16px] md:text-[18px] font-medium ">
                         {item?.author_name}
                       </CustomText>
                     </div>

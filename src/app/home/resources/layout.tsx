@@ -4,7 +4,7 @@ import ResourceHeader from '@/components/resourcecomponent/header'
 import CustomText from '@/components/shared/textcomponent'
 import { DownArrowIcon, HomeIcon } from '@/components/svg'
 import { getCookie } from 'cookies-next'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 interface Props {

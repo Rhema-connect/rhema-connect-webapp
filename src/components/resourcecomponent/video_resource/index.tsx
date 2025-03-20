@@ -66,14 +66,14 @@ function VideoResource(props: Props) {
                     {results?.map((item: ContentData, index: number) => { 
                         if (index === results?.length - 1) {
                             return (
-                                <div ref={ref} role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full w-full md:w-[300px] ' >
-                                    <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
+                                <div ref={ref} role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-full md:w-[400px] ' >
+                                    <div className=' w-full  lg:w-full lg:h-[175px] h-[175px] bg-red-900 rounded-2xl ' >
                                         {/* <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' /> */}
                                         <VideoPlayer src={item?.youtube_url + ""} measureType={'px'} rounded='16px' />
                                     </div>
                                     <div className=' w-full flex justify-between  mt-4 ' >
                                         <div>
-                                            <CustomText className=' leading-[30px] font-bold text-[20px]'  >
+                                            <CustomText className=' leading-[30px] font-bold text-[16px] md:text-[20px] hover:scale-105 transition-all duration-300 ease-in-out'  >
                                                 {item?.title}
                                             </CustomText>
                                             {item?.description && (
@@ -105,18 +105,18 @@ function VideoResource(props: Props) {
                             )
                         } else {
                             return (
-                                <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-[400px] w-full md:w-[300px] ' >
-                                    <div className=' w-full  lg:w-full lg:h-[180px] h-[200px] bg-red-900 rounded-2xl ' >
+                                <div role='button' onClick={() => clickHandler(item?.id ? item?.id : "")} key={index} className=' lg:max-w-full max-w-full w-full md:max-w-[400px] ' >
+                                    <div className=' w-full  lg:w-full lg:h-[175px] md:h-[175px] h-[175px] bg-red-900 rounded-2xl ' >
                                         {/* <img src={item?.thumbnail} alt='video' className=' w-full h-full rounded-2xl ' /> */}
                                         <VideoPlayer src={item?.youtube_url + ""}  rounded='16px' measureType={'px'} />
                                     </div>
                                     <div className=' w-full flex justify-between  mt-4 ' >
                                         <div>
-                                            <CustomText className=' leading-[30px] font-bold text-[20px]'  >
+                                            <CustomText className=' leading-[30px] font-bold text-[16px] md:text-[20px] hover:scale-105 transition-all duration-300 ease-in-out'  >
                                                 {item?.title}
                                             </CustomText>
                                             {item?.description && (
-                                                <CustomText className=' text-[14px] leading-6 ' >
+                                                <CustomText className=' text-[14px] leading-6'>
                                                     {textLimit(item?.description, 30)}
                                                 </CustomText>
                                             )}

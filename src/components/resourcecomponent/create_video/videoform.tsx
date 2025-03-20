@@ -256,13 +256,33 @@ export default function Videoform(props: IProps) {
             });
             return
         } else {
-            toast({
-                title: "Something went wrong",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
+
+            createVideoMutation.mutateAsync({ ...userdata, thumbnail: "/images/thumnail.jpg" }, {
+                onSuccess: (data: any) => {
+                    if (data) {
+                        setOpen(false)
+                    }
+                },
+            })
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
+                    });
+                });
+                return response;
+            
+            // toast({
+            //     title: "Something went wrong",
+            //     status: "error",
+            //     duration: 3000,
+            //     position: "top",
+            // });
+            // return
+
+            
         }
     });
 
@@ -318,25 +338,34 @@ export default function Videoform(props: IProps) {
                     });
             }
         } else {
-            if (!imageFile) {
+            uploaderMutation.mutateAsync(userData)
+            .catch(() => {
                 toast({
-                    title: "Add a Thumbnail",
+                    title: "Something went wrong",
                     status: "error",
                     duration: 3000,
                     position: "top",
                 });
-                return;
-            } else {
-                uploaderMutation.mutateAsync(userData)
-                    .catch(() => {
-                        toast({
-                            title: "Something went wrong",
-                            status: "error",
-                            duration: 3000,
-                            position: "top",
-                        });
-                    });
-            }
+            });
+            // if (!imageFile) {
+            //     toast({
+            //         title: "Add a Thumbnail",
+            //         status: "error",
+            //         duration: 3000,
+            //         position: "top",
+            //     });
+            //     return;
+            // } else {
+            //     uploaderMutation.mutateAsync(userData)
+            //         .catch(() => {
+            //             toast({
+            //                 title: "Something went wrong",
+            //                 status: "error",
+            //                 duration: 3000,
+            //                 position: "top",
+            //             });
+            //         });
+            // }
         }
 
     }

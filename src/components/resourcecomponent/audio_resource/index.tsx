@@ -96,7 +96,7 @@ function AudioResource(props: Props) {
                                             </div>
                                             <div className=' w-full flex items-center justify-between ' >
                                                 <div>
-                                                    <CustomText className=' leading-[22px] font-medium text-[14px] mt-4 '  >
+                                                    <CustomText className=' leading-[22px] font-medium text-[16px] md:text-[18px] mt-4 '  >
                                                         {item?.title}
                                                     </CustomText>
                                                     <CustomText className=' leading-[18px] text-xs ' >
@@ -130,7 +130,7 @@ function AudioResource(props: Props) {
                                             </div>
                                             <div className=' w-full flex items-center justify-between ' >
                                                 <div>
-                                                    <CustomText className=' leading-[22px] font-medium text-[14px] mt-4 '  >
+                                                    <CustomText className=' leading-[22px] font-medium text-[16px] md:text-[18px] mt-4 '  >
                                                         {item?.title}
                                                     </CustomText>
                                                     <CustomText className=' leading-[18px] text-xs ' >

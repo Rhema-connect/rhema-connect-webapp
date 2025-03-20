@@ -27,7 +27,7 @@ export default function RootLayout({
                         )}
                     </div>
                 }
-                <div className={` w-full h-full flex flex-1 ${!pathname?.includes("resources-info") ? "bg-white" : "bg-white"}   ${pathname?.includes("configuration") ? " pl-6 pt-6 " : " p-6 "} gap-6 `} >
+                <div className={` w-full flex flex-1 ${!pathname?.includes("adminManagement") ? "h-full" : ""} ${!pathname?.includes("resources-info") ? "bg-white" : "bg-white"}   ${pathname?.includes("configuration") ? " pl-6 pt-6 " : " p-6 "} gap-6 `} >
                     {pathname?.includes("configuration") && (
                         <div className=" w-fit flex sticky left-0 h-[60%] " >
                             <ConfigMenu />
