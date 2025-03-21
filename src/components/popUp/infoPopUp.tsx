@@ -31,18 +31,18 @@ const InfoPopUp: React.FC<InfoPopUp> = ({
     >
       <div className="bg-white rounded-2xl shadow-lg w-[380px] overflow-hidden" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="bg-[#FF5757] p-4 flex justify-center">
+        <div className="bg-[#363737] p-4 flex justify-center">
           <AlertTriangle className="w-8 h-8 text-white" />
         </div>
 
         {/* Content */}
         <div className="p-4 text-center space-y-4">
-          <h2 className="text-xl font-bold text-[#2F3545]">Warning!</h2>
+          <h2 className="text-xl font-bold text-[#2F3545]"> Language Selection!</h2>
           <p className="text-gray-600 text-sm">{message}</p>
 
           <button
             onClick={onClose}
-            className="bg-[#FF5757] text-white px-8 py-2 rounded-full text-sm font-medium hover:bg-[#ff4343] transition-colors"
+            className="bg-[#363737] text-white px-8 py-2 rounded-full text-sm font-medium hover:bg-[#ff4343] transition-colors"
           >
             CLOSE
           </button>
