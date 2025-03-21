@@ -45,7 +45,7 @@ function HomeComponent(props: Props) {
   return (
     <PageLayout>
       <>
-      <div className=" w-full lg:px-0 px-6 relative -z-100">
+      <div className=" w-full lg:px-6 px-4 relative -z-100">
         <CustomText className="font-bold text-[32px] lg:text-[24px] leading-[48px] lg:leading-[36px] max-w-64 py-11 lg:py-8">
           PLEASE SELECT YOUR LANGUAGE
         </CustomText>
@@ -140,7 +140,7 @@ function HomeComponent(props: Props) {
       <InfoPopUp
         isOpen= {infoPopUp}
         onClose = {()=>setInfoPopUp(false)}
-        message =  {"please Select the language from dropdown"} />
+        message =  {"Please select your language from dropdown menu above"} />
         </>
     </PageLayout>
   );
