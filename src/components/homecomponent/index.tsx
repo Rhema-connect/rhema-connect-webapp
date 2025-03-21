@@ -45,7 +45,7 @@ function HomeComponent(props: Props) {
   return (
     <PageLayout>
       <>
-      <div className=" w-full lg:px-6 px-4 relative -z-100">
+      <div className=" w-full lg:px-[100px] md:px-[100px] sm:px-[20px] px-4 relative -z-100">
         <CustomText className="font-bold text-[32px] lg:text-[24px] leading-[48px] lg:leading-[36px] max-w-64 py-11 lg:py-8">
           PLEASE SELECT YOUR LANGUAGE
         </CustomText>
